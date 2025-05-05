@@ -1,11 +1,11 @@
 <script setup>
-    defineProps({
-        key: {
+    const props = defineProps({
+        index: {
             type: String,
             required: true
         },
         cell: {
-            type: Object,
+            type: [Number, String],
             required: true
         },
         rowIndex: {
@@ -15,15 +15,50 @@
         colIndex: {
             type: Number,
             required: true
+        },
+        reveal: {
+            type: Boolean,
+            required: true
+        },
+        flag: {
+            type: Boolean,
+            required: true
         }
     })
+
+    const emit = defineEmits(['left-click', 'rigth-click'])
+
+    function handleLeftClick(){
+        emit('left-click', {row: props.rowIndex, col: props.colIndex});
+    }
+
+    function handleRightClick(e){
+        e.preventDefault();
+        emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
+    }
 </script>
 
 <template>
     <div
-        :key="key"
-        class="border border-gray-400 flex items-center justify-center hover:cursor-pointer"
+        :index="index"
+        class="border w-[30px] h-[30px] border-gray-500 flex items-center justify-center hover:cursor-pointer"
+        :class="reveal ? 'bg-gray-200' : 'bg-gray-400'"
+        @click="handleLeftClick"
+        @contextmenu="handleRightClick"
     >
-        {{ cell }}
+        <span 
+            v-if="reveal"
+            class="text-red-500"
+        >
+            {{ cell }}
+        </span> 
+        <span v-else>
+            <span 
+                v-if="flag"
+                class="text-red-500"
+            >
+                F
+            </span> 
+        </span>
     </div>
 </template>

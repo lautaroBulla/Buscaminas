@@ -4,8 +4,12 @@
 
     const {
         board,
+        revealed,
+        flags,
         initBoard,
-    } = useMinesweeper(16, 16, 40);
+        reveal,
+        rightClick,
+    } = useMinesweeper(9, 9, 10);
 
     initBoard();
 </script>
@@ -15,6 +19,10 @@
         <h1 class="text-red-500 text-center">Minesweeper</h1>
         <BoardComponent 
             :board="board"
+            :revealed="revealed"
+            :flags="flags"
+            @cell-left-click="({row, col}) => reveal(row, col)"
+            @cell-right-click="({row, col}) => rightClick(row, col)"
         />
     </div>
 </template>
