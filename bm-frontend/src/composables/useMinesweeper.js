@@ -4,6 +4,9 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     const board = ref([]);
     const revealed = ref([]);
     const flags = ref([]);
+    const interrogations = ref([]);
+    const gameOver = ref(false);
+    const gameWin = ref(false);
 
     const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
     function isValidCell(r, c) {
@@ -14,6 +17,9 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         board.value = Array.from({length: rows}, () => Array(cols).fill(0));
         revealed.value = Array.from({length: rows}, () => Array(cols).fill(false));
         flags.value = Array.from({length: rows}, () => Array(cols).fill(false));
+        interrogations.value = Array.from({length: rows}, () => Array(cols).fill(false));
+        gameOver.value = false;
+        gameWin.value = false;
         placeMines();
         adjacentMines();
     }
@@ -54,6 +60,11 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
 
         revealed.value[row][col] = true;
 
+        if (board.value[row][col] === 'M') {
+            gameOver.value = true;
+            return
+        }
+
         if (board.value[row][col] === 0) {
             directions.forEach(([dr, dc]) => {
                 const nr = row + dr;
@@ -69,13 +80,22 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     function rightClick(row, col) {
         if (revealed.value[row][col]) return
 
-        flags.value[row][col] = !flags.value[row][col];
+        if (!flags.value[row][col] && !interrogations.value[row][col]){
+            flags.value[row][col] = true;
+        } else if (flags.value[row][col]) {
+            flags.value[row][col] = false;
+            interrogations.value[row][col] = true;
+        } else if (interrogations.value[row][col]) {
+            interrogations.value[row][col] = false;
+        }
     }
 
     return {
         board,
         revealed,
         flags,
+        interrogations,
+        gameOver,
         initBoard,
         reveal,
         rightClick,

@@ -23,6 +23,10 @@
         flag: {
             type: Boolean,
             required: true
+        },
+        interrogation: {
+            type: Boolean,
+            required: true
         }
     })
 
@@ -58,6 +62,12 @@
                 class="text-red-500"
             >
                 F
+            </span> 
+            <span 
+                v-else-if="interrogation"
+                    class="text-red-500"
+                >
+                ?
             </span> 
         </span>
     </div>

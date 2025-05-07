@@ -13,6 +13,10 @@
 		flags: {
 			type: Array,
 			required: true
+		},
+		interrogations: {
+			type: Array,
+			required: true
 		}
     });
 
@@ -33,6 +37,7 @@
 				:colIndex="colIndex"
 				:reveal="revealed[rowIndex][colIndex]"
 				:flag="flags[rowIndex][colIndex]"
+				:interrogation="interrogations[rowIndex][colIndex]"
 				@left-click="$emit('cell-left-click', $event)"
 				@rigth-click="$emit('cell-right-click', $event)"
 			/>
