@@ -11,3 +11,14 @@ services:
     ports:
       - "5173:5173"
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --force"
+
+  bm-backend:
+    image: node:18-alpine
+    container_name: buscaminas-backend-dev
+    working_dir: /app
+    volumes:
+      - ./bm-backend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run start:dev"

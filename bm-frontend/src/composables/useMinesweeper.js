@@ -1,7 +1,10 @@
-import { generate } from '@vue/compiler-core';
 import { ref } from 'vue';
 
-export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
+export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
+    const rows = ref(initialRows);
+    const cols = ref(initialCols);
+    const mines = ref(initialMines);
+
     const board = ref([]);
     const revealed = ref([]);
     const flags = ref([]);
@@ -13,18 +16,18 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
 
     const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
     function isValidCell(r, c) {
-        return r >= 0 && r < rows && c >= 0 && c < cols;
+        return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
     }
 
     function initBoard() {
-        board.value = Array.from({length: rows}, () => Array(cols).fill(0));
-        revealed.value = Array.from({length: rows}, () => Array(cols).fill(false));
-        flags.value = Array.from({length: rows}, () => Array(cols).fill(false));
-        interrogations.value = Array.from({length: rows}, () => Array(cols).fill(false));   
+        board.value = Array.from({length: rows.value}, () => Array(cols.value).fill(0));
+        revealed.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
+        flags.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
+        interrogations.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));   
         gameOver.value = false;
         gameWin.value = false;
         firstClick.value = true;
-        firstClickZero.value = true;
+        firstClickZero.value = true; //esta variable indica si la primera casilla va a ser 0 o no, a gusto del jugador
     }
 
     function placeMines(row, col) {
@@ -32,7 +35,7 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         const invalidCells = new Set();
 
         invalidCells.add(`${row}-${col}`);
-        if (firstClickZero.value) {
+        if (firstClickZero.value) { 
             directions.forEach(([dr, dc]) => {
                 const r = dr + row;
                 const c = dc + col;
@@ -42,9 +45,9 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
             });
         }
         
-        while (mineCount < mines) {
-            const r = Math.floor(Math.random() * rows);
-            const c = Math.floor(Math.random() * cols);
+        while (mineCount < mines.value) {
+            const r = Math.floor(Math.random() * rows.value);
+            const c = Math.floor(Math.random() * cols.value);
             const key = `${r}-${c}`
             if (board.value[r][c] !== 'M' && !invalidCells.has(key)) {
                 board.value[r][c] = 'M';
@@ -54,17 +57,18 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
 
         adjacentMines();
     }
-
+    
+    //esta funcion sirve para que el jugador no pierda en el primer moviminto en caso de apretar una mina
     function boardFirstClick(row, col) {
         firstClick.value = false;
         placeMines(row, col);
         reveal(row, col);
     }
 
-
+    //recorre cada casilla del tablero, en caso de no ser una mina, cuenta las minas adyacentes y setea el numero
     function adjacentMines() {
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows.value; r++) {
+            for (let c = 0; c < cols.value; c++) {
                 if (board.value[r][c] === 'M') continue;
     
                 let count = 0;
@@ -83,9 +87,15 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
 
 
     function reveal(row, col) {
-        if (revealed.value[row][col] || flags.value[row][col]) return
+        if (gameOver.value || revealed.value[row][col] || flags.value[row][col]) return
  
         revealed.value[row][col] = true;
+
+        //si aprieta una casilla con mina
+        if (board.value[row][col] === 'M') {
+            gameOver.value = true;
+            return
+        }
 
         //si aprieta una casilla valida
         if (board.value[row][col] === 0) {
@@ -98,13 +108,12 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
             });
         }
         
-        //si aprieta una casilla con mina
-        if (board.value[row][col] === 'M') {
-            gameOver.value = true;
-            return
-        }
+        //checkeo para ver si gano
+        checkWin();
+    }
 
-        //si revela la ultima casilla
+    function checkWin() {
+        //verifica si todas las casillas con valor diferente a M han sido reveladas
         if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
             gameWin.value = true;
         }
@@ -126,6 +135,9 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     }
 
     return {
+        rows,
+        cols,
+        mines,
         board,
         revealed,
         flags,

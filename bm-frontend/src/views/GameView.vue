@@ -5,6 +5,9 @@
     import GameWinComponent from '@/components/GameWinComponent.vue';
 
     const {
+        rows,
+        cols,
+        mines,
         board,
         revealed,
         flags,
@@ -19,11 +22,42 @@
     } = useMinesweeper(9, 9, 10);
 
     initBoard();
+
+    function changeDifficulty(event) {
+        const option = event.target.value; 
+        switch (option) {
+            case "easy":
+                rows.value = 9; cols.value = 9; mines.value = 10; break;
+            case "intermediate":
+                rows.value = 16; cols.value = 16; mines.value = 40; break;
+            case "difficult":
+                rows.value = 24; cols.value = 24; mines.value = 99; break;
+            default:
+                rows.value = 9; cols.value = 9; mines.value = 10; break;
+        }
+        initBoard();
+    }
 </script>
 
 <template>
     <div class="flex flex-col">
-        <h1 class="text-red-500 text-center">Minesweeper</h1>
+        <div class="flex justify-between">
+            <h1 class="text-red-500 text-center">Buscaminas</h1>
+            <div>
+                <label>Dificultad</label>
+                <select @change="changeDifficulty">
+                    <option value="easy" selected>
+                        Fácil
+                    </option>
+                    <option value="intermediate">
+                        Intermedio
+                    </option>
+                    <option value="difficult">
+                        Dificil
+                    </option>
+                </select>
+            </div>
+        </div>
         <BoardComponent 
             :board="board"
             :revealed="revealed"
