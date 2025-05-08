@@ -1,3 +1,4 @@
+import { generate } from '@vue/compiler-core';
 import { ref } from 'vue';
 
 export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
@@ -7,6 +8,7 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     const interrogations = ref([]);
     const gameOver = ref(false);
     const gameWin = ref(false);
+    const firstClick = ref(true);
 
     const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
     function isValidCell(r, c) {
@@ -17,9 +19,10 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         board.value = Array.from({length: rows}, () => Array(cols).fill(0));
         revealed.value = Array.from({length: rows}, () => Array(cols).fill(false));
         flags.value = Array.from({length: rows}, () => Array(cols).fill(false));
-        interrogations.value = Array.from({length: rows}, () => Array(cols).fill(false));
+        interrogations.value = Array.from({length: rows}, () => Array(cols).fill(false));   
         gameOver.value = false;
         gameWin.value = false;
+        firstClick.value = false;
         placeMines();
         adjacentMines();
     }
@@ -57,9 +60,20 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     
     function reveal(row, col) {
         if (revealed.value[row][col] || flags.value[row][col]) return
-
+ 
         revealed.value[row][col] = true;
 
+        //si aprieta una casilla valida
+        if (board.value[row][col] === 0) {
+            directions.forEach(([dr, dc]) => {
+                const nr = row + dr;
+                const nc = col + dc;
+                if (isValidCell(nr, nc) && board.value[nr][nc] !== 'M' && board.value[nr][nc] !== '?') {
+                    reveal(nr, nc);
+                }
+            });
+        }
+        
         //si aprieta una casilla con mina
         if (board.value[row][col] === 'M') {
             gameOver.value = true;
@@ -70,19 +84,8 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
             gameWin.value = true;
         }
-
-        //si aprieta una casilla valida
-        if (board.value[row][col] === 0) {
-            directions.forEach(([dr, dc]) => {
-                const nr = row + dr;
-                const nc = col + dc;
-                if (isValidCell(nr, nc) && board.value[nr][nc] !== 'M') {
-                    reveal(nr, nc);
-                }
-            });
-        }
-
     }
+
 
     function rightClick(row, col) {
         if (revealed.value[row][col]) return

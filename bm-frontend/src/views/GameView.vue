@@ -3,7 +3,7 @@
     import BoardComponent from '@/components/BoardComponent.vue';
     import GameOverComponent from '@/components/GameOverComponent.vue';
     import GameWinComponent from '@/components/GameWinComponent.vue';
-    
+
     const {
         board,
         revealed,
