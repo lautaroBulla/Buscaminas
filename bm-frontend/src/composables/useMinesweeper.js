@@ -60,11 +60,18 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
 
         revealed.value[row][col] = true;
 
+        //si aprieta una casilla con mina
         if (board.value[row][col] === 'M') {
             gameOver.value = true;
             return
         }
 
+        //si revela la ultima casilla
+        if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
+            gameWin.value = true;
+        }
+
+        //si aprieta una casilla valida
         if (board.value[row][col] === 0) {
             directions.forEach(([dr, dc]) => {
                 const nr = row + dr;
@@ -80,7 +87,8 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     function rightClick(row, col) {
         if (revealed.value[row][col]) return
 
-        if (!flags.value[row][col] && !interrogations.value[row][col]){
+        // sirve para ir alterando la casilla con las marcas flags e interrogations
+        if (!flags.value[row][col] && !interrogations.value[row][col]){ 
             flags.value[row][col] = true;
         } else if (flags.value[row][col]) {
             flags.value[row][col] = false;
@@ -96,6 +104,7 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         flags,
         interrogations,
         gameOver,
+        gameWin,
         initBoard,
         reveal,
         rightClick,

@@ -1,8 +1,9 @@
 <script setup>
     import { useMinesweeper } from '@/composables/useMinesweeper';
-    import BoardComponent from '@/components/Board.vue';
-    import GameOver from '@/components/GameOver.vue';
-
+    import BoardComponent from '@/components/BoardComponent.vue';
+    import GameOverComponent from '@/components/GameOverComponent.vue';
+    import GameWinComponent from '@/components/GameWinComponent.vue';
+    
     const {
         board,
         revealed,
@@ -11,7 +12,8 @@
         initBoard,
         reveal,
         rightClick,
-        gameOver
+        gameOver,
+        gameWin
     } = useMinesweeper(9, 9, 10);
 
     initBoard();
@@ -29,8 +31,13 @@
             @cell-right-click="({row, col}) => rightClick(row, col)"
         />
 
-        <GameOver
+        <GameOverComponent
             :gameOver="gameOver"
+            @restart-game="initBoard()"
+        />
+
+        <GameWinComponent
+            :gameWin="gameWin"
             @restart-game="initBoard()"
         />
     </div>

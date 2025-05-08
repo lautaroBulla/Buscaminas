@@ -1,5 +1,5 @@
 <script setup>
-	import CellComponent from '@/components/Cell.vue';
+	import CellComponent from '@/components/CellComponent.vue';
 
     defineProps({
         board: {
