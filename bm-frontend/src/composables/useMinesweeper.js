@@ -9,6 +9,7 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
     const gameOver = ref(false);
     const gameWin = ref(false);
     const firstClick = ref(true);
+    const firstClickZero = ref(true);
 
     const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
     function isValidCell(r, c) {
@@ -22,22 +23,44 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         interrogations.value = Array.from({length: rows}, () => Array(cols).fill(false));   
         gameOver.value = false;
         gameWin.value = false;
-        firstClick.value = false;
-        placeMines();
-        adjacentMines();
+        firstClick.value = true;
+        firstClickZero.value = true;
     }
 
-    function placeMines() {
+    function placeMines(row, col) {
         let mineCount = 0;
+        const invalidCells = new Set();
+
+        invalidCells.add(`${row}-${col}`);
+        if (firstClickZero.value) {
+            directions.forEach(([dr, dc]) => {
+                const r = dr + row;
+                const c = dc + col;
+                if (isValidCell(r, c)) {
+                    invalidCells.add(`${r}-${c}`)
+                }
+            });
+        }
+        
         while (mineCount < mines) {
             const r = Math.floor(Math.random() * rows);
             const c = Math.floor(Math.random() * cols);
-            if (board.value[r][c] !== 'M') {
+            const key = `${r}-${c}`
+            if (board.value[r][c] !== 'M' && !invalidCells.has(key)) {
                 board.value[r][c] = 'M';
                 mineCount++;
             }
         }
+
+        adjacentMines();
     }
+
+    function boardFirstClick(row, col) {
+        firstClick.value = false;
+        placeMines(row, col);
+        reveal(row, col);
+    }
+
 
     function adjacentMines() {
         for (let r = 0; r < rows; r++) {
@@ -57,7 +80,8 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
             }
         } 
     }
-    
+
+
     function reveal(row, col) {
         if (revealed.value[row][col] || flags.value[row][col]) return
  
@@ -108,6 +132,8 @@ export function useMinesweeper(rows = 9, cols = 9, mines = 10) {
         interrogations,
         gameOver,
         gameWin,
+        firstClick,
+        boardFirstClick,
         initBoard,
         reveal,
         rightClick,

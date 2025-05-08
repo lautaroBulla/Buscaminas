@@ -9,11 +9,13 @@
         revealed,
         flags,
         interrogations,
+        gameOver,
+        gameWin,
+        firstClick,
+        boardFirstClick,
         initBoard,
         reveal,
         rightClick,
-        gameOver,
-        gameWin
     } = useMinesweeper(9, 9, 10);
 
     initBoard();
@@ -27,7 +29,7 @@
             :revealed="revealed"
             :flags="flags"
             :interrogations="interrogations"
-            @cell-left-click="({row, col}) => reveal(row, col)"
+            @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
             @cell-right-click="({row, col}) => rightClick(row, col)"
         />
 
