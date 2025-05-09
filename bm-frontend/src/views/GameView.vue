@@ -1,5 +1,6 @@
 <script setup>
     import { useMinesweeper } from '@/composables/useMinesweeper';
+    import { computed } from 'vue';
     import BoardComponent from '@/components/BoardComponent.vue';
     import GameOverComponent from '@/components/GameOverComponent.vue';
     import GameWinComponent from '@/components/GameWinComponent.vue';
@@ -19,9 +20,12 @@
         initBoard,
         reveal,
         rightClick,
+        seconds,
     } = useMinesweeper(9, 9, 10);
 
     initBoard();
+    
+    const flaggedCount = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
 
     function changeDifficulty(event) {
         const option = event.target.value; 
@@ -66,15 +70,24 @@
             @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
             @cell-right-click="({row, col}) => rightClick(row, col)"
         />
-
-        <GameOverComponent
-            :gameOver="gameOver"
-            @restart-game="initBoard()"
-        />
-
-        <GameWinComponent
-            :gameWin="gameWin"
-            @restart-game="initBoard()"
-        />
+        <div class="flex justify-between">
+            <div>
+                {{ seconds }}
+            </div>
+            <div name="mines">
+                Minas:
+                {{ flaggedCount }}
+            </div>
+        </div>
     </div>
+
+    <GameOverComponent
+        :gameOver="gameOver"
+        @restart-game="initBoard()"
+    />
+
+    <GameWinComponent
+        :gameWin="gameWin"
+        @restart-game="initBoard()"
+    />
 </template>

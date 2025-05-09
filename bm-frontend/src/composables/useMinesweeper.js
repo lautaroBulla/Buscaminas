@@ -14,6 +14,9 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     const firstClick = ref(true);
     const firstClickZero = ref(true);
 
+    const seconds = ref(0);
+    let intervalId = null;
+
     const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
     function isValidCell(r, c) {
         return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
@@ -28,6 +31,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         gameWin.value = false;
         firstClick.value = true;
         firstClickZero.value = true; //esta variable indica si la primera casilla va a ser 0 o no, a gusto del jugador
+        seconds.value = 0;
     }
 
     function placeMines(row, col) {
@@ -62,7 +66,21 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     function boardFirstClick(row, col) {
         firstClick.value = false;
         placeMines(row, col);
+        startTime();
         reveal(row, col);
+    }
+
+    //funciones del tiempo de la partida
+    function startTime() {
+        if (intervalId !== null) return // evitar múltiples timers
+
+        intervalId = setInterval(() => {
+            seconds.value++
+        }, 1000)
+    }
+    function stopTime() {
+        clearInterval(intervalId)
+        intervalId = null
     }
 
     //recorre cada casilla del tablero, en caso de no ser una mina, cuenta las minas adyacentes y setea el numero
@@ -115,6 +133,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     function checkWin() {
         //verifica si todas las casillas con valor diferente a M han sido reveladas
         if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
+            stopTime();
             gameWin.value = true;
         }
     }
@@ -149,5 +168,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         initBoard,
         reveal,
         rightClick,
+        seconds,
     }
 }
