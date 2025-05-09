@@ -1,5 +1,5 @@
 <script setup>
-import GameView from './views/GameView.vue';
+    import GameView from './views/GameView.vue';
 </script>
 
 <template>

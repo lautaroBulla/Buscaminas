@@ -4,6 +4,7 @@
     import BoardComponent from '@/components/BoardComponent.vue';
     import GameOverComponent from '@/components/GameOverComponent.vue';
     import GameWinComponent from '@/components/GameWinComponent.vue';
+    import HeaderComponent from '@/components/HeaderComponent.vue';
 
     const {
         rows,
@@ -17,15 +18,15 @@
         gameWin,
         firstClick,
         boardFirstClick,
-        initBoard,
+        resetGame,
         reveal,
         rightClick,
         seconds,
     } = useMinesweeper(9, 9, 10);
 
-    initBoard();
+    resetGame();
     
-    const flaggedCount = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
+    const remainingMines = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
 
     function changeDifficulty(event) {
         const option = event.target.value; 
@@ -39,7 +40,7 @@
             default:
                 rows.value = 9; cols.value = 9; mines.value = 10; break;
         }
-        initBoard();
+        resetGame();
     }
 </script>
 
@@ -62,32 +63,30 @@
                 </select>
             </div>
         </div>
-        <BoardComponent 
-            :board="board"
-            :revealed="revealed"
-            :flags="flags"
-            :interrogations="interrogations"
-            @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
-            @cell-right-click="({row, col}) => rightClick(row, col)"
-        />
-        <div class="flex justify-between">
-            <div>
-                {{ seconds }}
-            </div>
-            <div name="mines">
-                Minas:
-                {{ flaggedCount }}
-            </div>
+        <div>
+            <HeaderComponent
+                :remainingMines="remainingMines"
+                :seconds="seconds"
+                @comp-restart-game="resetGame()"
+            />
+            <BoardComponent 
+                :board="board"
+                :revealed="revealed"
+                :flags="flags"
+                :interrogations="interrogations"
+                @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
+                @cell-right-click="({row, col}) => rightClick(row, col)"
+            />
         </div>
     </div>
 
     <GameOverComponent
         :gameOver="gameOver"
-        @restart-game="initBoard()"
+        @restart-game="resetGame()"
     />
 
     <GameWinComponent
         :gameWin="gameWin"
-        @restart-game="initBoard()"
+        @restart-game="resetGame()"
     />
 </template>

@@ -32,11 +32,11 @@
 
     const emit = defineEmits(['left-click', 'rigth-click'])
 
-    function handleLeftClick(){
+    function handleLeftClick () {
         emit('left-click', {row: props.rowIndex, col: props.colIndex});
     }
 
-    function handleRightClick(e){
+    function handleRightClick (e) {
         e.preventDefault();
         emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
     }

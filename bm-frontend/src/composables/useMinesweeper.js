@@ -22,6 +22,12 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
     }
 
+    function resetGame () {
+        stopTime();
+        seconds.value = 0;
+        initBoard();
+    }
+
     function initBoard() {
         board.value = Array.from({length: rows.value}, () => Array(cols.value).fill(0));
         revealed.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
@@ -31,7 +37,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         gameWin.value = false;
         firstClick.value = true;
         firstClickZero.value = true; //esta variable indica si la primera casilla va a ser 0 o no, a gusto del jugador
-        seconds.value = 0;
     }
 
     function placeMines(row, col) {
@@ -186,7 +191,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         gameWin,
         firstClick,
         boardFirstClick,
-        initBoard,
+        resetGame,
         reveal,
         rightClick,
         seconds,
