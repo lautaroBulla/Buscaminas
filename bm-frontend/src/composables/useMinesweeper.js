@@ -111,6 +111,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
             revealed.value[row][col] = true;
             
             if (board.value[row][col] === 'M') {
+                stopTime();
                 gameOver.value = true;
                 return;
             }
