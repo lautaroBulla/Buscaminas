@@ -50,7 +50,7 @@
 </script>
 
 <template>
-    <div class="w-fit mx-auto flex flex-col items-center space-y-4">
+    <div class="flex flex-col items-center space-y-4">
         <!-- Componente para el selector de disficultad -->
         <DifficultySelectorComponent
             v-model="difficulty"
