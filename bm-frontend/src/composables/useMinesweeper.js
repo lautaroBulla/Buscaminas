@@ -105,25 +105,51 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
 
     function reveal(row, col) {
-        if (gameOver.value || revealed.value[row][col] || flags.value[row][col]) return
+        if (gameOver.value || flags.value[row][col]) return
  
-        revealed.value[row][col] = true;
+        if (revealed.value[row][col] === false) {
+            revealed.value[row][col] = true;
 
-        //si aprieta una casilla con mina
-        if (board.value[row][col] === 'M') {
-            gameOver.value = true;
-            return
-        }
+            //si aprieta una casilla con mina
+            if (board.value[row][col] === 'M') {
+                gameOver.value = true;
+                return
+            }
 
-        //si aprieta una casilla valida
-        if (board.value[row][col] === 0) {
+            //si aprieta una casilla valida y no tiene minas al rededor
+            if (board.value[row][col] === 0) {
+                directions.forEach(([dr, dc]) => {
+                    const nr = row + dr;
+                    const nc = col + dc;
+                    if (isValidCell(nr, nc) && board.value[nr][nc] !== 'M') {
+                        reveal(nr, nc);
+                    }
+                });
+            }
+
+        } else if (revealed.value[row][col] === true) {
+            let adjacentFlags = 0;
+            let adjacentRevealed = 0;
             directions.forEach(([dr, dc]) => {
                 const nr = row + dr;
                 const nc = col + dc;
-                if (isValidCell(nr, nc) && board.value[nr][nc] !== 'M' && board.value[nr][nc] !== '?') {
-                    reveal(nr, nc);
+                if (isValidCell(nr, nc) && flags.value[nr][nc]) {
+                    adjacentFlags++;
                 }
             });
+
+            if (adjacentFlags > 0 && board.value[row][col] === adjacentFlags) {
+                console.log('entre');
+                console.log(row, col);
+                directions.forEach(([dr, dc]) => {
+                    const nr = row + dr;
+                    const nc = col + dc;
+                    console.log(nr, nc);
+                    if (isValidCell(nr, nc) && board.value[nr][nc] !== 'M' && !revealed.value[nr][nc]) {
+                        reveal(nr, nc);
+                    }
+                });
+            }
         }
         
         //checkeo para ver si gano
