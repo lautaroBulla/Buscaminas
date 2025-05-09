@@ -50,13 +50,13 @@
 </script>
 
 <template>
-    <div class="flex flex-col">
+    <div class="w-fit mx-auto flex flex-col items-center space-y-4">
         <!-- Componente para el selector de disficultad -->
         <DifficultySelectorComponent
             v-model="difficulty"
         />
 
-        <div>
+        <div class="border">
             <HeaderComponent
                 :remainingMines="remainingMines"
                 :seconds="seconds"

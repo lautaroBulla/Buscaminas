@@ -18,7 +18,7 @@
 </script>
 
 <template>
-    <div class="flex justify-between border">
+    <div class="flex justify-between">
         <RemainingMinesComponent
             :remainingMines="remainingMines"
         />

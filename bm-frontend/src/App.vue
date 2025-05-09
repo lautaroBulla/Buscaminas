@@ -3,5 +3,7 @@
 </script>
 
 <template>
-    <GameView />
+    <div class="flex items-center justify-center bg-gray-900">
+        <GameView />
+    </div>
 </template>
