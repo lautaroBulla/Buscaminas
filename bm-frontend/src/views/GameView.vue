@@ -8,7 +8,6 @@
     import DifficultySelectorComponent from '@/components/DifficultySelectorComponent.vue';
     import { ref, watch } from 'vue';
 
-    
     const {
         rows,
         cols,
@@ -28,32 +27,36 @@
     } = useMinesweeper(9, 9, 10);
     resetGame();
     
-    const difficulty = ref('easy');
+    const difficulty = ref('custom');
     watch(difficulty, async(newDifficulty) => {
-        console.log(newDifficulty);
-        if (difficulty !== newDifficulty){
+        if (difficulty !== newDifficulty) {
             switch (newDifficulty) {
                 case "easy":
-                    rows.value = 9; cols.value = 9; mines.value = 10; break;
+                    rows.value = 9; cols.value = 9; mines.value = 10; resetGame(); break;
                 case "intermediate":
-                    rows.value = 16; cols.value = 16; mines.value = 40; break;
+                    rows.value = 16; cols.value = 16; mines.value = 40; resetGame(); break;
                 case "expert":
-                    rows.value = 24; cols.value = 24; mines.value = 99; break;
-                default:
-                    rows.value = 9; cols.value = 9; mines.value = 10; break;
+                    rows.value = 24; cols.value = 24; mines.value = 99; resetGame(); break;
             }
-            resetGame();
         }
     })
+    function setCustomValues({ rows: customRows, cols: customCols, mines: customMines }) {
+        rows.value = customRows;
+        cols.value = customCols;
+        mines.value = customMines;
+        resetGame();
+    }
     
     const remainingMines = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
 </script>
 
 <template>
-    <div class="flex flex-col items-center space-y-4">
+
+    <div class="flex flex-col items-center gap-y-4">
         <!-- Componente para el selector de disficultad -->
         <DifficultySelectorComponent
             v-model="difficulty"
+            @update:customValues="setCustomValues"
         />
 
         <div class="border">
