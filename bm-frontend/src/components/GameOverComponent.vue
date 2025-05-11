@@ -7,10 +7,6 @@
     });
 
     const emit = defineEmits(['restart-game'])
-
-    function restartGame () {
-        emit('restart-game');
-    }
 </script>
 
 <template>
@@ -22,7 +18,7 @@
             <p>
                 Has perdido
             </p>
-            <button class="bg-gray-800 hover:cursor-pointer" @click="restartGame">
+            <button class="bg-gray-800 hover:cursor-pointer" @click="emit('restart-game')">
                 Aceptar
             </button>
         </div>

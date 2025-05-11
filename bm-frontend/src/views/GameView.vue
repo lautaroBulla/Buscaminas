@@ -6,6 +6,7 @@
     import GameWinComponent from '@/components/GameWinComponent.vue';
     import HeaderComponent from '@/components/HeaderComponent.vue';
     import DifficultySelectorComponent from '@/components/DifficultySelectorComponent.vue';
+    import SettingsComponent from '@/components/SettingsComponent.vue';
     import { ref, watch } from 'vue';
 
     const {
@@ -24,10 +25,12 @@
         reveal,
         rightClick,
         seconds,
+        firstClickZero,
+        interrogationsActivated
     } = useMinesweeper(9, 9, 10);
     resetGame();
     
-    const difficulty = ref('custom');
+    const difficulty = ref('easy');
     watch(difficulty, async(newDifficulty) => {
         if (difficulty !== newDifficulty) {
             switch (newDifficulty) {
@@ -40,11 +43,23 @@
             }
         }
     })
-    function setCustomValues({ rows: customRows, cols: customCols, mines: customMines }) {
+    function setCustomValues ({ rows: customRows, cols: customCols, mines: customMines }) {
         rows.value = customRows;
         cols.value = customCols;
         mines.value = customMines;
         resetGame();
+    }
+
+    const modalSettingsComponent = ref(false);
+    function viewSettingComponent () {
+        modalSettingsComponent.value = !modalSettingsComponent.value;
+    }
+    function updateSettingComponent (updateSettings) {
+        firstClickZero.value = updateSettings.firstClickZero;
+        interrogationsActivated.value = updateSettings.interrogationsActivated;
+
+        viewSettingComponent()
+        resetGame() 
     }
     
     const remainingMines = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
@@ -54,10 +69,17 @@
 
     <div class="flex flex-col items-center gap-y-4">
         <!-- Componente para el selector de disficultad -->
-        <DifficultySelectorComponent
-            v-model="difficulty"
-            @update:customValues="setCustomValues"
-        />
+        <div class="flex flex-row gap-x-4">
+            <DifficultySelectorComponent
+                v-model="difficulty"
+                @update:customValues="setCustomValues"
+            />
+            <button
+                @click="viewSettingComponent"
+            >
+                Settings
+            </button>
+        </div>
 
         <div class="border">
             <HeaderComponent
@@ -69,7 +91,7 @@
                 :board="board"
                 :revealed="revealed"
                 :flags="flags"
-                :interrogations="interrogations"
+                :interrogations="interrogationsActivated ? interrogations : null"
                 @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
                 @cell-right-click="({row, col}) => rightClick(row, col)"
             />
@@ -84,5 +106,13 @@
     <GameWinComponent
         :gameWin="gameWin"
         @restart-game="resetGame()"
+    />
+
+    <SettingsComponent
+        v-if="modalSettingsComponent"
+        :firstClickZero="firstClickZero"
+        :interrogationsActivated="interrogationsActivated"
+        @update="updateSettingComponent"
+        @close="viewSettingComponent"
     />
 </template>

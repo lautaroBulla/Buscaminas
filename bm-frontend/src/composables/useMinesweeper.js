@@ -12,7 +12,10 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     const gameOver = ref(false);
     const gameWin = ref(false);
     const firstClick = ref(true);
-    const firstClickZero = ref(true);
+
+    const firstClickZero = ref(true); //esta variable indica si la primera casilla va a ser 0 o no, a gusto del jugador
+    const interrogationsActivated = ref(true); //esta variable indica si los simbolos de ? estaran activados en la partida, 
+                                                // a gusto del jugador
 
     const seconds = ref(0);
     let intervalId = null;
@@ -32,11 +35,11 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         board.value = Array.from({length: rows.value}, () => Array(cols.value).fill(0));
         revealed.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
         flags.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
-        interrogations.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));   
+        if (interrogationsActivated.value)
+            interrogations.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));   
         gameOver.value = false;
         gameWin.value = false;
-        firstClick.value = true;
-        firstClickZero.value = true; //esta variable indica si la primera casilla va a ser 0 o no, a gusto del jugador
+        firstClick.value = true;    
     }
 
     function placeMines(row, col) {
@@ -169,13 +172,18 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         if (revealed.value[row][col]) return
 
         // sirve para ir alterando la casilla con las marcas flags e interrogations
-        if (!flags.value[row][col] && !interrogations.value[row][col]){ 
-            flags.value[row][col] = true;
-        } else if (flags.value[row][col]) {
-            flags.value[row][col] = false;
-            interrogations.value[row][col] = true;
-        } else if (interrogations.value[row][col]) {
-            interrogations.value[row][col] = false;
+        if (interrogationsActivated.value) {
+            if (!flags.value[row][col] && !interrogations.value[row][col]){ 
+                flags.value[row][col] = true;
+            } else if (flags.value[row][col]) {
+                flags.value[row][col] = false;
+                interrogations.value[row][col] = true;
+            } else if (interrogations.value[row][col]) {
+                interrogations.value[row][col] = false;
+            }
+        } else if (!interrogationsActivated.value) {
+            console.log('entre2');
+            flags.value[row][col] = !flags.value[row][col];
         }
     }
 
@@ -195,5 +203,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         reveal,
         rightClick,
         seconds,
+        firstClickZero,
+        interrogationsActivated
     }
 }
