@@ -121,6 +121,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
             if (board.value[row][col] === 'M') {
                 stopTime();
                 gameOver.value = true;
+                revealGameOver();
                 return;
             }
 
@@ -156,6 +157,16 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
                     reveal(nr, nc);
                 }
             });
+        }
+    }
+
+    function revealGameOver() {
+        for (let r=0; r<rows.value; r++){
+            for (let c=0; c<cols.value; c++){
+                if (board.value[r][c] === 'M' && !flags.value[r][c]) {
+                    revealed.value[r][c] = true;
+                }
+            }
         }
     }
 

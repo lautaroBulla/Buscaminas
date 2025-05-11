@@ -54,59 +54,61 @@
 </script>
 
 <template>
-    <div class="flex flex-row">
-        <button
-            v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']"
-            :key="difficulty"
-            @click="selectDifficulty(difficulty)"
-            class="px-4"
-            :class="{
-                'underline': modelValue === difficulty
-            }"
+    <div class="flex flex-col">
+        <div class="flex flex-row">
+            <button
+                v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']"
+                :key="difficulty"
+                @click="selectDifficulty(difficulty)"
+                class="px-4"
+                :class="{
+                    'underline': modelValue === difficulty
+                }"
+            >
+                {{ difficulty === 'easy' ? 'Fácil' : difficulty === 'intermediate' ? 'Intermedio' : difficulty === 'expert' ? 'Difícil' : 'Personalizado' }}
+            </button>
+        </div>
+        <div 
+            v-if="modelValue == 'custom'" 
+            class="flex flex-row gap-x-2"
         >
-            {{ difficulty === 'easy' ? 'Fácil' : difficulty === 'intermediate' ? 'Intermedio' : difficulty === 'expert' ? 'Difícil' : 'Personalizado' }}
-        </button>
-    </div>
-    <div 
-        v-if="modelValue == 'custom'" 
-        class="flex flex-row gap-x-2"
-    >
-        <div class="flex">
-            <label>Filas:</label>
-            <input 
-                v-model.number="customRows"
-                :min="minRowsAndCols"
-                :max="maxRowsAndCols"
-                type="number" value="rows" class="border w-[50px]"
+            <div class="flex">
+                <label>Filas:</label>
+                <input 
+                    v-model.number="customRows"
+                    :min="minRowsAndCols"
+                    :max="maxRowsAndCols"
+                    type="number" value="rows" class="border w-[50px]"
+                >
+                </input>
+            </div>
+            <div class="flex">
+                <label>Columnas:</label>
+                <input 
+                    v-model.number="customCols"
+                    :min="minRowsAndCols"
+                    :max="maxRowsAndCols"
+                    type="number" value="cols" class="border w-[50px]"
+                >
+                </input>
+            </div>
+            <div class="flex">
+                <label>Minas:</label>
+                <input 
+                    v-model.number="customMines"
+                    :min="1"
+                    :max="maxMines"
+                    type="number" value="mines" class="border w-[50px]"
+                >
+                </input>
+            </div>
+            <button
+                @click="customVlues()" 
+                class="border hover:cursor-pointer"
             >
-            </input>
+                Actualizar
+            </button>
         </div>
-        <div class="flex">
-            <label>Columnas:</label>
-            <input 
-                v-model.number="customCols"
-                :min="minRowsAndCols"
-                :max="maxRowsAndCols"
-                type="number" value="cols" class="border w-[50px]"
-            >
-            </input>
-        </div>
-        <div class="flex">
-            <label>Minas:</label>
-            <input 
-                v-model.number="customMines"
-                :min="1"
-                :max="maxMines"
-                type="number" value="mines" class="border w-[50px]"
-            >
-            </input>
-        </div>
-        <button
-            @click="customVlues()" 
-            class="border hover:cursor-pointer"
-        >
-            Actualizar
-        </button>
     </div>
 </template>
 

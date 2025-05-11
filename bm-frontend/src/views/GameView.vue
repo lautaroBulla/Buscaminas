@@ -62,9 +62,6 @@
     }
 
     const modalGameFinish = ref(false);
-    watch(gameOver, (newValue) => {
-        modalGameFinish.value = newValue;
-    });
     watch(gameWin, (newValue) => {
         modalGameFinish.value = newValue;
     });
@@ -110,7 +107,6 @@
 
     <GameFinishComponent
         v-if="modalGameFinish"
-        @restart-game="resetGame()"
         @close="viewGameFinish"
     />
 
