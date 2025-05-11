@@ -15,7 +15,7 @@
                 </button>
             </div>
             <p class="flex justify-center">
-                Has perdido
+                Has finalizado
             </p>
             <div class="flex justify-center">           
                 <button class="border hover:cursor-pointer" @click="emit('restart-game')">

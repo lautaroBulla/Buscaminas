@@ -2,8 +2,7 @@
     import { useMinesweeper } from '@/composables/useMinesweeper';
     import { computed } from 'vue';
     import BoardComponent from '@/components/BoardComponent.vue';
-    import GameOverComponent from '@/components/GameOverComponent.vue';
-    import GameWinComponent from '@/components/GameWinComponent.vue';
+    import GameFinishComponent from '@/components/GameFinishComponent.vue';
     import HeaderComponent from '@/components/HeaderComponent.vue';
     import DifficultySelectorComponent from '@/components/DifficultySelectorComponent.vue';
     import SettingsComponent from '@/components/SettingsComponent.vue';
@@ -61,6 +60,17 @@
         viewSettingComponent()
         resetGame() 
     }
+
+    const modalGameFinish = ref(false);
+    watch(gameOver, (newValue) => {
+        modalGameFinish.value = newValue;
+    });
+    watch(gameWin, (newValue) => {
+        modalGameFinish.value = newValue;
+    });
+    function viewGameFinish () {
+        modalGameFinish.value = !modalGameFinish.value;
+    }
     
     const remainingMines = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
 </script>
@@ -98,14 +108,10 @@
         </div>
     </div>
 
-    <GameOverComponent
-        :gameOver="gameOver"
+    <GameFinishComponent
+        v-if="modalGameFinish"
         @restart-game="resetGame()"
-    />
-
-    <GameWinComponent
-        :gameWin="gameWin"
-        @restart-game="resetGame()"
+        @close="viewGameFinish"
     />
 
     <SettingsComponent
