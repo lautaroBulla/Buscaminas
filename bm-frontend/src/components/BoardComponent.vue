@@ -42,7 +42,6 @@
 	<div :style="{ display: 'grid', gridTemplateColumns: `repeat(${board[0]?.length || 0}, 30px)` }">
 		<CellComponent
 			v-for="(cell, index) in flatBoard"
-			:index="`${cell.row}-${cell.col}`"
 			:cell="cell.value"
 			:rowIndex="cell.row"
 			:colIndex="cell.col"

@@ -36,7 +36,7 @@
                 case "intermediate":
                     rows.value = 16; cols.value = 16; mines.value = 40; resetGame(); break;
                 case "expert":
-                    rows.value = 24; cols.value = 24; mines.value = 99; resetGame(); break;
+                    rows.value = 16; cols.value = 30; mines.value = 99; resetGame(); break;
             }
         }
     })
