@@ -1,0 +1,21 @@
+{
+    "nav": {
+        "title": "Minesweeper"
+    },
+    "difficultySelector": {
+        "easy": "Begginer",
+        "intermediate": "Intermediate",
+        "expert": "Expert",
+        "custom": "Custom"
+    },
+    "gameSettings": {
+        "setting": "Settings",
+        "update": "Update",
+        "close": "Close",
+        "firstClick": "First click on a cell with value 0",
+        "interrogations": "'?' symbols enabled in the game"
+    },
+    "languageSelector": {
+        "language": "Language"
+    }
+}

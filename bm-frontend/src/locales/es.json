@@ -1,0 +1,21 @@
+{
+    "nav": {
+        "title": "Buscaminas"
+    },
+    "difficultySelector": {
+        "easy": "Principiante",
+        "intermediate": "Intermedio",
+        "expert": "Experto",
+        "custom": "Personalizado"
+    },
+    "gameSettings": {
+        "setting": "Configuraciones",
+        "update": "Actualizar",
+        "close": "Cerrar",
+        "firstClick": "Primer click en una casilla con valor 0",
+        "interrogations": "Símbolos '?' activados en la partida"
+    },
+    "languageSelector": {
+        "language": "Lenguaje"
+    }
+}

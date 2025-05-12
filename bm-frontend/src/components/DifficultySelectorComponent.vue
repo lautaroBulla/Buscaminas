@@ -65,7 +65,7 @@
                     'underline': modelValue === difficulty
                 }"
             >
-                {{ difficulty === 'easy' ? 'Fácil' : difficulty === 'intermediate' ? 'Intermedio' : difficulty === 'expert' ? 'Difícil' : 'Personalizado' }}
+                {{ $t(`difficultySelector.${difficulty}`) }}
             </button>
         </div>
         <div 

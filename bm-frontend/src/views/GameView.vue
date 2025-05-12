@@ -84,7 +84,7 @@
             <button
                 @click="viewSettingComponent"
             >
-                Settings
+                {{ $t('gameSettings.setting') }}
             </button>
         </div>
 

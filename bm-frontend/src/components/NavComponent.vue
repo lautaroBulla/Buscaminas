@@ -4,6 +4,8 @@
 
 <template>
     <nav class="flex justify-center items-center bg-gray-700">
-        <p class="text-5xl">Buscaminas</p>  
+        <p class="text-5xl">
+            {{ $t('nav.title') }}
+        </p>  
     </nav>
 </template>

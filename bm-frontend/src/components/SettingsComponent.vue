@@ -31,16 +31,16 @@
                 <button
                     @click="emit('close')"
                 >
-                    Cerrar
+                    {{ $t('gameSettings.close') }}
                 </button>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row gap-x-2">
-                    <label>Primer click casilla 0</label>
+                    <label> {{ $t('gameSettings.firstClick') }} </label>
                     <input type="checkbox" v-model="localFirstClickZero">
                 </div>
                  <div class="flex flex-row gap-x-2">
-                    <label>Simbolos '?' activados en la partida</label>
+                    <label> {{ $t('gameSettings.interrogations') }} </label>
                     <input type="checkbox" v-model="localInterrogationsActivated">
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     @click="updateSettings"
                     class="border w-fit"
                 >
-                    Actualizar
+                    {{ $t('gameSettings.update') }}
                 </button>
             </div>
         </div>
