@@ -1,0 +1,17 @@
+# General
+node_modules
+dist
+npm-debug.log
+yarn-error.log
+.env
+
+# Frontend
+bm-frontend/node_modules
+bm-frontend/dist
+
+# Backend
+bm-backend/node_modules
+bm-backend/dist
+bm-backend/generated
+bm-backend/prisma/dev.db
+bm-backend/prisma/dev.db-journal

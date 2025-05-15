@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  bm-frontend:
+    image: node:20
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    volumes:
+      - ./bm-frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+
+  bm-backend:
+    image: node:20
+    working_dir: /app
+    command: sh -c "npm install && npm run start:dev"
+    volumes:
+      - ./bm-backend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql://root:secret@mysql:3306/buscaminas
+    depends_on:
+      - mysql
