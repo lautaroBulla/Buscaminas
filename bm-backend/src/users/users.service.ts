@@ -27,6 +27,9 @@ export class UsersService {
   }
 
   async findOneUsername(username: string) {
+    Logger.log('---------------------------');
+    Logger.log(username, 'UsersService');
+    Logger.log('---------------------------');
     return await this.prisma.user.findUnique({ where: { username } });
   }
 
