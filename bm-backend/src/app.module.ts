@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { validationSchema } from '../config/validation'
 import databaseConfig from '../config/database.config';
 import { UsersModule } from './users/users.module';
+import { PrismaModule } from 'nestjs-prisma';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,7 +15,11 @@ import { UsersModule } from './users/users.module';
       load: [databaseConfig],
       validationSchema
     }),
-    UsersModule
+    PrismaModule.forRoot({
+      isGlobal: true,
+    }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

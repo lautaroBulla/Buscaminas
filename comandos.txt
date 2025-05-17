@@ -1,0 +1,12 @@
+//si da npm not found
+docker system prune -a --volumes
+docker-compose up --Build
+
+# Generar una nueva migración y aplicarla (desarrollo)
+npx prisma migrate dev --name
+
+//ejecutar migraciones
+npx prisma migrate deploy
+
+//crear recurso
+npx nest g resource auth
