@@ -1,6 +1,6 @@
 //si da npm not found
 docker system prune -a --volumes
-docker-compose up --Build
+docker-compose up --build
 
 # Generar una nueva migración y aplicarla (desarrollo)
 npx prisma migrate dev --name
@@ -8,5 +8,11 @@ npx prisma migrate dev --name
 //ejecutar migraciones
 npx prisma migrate deploy
 
+//resetear base de datos y aplicar migraciones (desarrollo)
+npx prisma migrate reset
+
 //crear recurso
 npx nest g resource auth
+
+//buen canal 
+Michael Guay 1:04:30

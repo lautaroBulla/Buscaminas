@@ -3,12 +3,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Logger } from '@nestjs/common';
+import { hash } from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
+    createUserDto.password = await hash(createUserDto.password, 10);
     return await this.prisma.user.create({ data:createUserDto })
   }
 
@@ -27,10 +29,13 @@ export class UsersService {
   }
 
   async findOneUsername(username: string) {
-    Logger.log('---------------------------');
-    Logger.log(username, 'UsersService');
-    Logger.log('---------------------------');
-    return await this.prisma.user.findUnique({ where: { username } });
+    const user = await this.prisma.user.findUnique({ where: { username } });
+
+    if (!user) {
+      throw new NotFoundException(`User with username ${username} not found`);
+    }
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
