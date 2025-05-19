@@ -33,6 +33,7 @@ export class AuthController {
   }
 
   @Post('register')
+  @ApiBody({ type: CreateUserDto })
   async register(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) response: Response
