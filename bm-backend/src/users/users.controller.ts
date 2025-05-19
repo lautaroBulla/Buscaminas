@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, ForbiddenException, Logger } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Logger } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/auth/current-user.decorator';
+import { User } from '@prisma/client';
+import { JwtRefresAuthGuard } from 'src/auth/guards/jwt-refresh-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -18,8 +21,21 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  getProfile(@CurrentUser() user: User) {
+    return this.usersService.getProfile(user.id);
+  }
+
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  @UseGuards(JwtAuthGuard)
+  findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: User
+  ) {
+    if (user.id !== id) {
+      throw new ForbiddenException('No puedes acceder a otros usuarios');
+    }
     return this.usersService.findOne(id);
   }
 
@@ -32,4 +48,5 @@ export class UsersController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);
   }
+
 }

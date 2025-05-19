@@ -3,9 +3,9 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { TokenPayload } from "../token-payload.interface";
-import { User } from "@prisma/client";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "../../users/users.service";
 import { Injectable } from "@nestjs/common";
+import { Logger } from "@nestjs/common";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,11 +14,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             jwtFromRequest: ExtractJwt.fromExtractors([
                 (request: Request) => request.cookies?.Authentication,
             ]),
-            secretOrKey: configService.getOrThrow('JWT_SECRET'),
+            secretOrKey: configService.getOrThrow('JWT_ACCESS_TOKEN_SECRET'),
         });
     }
 
-    async validate(payload: TokenPayload): Promise<User> {
+    async validate(payload: TokenPayload): Promise<any> {
         return this.userService.findOne(parseInt(payload.userId));
     }
 }
