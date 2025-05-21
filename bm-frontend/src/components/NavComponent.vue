@@ -1,5 +1,5 @@
 <script setup>
-    import { api } from '@/services/api.js';
+    import { api } from '@/services/authService.js';
 
     async function handleLoginClick() {
     try {
