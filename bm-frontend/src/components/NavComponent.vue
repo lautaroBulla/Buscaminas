@@ -1,15 +1,3 @@
-<script setup>
-    import { api } from '@/services/authService.js';
-
-    async function handleLoginClick() {
-    try {
-        const user = await api.getUser();
-        console.log('Usuario:', user);
-    } catch (error) {
-        console.error('Error al obtener el usuario', error);
-    }
-    }
-</script>
 
 <template>
     <nav class="flex flex-row bg-gray-700 w-full">
@@ -23,10 +11,7 @@
             <button class="border hover:cursor-pointer">
                 Register
             </button>
-            <button 
-                @click="handleLoginClick"
-                class="border hover:cursor-pointer"
-            >
+            <button class="border hover:cursor-pointer">
                 Login
             </button>
         </div>

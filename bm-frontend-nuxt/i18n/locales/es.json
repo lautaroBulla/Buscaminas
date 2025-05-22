@@ -1,6 +1,8 @@
 {
     "nav": {
-        "title": "Buscaminas"
+        "title": "Buscaminas",
+        "login": "Iniciar sesión",
+        "register": "Registrarse"
     },
     "difficultySelector": {
         "easy": "Principiante",
