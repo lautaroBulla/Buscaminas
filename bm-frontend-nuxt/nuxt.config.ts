@@ -5,11 +5,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  modules: [
-    '@nuxt/eslint',
-    '@nuxt/ui',
-    '@nuxtjs/i18n'
-  ],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxtjs/color-mode'],
+  colorMode: {
+    classSuffix: '', // <– esto es importante para usar solo "dark" y no "dark-mode"
+  },
   i18n: {
     lazy: true,
     langDir: 'locales',

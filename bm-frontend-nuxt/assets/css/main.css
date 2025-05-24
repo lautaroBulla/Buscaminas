@@ -1,1 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bgColor: #fff;  
+  --color-textColor: #000; 
+}
+
+@layer theme {
+  .dark {
+    --color-bgColor: #000;
+    --color-textColor: #fff;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'VT323', monospace;
+  background-color: var(--color-bgColor);
+  color: var(--color-textColor);
+}
