@@ -12,12 +12,12 @@
 
 <template>
   <div class="flex justify-end items-center pr-10">
-    <label for="language-select" class="text-white">
+    <label for="language-select">
       {{ $t('languageSelector.language') }}:
     </label>
     <select
       id="language-select"
-      class="text-white border px-2 py-1"
+      class="border"
       :value="locale"
       @change="changeLanguage"
     >

@@ -4,14 +4,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-bgColor: #fff;  
-  --color-textColor: #000; 
+  --color-primary: #ffffff;  
+  --color-secondary: #dfdfdf;
+  --color-tertiary: #c0c0c0;
+  --color-quaternary: #a0a0a0;
+  --color-quinary: #818181;
 }
 
 @layer theme {
   .dark {
-    --color-bgColor: #000;
-    --color-textColor: #fff;
+    --color-primary: #000;  
+    --color-secondary: #1b1b1b;
+    --color-tertiary: #363636;
+    --color-quaternary: #505050;
+    --color-quinary: #6b6b6b;
   }
 }
 
@@ -20,6 +26,8 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: 'VT323', monospace;
-  background-color: var(--color-bgColor);
-  color: var(--color-textColor);
+  background-color: var(--color-primary);
+  color: var(--color-quinary);
+  font-size: 1.3rem;
+  font-weight: normal;
 }

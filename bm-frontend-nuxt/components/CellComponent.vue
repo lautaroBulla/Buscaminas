@@ -30,8 +30,9 @@
 
   function handleLeftClick () {
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
-}
+  }
 
+  // e se utliza para prevenir el menu contextual del click derecho
   function handleRightClick (e) {
     e.preventDefault();
     emit('rigth-click', {row: props.rowIndex, col: props.colIndex});

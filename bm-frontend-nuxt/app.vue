@@ -5,7 +5,7 @@
 
   onMounted(() => {
     if (!localStorage.getItem('nuxt-color-mode')) {
-      colorMode.preference = 'dark'; // o 'light'
+      colorMode.preference = 'dark'; 
     }
   });
 </script>

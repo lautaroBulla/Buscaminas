@@ -19,5 +19,12 @@
     },
     "languageSelector": {
         "language": "Lenguaje"
+    },
+    "login": {
+        "title": "Iniciar sesión",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "submit": "Iniciar sesión",
+        "register": "Registrarse"
     }
 }

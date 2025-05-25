@@ -21,16 +21,19 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
   const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]]
 
+  //verifica que sea una celda del tablero
   function isValidCell(r: number, c: number): boolean {
     return r >= 0 && r < rows.value && c >= 0 && c < cols.value
   }
 
+  //reinicia el juego
   function resetGame () {
     stopTime();
     seconds.value = 0;
     initBoard();
   }
 
+  //se setean los valores iniciales del tablero
   function initBoard() {
     board.value = Array.from({length: rows.value}, () => Array(cols.value).fill(0));
     revealed.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
@@ -42,6 +45,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     firstClick.value = true;    
   }
 
+  //coloca las minas en el tablero, en caso de que sea el primer click, evita que se coloquen minas en las casillas adyacentes
   function placeMines(row: number, col: number) {
     let mineCount = 0;
     const invalidCells = new Set();
@@ -207,7 +211,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     revealed,
     flags,
     interrogations,
-    gameOver,
     gameWin,
     firstClick,
     boardFirstClick,

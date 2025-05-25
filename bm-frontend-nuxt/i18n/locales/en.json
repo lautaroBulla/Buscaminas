@@ -19,5 +19,12 @@
     },
     "languageSelector": {
         "language": "Language"
+    },
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "submit": "Login",
+        "register": "Register"
     }
 }

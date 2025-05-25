@@ -8,6 +8,7 @@
     }
   })
 
+  // se definen dos emits, uno para la dificultad y otro para los valores personalizados
   const emit = defineEmits(['update:modelValue', 'update:customValues']);
 
   function selectDifficulty(difficulty) {

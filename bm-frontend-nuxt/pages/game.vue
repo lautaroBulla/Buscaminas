@@ -2,6 +2,7 @@
   import { ref, watch, computed } from 'vue';
   import { useMinesweeper } from '~/composables/useMinesweeper';
 
+  // Obtengo todas lasvariables de composable useMinesweeper
   const {
     rows,
     cols,
@@ -10,7 +11,6 @@
     revealed,
     flags,
     interrogations,
-    gameOver,
     gameWin,
     firstClick,
     boardFirstClick,
@@ -23,9 +23,11 @@
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
-  const difficulty = ref('easy');
-  watch(difficulty, async(newDifficulty) => {
-    if (difficulty !== newDifficulty) {
+  const difficulty = ref('easy'); //Se setea la dificultad inicial en easy
+  //watch se utiliza para observar si la variable difficulty cambia
+  //si cambia, se setean los valores de filas, columnas y minas
+  watch(difficulty, async(newDifficulty) => { 
+    if (difficulty.value !== newDifficulty) {
       switch (newDifficulty) {
         case "easy":
           rows.value = 9; cols.value = 9; mines.value = 10; resetGame(); break;
@@ -36,7 +38,8 @@
       }
     }
   })
-  function setCustomValues ({ rows: customRows, cols: customCols, mines: customMines }) {
+  //esta funcion es la responsable de setear los valores cuando se selecciona la dificultad personalizada
+  function setCustomValues ({ rows: customRows, cols: customCols, mines: customMines }) { 
     rows.value = customRows;
     cols.value = customCols;
     mines.value = customMines;
@@ -63,6 +66,7 @@
     modalGameFinish.value = !modalGameFinish.value;
   }
   
+  // Aca se obtiene el valor de las minas restantes, conociendo el total se va a restando por cada flag que se pone
   const remainingMines = computed(() => mines.value - flags.value.flat().filter(cell => cell === true).length);
 </script>
 

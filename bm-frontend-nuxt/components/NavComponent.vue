@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
   import { useColorMode } from '#imports'
   import { ref, watch, onMounted } from 'vue'
 
   const colorMode = useColorMode()
-  const isDark = ref(false)
-  const isMounted = ref(false)
+  const isDark = ref<boolean>(false)
+  const isMounted = ref<boolean>(false)
 
   onMounted(() => {
     isDark.value = colorMode.value === 'dark'
@@ -13,19 +13,19 @@
 
   watch(
     () => colorMode.value,
-    (val) => {
+    (val: string) => {
       isDark.value = val === 'dark'
     }
   )
 
-  const toggleDark = () => {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
+  const toggleDark = (): void => {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
   }
 </script>
 
 <template>
-  <nav class="flex flex-row w-full py-4">
-    <div class="w-1/3">
+  <nav class="flex w-full py-4">
+    <div class="flex justify-start items-center pl-10 w-1/3">
       <button
         v-if="isMounted"
         @click="toggleDark"
@@ -35,16 +35,22 @@
       </button>
     </div>
     <div class="flex justify-center w-1/3">
-      <p class="text-5xl">
-        {{ $t('nav.title') }}
-      </p>  
+      <label class="text-5xl hover:cursor-pointer">
+        <NuxtLink to="/">
+          {{ $t('nav.title') }}
+        </NuxtLink>
+      </label>  
     </div>
     <div class="flex justify-end items-center space-x-5 pr-10 w-1/3">
       <button class="border h-fit hover:cursor-pointer">
-        {{ $t('nav.register') }}
+        <NuxtLink to="/login">
+          {{ $t('nav.register') }}
+        </NuxtLink>
       </button>
       <button class="border h-fit hover:cursor-pointer">
-        {{ $t('nav.login') }}
+        <NuxtLink to="/login">
+          {{ $t('nav.login') }}
+        </NuxtLink>
       </button>
     </div>
   </nav>

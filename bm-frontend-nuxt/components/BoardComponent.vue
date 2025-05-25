@@ -20,8 +20,10 @@
 		}
 	});
 
+	//se definen los emits provenientes de CellComponent, que toma el evento de click
 	const emit = defineEmits(['cell-left-click', 'cell-right-click'])
 
+	//esta funcion se encarga de formatear el tablero para que sea un array de objetos, donde cada objeto tiene la fila y columna
 	const flatBoard = computed(() => {
 		const cells = [];
 		for (let row = 0; row < props.board.length; row++) {
