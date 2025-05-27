@@ -4,20 +4,28 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #ffffff;  
-  --color-secondary: #dfdfdf;
-  --color-tertiary: #c0c0c0;
-  --color-quaternary: #a0a0a0;
-  --color-quinary: #818181;
+  --color-primary: #f8f9fa;  
+  --color-secondary: #e9ecef;
+  --color-tertiary: #dee2e6;
+  --color-quaternary: #ced4da;
+  --color-quinary: #adb5bd;
+  --color-sext: #6c757d;
+  --color-sept: #495057;
+  --color-oct: #343a40;
+  --color-nonary: #212529;
 }
 
 @layer theme {
   .dark {
-    --color-primary: #000;  
-    --color-secondary: #1b1b1b;
-    --color-tertiary: #363636;
-    --color-quaternary: #505050;
-    --color-quinary: #6b6b6b;
+    --color-primary: #212529;  
+    --color-secondary: #343a40;
+    --color-tertiary: #495057;
+    --color-quaternary: #6c757d;
+    --color-quinary: #adb5bd;
+    --color-sext: #ced4da;
+    --color-sept: #dee2e6;
+    --color-oct: #e9ecef;
+    --color-nonary: #f8f9fa;
   }
 }
 
@@ -27,7 +35,37 @@ body {
   min-height: 100vh;
   font-family: 'VT323', monospace;
   background-color: var(--color-primary);
-  color: var(--color-quinary);
+  color: var(--color-nonary);
   font-size: 1.3rem;
   font-weight: normal;
+}
+
+.card {
+  background-color: var(--color-secondary);
+  border: 3px solid var(--color-quaternary);
+}
+
+h1, h2, h3 {
+  color: var(--color-nonary);
+}
+
+p.secondary {
+  color: var(--color-sext);
+}
+
+button.primary {
+  background-color: var(--color-oct);
+  color: var(--color-primary);
+}
+
+button.secondary {
+  background-color: var(--color-quinary);
+  color: var(--color-nonary);
+}
+
+.input {
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-primary);
+  color: var(--color-nonary);
+  width: 100%;
 }

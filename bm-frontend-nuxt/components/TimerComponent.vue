@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <div class="text-white">
+  <div>
     {{ format(seconds) }}
   </div>
 </template>

@@ -1,33 +1,26 @@
 <script setup>
+  import esFlag from '~/assets/img/es.png'
+  import ukFlag from '~/assets/img/uk.png'
   import { useI18n } from 'vue-i18n'
-
-  const { locale, locales } = useI18n()
-
-  const availableLocales = locales.value.filter(l => 'code' in l && 'name' in l)
-
-  function changeLanguage(event) {
-    locale.value = event.target.value
+  
+  const { locale } = useI18n()
+  
+  function changeLanguage() {
+    locale.value = locale.value === 'en' ? 'es' : 'en'
   }
+
+  const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag))
+  const flagAlt = computed(() => (locale.value === 'en' ? 'Spanish' : 'English'))
 </script>
 
 <template>
   <div class="flex justify-end items-center pr-10">
-    <label for="language-select">
-      {{ $t('languageSelector.language') }}:
-    </label>
-    <select
-      id="language-select"
-      class="border"
-      :value="locale"
-      @change="changeLanguage"
+    <button
+      @click="changeLanguage"
+      class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition flex items-center gap-x-2"
     >
-      <option
-        v-for="lang in availableLocales"
-        :key="lang.code"
-        :value="lang.code"
-      >
-        {{ lang.name }}
-      </option>
-    </select>
+      {{ $t('languageSelector.changeLanguage') }}
+      <img :src="flagSrc" :alt="flagAlt"  />
+    </button>
   </div>
 </template>

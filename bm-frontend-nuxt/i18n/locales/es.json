@@ -18,7 +18,7 @@
         "interrogations": "Símbolos '?' activados en la partida"
     },
     "languageSelector": {
-        "language": "Lenguaje"
+        "changeLanguage": "EN"
     },
     "login": {
         "title": "Iniciar sesión",

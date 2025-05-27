@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="text-white">
+  <div>
     {{ remainingMines }}
   </div>
 </template>

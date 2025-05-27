@@ -1,31 +1,29 @@
-<script setup>
+<script setup lang="ts">
 
 </script>
 
 <template>
   <div class="flex items-center justify-center">
-    <div class="flex flex-col items-center space-y-5 p-5 border-4">
-      <h1 class="text-3xl">{{ $t('login.title') }}</h1>
-      <div class="flex flex-col items-start">
-        <label>{{ $t('login.username') }}</label>
+    <div class="card flex flex-col items-center space-y-5 p-5">
+      
+      <div class="flex flex-col items-start w-full">
+        <p class="secondary">{{ $t('login.username') }}</p>
         <input
           type="text"
-          v-model="username"
-          class="border-2"
+          class="input"
         />
       </div>
-      <div class="flex flex-col items-start">
-        <label>{{ $t('login.password') }}</label>
+
+      <div class="flex flex-col items-start w-full">
+        <p class="secondary">{{ $t('login.password') }}</p>
         <input
           type="password"
-          v-model="password"
-          class="border-2"
+          class="input"
         />
       </div>
-      <div class="flex flex-col items-center">
-        <button
-          class="border-2 hover:cursor-pointer"
-        >
+
+      <div class="flex flex-col items-center w-full">
+        <button class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition">
           {{ $t('login.submit') }}
         </button>
       </div>

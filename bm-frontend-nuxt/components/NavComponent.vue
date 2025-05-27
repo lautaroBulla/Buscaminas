@@ -24,15 +24,16 @@
 </script>
 
 <template>
-  <nav class="flex w-full py-4">
-    <div class="flex justify-start items-center pl-10 w-1/3">
+  <nav class="flex w-full py-4 ">
+    <div class="flex justify-start items-center space-x-5 pl-10 w-1/3">
       <button
         v-if="isMounted"
         @click="toggleDark"
-        class="border h-fit hover:cursor-pointer"
+        class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition"
       >
         {{ isDark ? 'Light' : 'Dark' }}
       </button>
+      <LanguageSelectorComponent />
     </div>
     <div class="flex justify-center w-1/3">
       <label class="text-5xl hover:cursor-pointer">
@@ -42,12 +43,12 @@
       </label>  
     </div>
     <div class="flex justify-end items-center space-x-5 pr-10 w-1/3">
-      <button class="border h-fit hover:cursor-pointer">
+      <button class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition">
         <NuxtLink to="/login">
           {{ $t('nav.register') }}
         </NuxtLink>
       </button>
-      <button class="border h-fit hover:cursor-pointer">
+      <button class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition">
         <NuxtLink to="/login">
           {{ $t('nav.login') }}
         </NuxtLink>
