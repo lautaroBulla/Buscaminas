@@ -23,7 +23,7 @@
       </div>
 
       <div class="flex flex-col items-center w-full">
-        <button class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition">
+        <button class="primary">
           {{ $t('login.submit') }}
         </button>
       </div>

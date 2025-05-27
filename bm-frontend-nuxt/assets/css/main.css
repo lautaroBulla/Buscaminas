@@ -42,7 +42,7 @@ body {
 
 .card {
   background-color: var(--color-secondary);
-  border: 3px solid var(--color-quaternary);
+  border: 3px solid var(--color-quinary);
 }
 
 h1, h2, h3 {
@@ -56,11 +56,25 @@ p.secondary {
 button.primary {
   background-color: var(--color-oct);
   color: var(--color-primary);
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+}
+
+button.primary:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 button.secondary {
-  background-color: var(--color-quinary);
+  background-color: var(--color-quaternary);
   color: var(--color-nonary);
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+}
+
+button.secondary:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .input {

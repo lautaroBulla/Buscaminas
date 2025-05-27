@@ -14,10 +14,10 @@
 </script>
 
 <template>
-  <div class="flex justify-end items-center pr-10">
+  <div class="flex items-center">
     <button
       @click="changeLanguage"
-      class="primary px-2 py-1 hover:cursor-pointer hover:brightness-110 transition flex items-center gap-x-2"
+      class="secondary flex items-center gap-x-2"
     >
       {{ $t('languageSelector.changeLanguage') }}
       <img :src="flagSrc" :alt="flagAlt"  />
