@@ -20,6 +20,10 @@
     "languageSelector": {
         "changeLanguage": "ES"
     },
+    "themeSelector": {
+        "light": "Light",
+        "dark": "Dark"
+    },
     "login": {
         "title": "Login",
         "username": "Username",

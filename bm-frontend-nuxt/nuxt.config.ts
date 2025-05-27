@@ -55,4 +55,9 @@ export default defineNuxtConfig({
       }
     }
   },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: '/api',
+    }
+  }
 })

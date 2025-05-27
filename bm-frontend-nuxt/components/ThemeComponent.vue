@@ -30,7 +30,7 @@
       @click="toggleDark"
       class="secondary"
     >
-      {{ isDark ? 'Light' : 'Dark' }}
+      {{ isDark ? $t(`themeSelector.${'light'}`) : $t(`themeSelector.${'dark'}`) }}
     </button>
   </div>
 </template>
