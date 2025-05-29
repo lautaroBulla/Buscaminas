@@ -37,11 +37,12 @@ export default defineNuxtConfig({
       proxy: {
         '/api': 
           { 
-            target: process.env.VITE_URL_BACKEND,
+            target: process.env.API_URL_BACKEND,
             changeOrigin: true,
             rewrite: path => path.replace(/^\/api/, ''),
             configure: (proxy, _options) => {
               proxy.on('error', (err, _req, _res) => {
+                console.log('UUUUUUUUUUURRRRRRRRRRRLLLLLLLLLL', process.env.API_URL_BACKEND);
                 console.log('proxy error', err);
               });
               proxy.on('proxyReq', (proxyReq, req, _res) => {

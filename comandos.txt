@@ -15,4 +15,4 @@ npx prisma migrate reset
 npx nest g resource auth
 
 //buen canal 
-Michael Guay 1:04:30
+Michael Guay

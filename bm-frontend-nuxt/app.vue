@@ -11,5 +11,7 @@
 </script>
 
 <template>
-  <NuxtLayout />
+  <UApp>
+    <NuxtLayout />
+  </UApp>
 </template>
