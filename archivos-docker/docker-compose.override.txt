@@ -7,7 +7,7 @@ services:
     working_dir: /app
     command: sh -c "npm install && npx nuxt dev --host 0.0.0.0 --port 5173"
     volumes:
-      - ./bm-frontend-nuxt:/app
+      - ./bm-frontend:/app
     ports:
       - "5173:5173"
     environment:

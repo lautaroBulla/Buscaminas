@@ -4,12 +4,12 @@ FROM node:20 AS builder
 WORKDIR /app
 
 # Copiar package.json y lockfile primero para aprovechar el cache
-COPY bm-frontend-nuxt/package*.json ./
+COPY bm-frontend/package*.json ./
 
 RUN npm install
 
 # Copiar el resto del código fuente
-COPY bm-frontend-nuxt .
+COPY bm-frontend .
 
 # Compilar la app para producción (SSR)
 RUN npm run build

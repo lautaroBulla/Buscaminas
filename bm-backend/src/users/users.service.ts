@@ -25,7 +25,7 @@ export class UsersService {
       throw new NotFoundException(`User with id ${id} not found`);
     }
 
-    const { password, refreshToken, ...result} = user;
+    const { id: _id, password, refreshToken, updatedAt, createdAt, ...result} = user;
 
     return result;
   } 

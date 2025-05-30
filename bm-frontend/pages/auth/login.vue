@@ -16,14 +16,18 @@
   const errorMessage = ref('');
   const errorUsername = ref('');
   const errorPassword = ref('');
+  const errors = ref<{ username?: string; password?: string }>({});
 
   const submit = async () => {
     errorMessage.value = '';
+    errors.value = {};
 
     const validation = schema.safeParse(credentials.value);
     if (!validation.success) {
-      console.error('Validation failed:', validation.error);
-      
+      validation.error.issues.forEach(err => {
+        const field = err.path[0] as keyof typeof errors.value;
+        errors.value[field] = err.message;
+      });
       return;
     }
 
@@ -37,9 +41,7 @@
 
 <template>
   <div class="flex items-center justify-center">
-    <form @submit.prevent="submit">
-
-      <div class="card flex flex-col items-center space-y-5 p-5">
+    <form @submit.prevent="submit" class="card flex flex-col items-center space-y-5 p-5 w-2/12 h-fit">
 
         <p v-if="errorMessage">{{ errorMessage }}</p>
 
@@ -50,6 +52,7 @@
             class="input"
             v-model="credentials.username"
           />
+          <p v-if="errors.username" class="text-sm">{{ errors.username }}</p>
         </div>
 
         <div class="flex flex-col items-start w-full">
@@ -59,6 +62,7 @@
             class="input"
             v-model="credentials.password"
           />
+          <p v-if="errors.password" class="text-sm">{{ errors.password }}</p>
         </div>
 
         <div class="flex flex-col items-center w-full">
@@ -66,8 +70,6 @@
             {{ $t('login.submit') }}
           </button>
         </div>
-
-      </div>
 
     </form>
   </div>
