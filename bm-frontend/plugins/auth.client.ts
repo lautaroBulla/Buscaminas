@@ -1,21 +1,12 @@
-type User = {
-  username: string
-}
+/*
+plugins.client son funcionalidades que se ejecutan una vez al inicio de la aplicación, del lado del cliente.
 
-export default defineNuxtPlugin(async (nuxtApp) => {
-  const user = useState<User | null>('user', () => null);
+Este plugin sirve para llamar la funcion getProfile de useAuth 
+que obtiene al informacion del usuario autenticado
+y la guarda en un estado global.
+*/
 
-  if (user.value === null) {
-    try {
-      const data = await $fetch<User>('/api/users/me', {
-        method: 'GET',
-        credentials: 'include'
-      })
-      user.value = data
-      console.log('User loaded from /users/me', user.value)
-    } catch (err) {
-      user.value = null
-      console.log('User not authenticated')
-    }
-  }
+export default defineNuxtPlugin(async () => {
+  const { getProfile } = useAuth()
+  await getProfile()
 })

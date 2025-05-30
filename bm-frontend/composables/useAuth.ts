@@ -1,6 +1,33 @@
+/*
+Este composable se encarga de la logica de authenticacion del lado del front
+
+se definen las variables globales de user y isAuthReady
+user guardara la infromacion del usuario
+mientras que isAuthReady se garantiza que el proceso de auth ya esta finalizado
+importante para mostrar luego la informacion en los componentes
+*/
+
+type User = {
+  username: string
+}
+
 export const useAuth = () => {
-  const conf = useRuntimeConfig()
-  const user = useState('user')
+  const user = useState<User | null>('user', () => null);
+  const isAuthReady = useState<boolean>('isAuthReady', () => false);
+  
+  const getProfile = async () => {
+    try {
+      const data = await $fetch<User>('/api/users/me', {
+          method: 'GET',
+          credentials: 'include'
+        })
+      user.value = data;
+    } catch (err) {
+      user.value = null;
+    } finally {
+      isAuthReady.value = true;
+    }
+  }
 
   const login = async (username: string, password: string) => {
     try {
@@ -9,9 +36,9 @@ export const useAuth = () => {
         body: {username, password},
         credentials: 'include'
       })
-      await getProfile()
+      await getProfile();
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -22,26 +49,16 @@ export const useAuth = () => {
         body: {username, password},
         credentials: 'include'
       })
-      await getProfile()
+      await getProfile();
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const getProfile = async () => {
-    try {
-      const data = await $fetch('/api/users/me', {
-        method: 'GET',
-        credentials: 'include'
-      })
-      user.value = data
-      console.log(user.value);
-    } catch (err) {
-      user.value = null
+      throw error;
     }
   }
 
   return {
+    user,
+    isAuthReady,
+    getProfile,
     login,
     register
   }

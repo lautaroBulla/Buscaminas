@@ -1,6 +1,10 @@
-# Verificar la inyeccion de sql
-# Crear el interceptor
-# Verificar los datos a mandar cuando se consulta la funcion me
-# generar midelwars para que si esta authenticado no pueda entrar a login
+PENDIENTE
+  # Verificar la inyeccion de sql
+  # Crear el interceptor
+  # Generar midelwars para que si esta authenticado no pueda entrar a login
 
-# Ver el tema de auth con Google
+PENDIENTE A FUTURO
+  # Ver el tema de auth con Google
+
+COMPLETADO
+  # Verificar los datos a mandar cuando se consulta la funcion me 
