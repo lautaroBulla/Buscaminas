@@ -2,9 +2,12 @@ PENDIENTE
   # Verificar la inyeccion de sql
   # Crear el interceptor
   # Generar midelwars para que si esta authenticado no pueda entrar a login
+  # Crear mensajes personalizados por idioma en los errores de login y register
+  # Crear otro input de password confirmation en la pantalla de register
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
 
 COMPLETADO
   # Verificar los datos a mandar cuando se consulta la funcion me 
+  # Crear la pagina de registro

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-  import { useAuth } from '~/composables/useAuth';
+  definePageMeta({
+    middleware: ['guest']
+  })
+
   import { z } from 'zod/v4';
 
   const { login } = useAuth();
@@ -13,9 +16,8 @@
     username: '',
     password: ''
   });
+
   const errorMessage = ref('');
-  const errorUsername = ref('');
-  const errorPassword = ref('');
   const errors = ref<{ username?: string; password?: string }>({});
 
   const submit = async () => {
@@ -33,8 +35,9 @@
 
     try {
       await login(credentials.value.username, credentials.value.password);
+      return navigateTo('/');
     } catch (error: any) {
-      errorMessage.value = error?.data?.message || 'Login failed. Please try again.';
+      errorMessage.value = error?.data?.message || 'Login failed., please try again';
     }
   };
 </script>

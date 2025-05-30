@@ -7,6 +7,6 @@ y la guarda en un estado global.
 */
 
 export default defineNuxtPlugin(async () => {
-  const { getProfile } = useAuth()
-  await getProfile()
-})
+  const { getProfile } = useAuth();
+  getProfile();
+});

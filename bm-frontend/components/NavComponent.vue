@@ -19,7 +19,7 @@
     <div class="flex justify-end items-center pr-10 w-1/3">
 
       <client-only>
-        <div v-if="isAuthReady && user === null" class="flex space-x-2">
+        <div v-if="isAuthReady && user === null" class="flex space-x-5">
           <button class="secondary">
             <NuxtLink to="/auth/login">
               {{ $t('nav.login') }}
