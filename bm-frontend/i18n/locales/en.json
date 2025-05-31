@@ -31,6 +31,7 @@
         "submit": "Login",
         "register": "Register",
         "show": "Show",
-        "hide": "Hide"
+        "hide": "Hide",
+        "failed": "Register failed, please try again"
     }
 }

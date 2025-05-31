@@ -2,7 +2,7 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { PrismaClientExceptionFilter } from './prisma-client-exception.filter';
+import { PrismaClientExceptionFilter } from './common/filters/prisma-client-exception.filter';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
@@ -13,6 +13,13 @@ async function bootstrap() {
   */
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
+    exceptionFactory: (errors) => {
+      // Obtiene el primer mensaje de error
+      const message = errors
+        .map(err => Object.values(err.constraints || {}))
+        .flat()[0] || 'Validation failed';
+      return new BadRequestException(message);
+    }
   }));
 
   /*

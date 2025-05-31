@@ -17,24 +17,22 @@
     </div>
 
     <div class="flex justify-end items-center pr-10 w-1/3">
-
-      <client-only>
-        <div v-if="isAuthReady && user === null" class="flex space-x-5">
-          <button class="secondary">
-            <NuxtLink to="/auth/login">
-              {{ $t('nav.login') }}
-            </NuxtLink>
-          </button>
-          <button class="primary">
-            <NuxtLink to="/auth/register">
-              {{ $t('nav.register') }}
-            </NuxtLink>
-          </button>
-        </div>
-        <div v-else-if="isAuthReady && user">
-          {{ user.username }}
-        </div>
-      </client-only>
+      
+      <div v-if="isAuthReady && user === null" class="flex space-x-5">
+        <button class="secondary">
+          <NuxtLink to="/auth/login">
+            {{ $t('nav.login') }}
+          </NuxtLink>
+        </button>
+        <button class="primary">
+          <NuxtLink to="/auth/register">
+            {{ $t('nav.register') }}
+          </NuxtLink>
+        </button>
+      </div>
+      <div v-else-if="isAuthReady && user">
+        {{ user.username }}
+      </div>
 
     </div>
 

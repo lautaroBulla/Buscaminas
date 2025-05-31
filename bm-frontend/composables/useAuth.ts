@@ -20,8 +20,8 @@ export const useAuth = () => {
   const getProfile = async () => {
     try {
       const data = await $customFetch<User>('/api/users/me', {
-          method: 'GET'
-        })
+        method: 'GET'
+      })
       user.value = data;
     } catch (err) {
       user.value = null;

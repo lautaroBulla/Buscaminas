@@ -58,7 +58,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBaseUrl: '/api',
+      apiBaseUrl: process.env.API_URL_BACKEND,
     }
   }
 })

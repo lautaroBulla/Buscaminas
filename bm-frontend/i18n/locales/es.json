@@ -31,6 +31,7 @@
         "submit": "Iniciar sesión",
         "register": "Registrarse",
         "show": "Mostrar",
-        "hide": "Ocultar"
+        "hide": "Ocultar",
+        "failed": "El registro fallo, pruebe de nuevo"
     }
 }

@@ -5,6 +5,8 @@
 
   import { z } from 'zod/v4';
 
+  const { locale, t } = useI18n();
+
   const { register } = useAuth();
 
   const schema = z.object({
@@ -39,8 +41,18 @@
       await register(credentials.value.username, credentials.value.password);
       return navigateTo('/');
     } catch(error: any) {
-      console.error('Registration error:', error?.data);
-      errorMessage.value = error?.data?.message || 'Register failed, please try again';
+      let msg = error?.data?.message; 
+      if (!msg) {
+        errorMessage.value = t('login.failed');
+      } else if (msg === 'password is not strong enough') {
+        if (locale.value === 'en') {
+          errorMessage.value = 'Password is not strong enough';
+        } else {
+          errorMessage.value = 'La contraseña es muy debil';
+        }
+      } else {
+        errorMessage.value = error?.data?.message;
+      } 
     }
   }
 

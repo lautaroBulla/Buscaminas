@@ -14,13 +14,11 @@
 
 <template>
   <div class="flex items-center">
-    <client-only>
       <button
         @click="toggleDark"
         class="secondary"
       >
         {{ capitalize(colorMode.value) }}
       </button>
-    </client-only>
   </div>
 </template>

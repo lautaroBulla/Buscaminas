@@ -17,7 +17,6 @@
 
 <template>
   <div class="flex items-center">
-    <client-only>
       <button
         @click="changeLanguage"
         class="secondary flex items-center gap-x-2"
@@ -25,6 +24,5 @@
         {{ $t('languageSelector.changeLanguage') }}
         <img :src="flagSrc" :alt="flagAlt"  />
       </button>
-    </client-only>
   </div>
 </template>
