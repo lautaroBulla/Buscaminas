@@ -1,16 +1,18 @@
 <script setup>
   import esFlag from '~/assets/img/es.png'
   import ukFlag from '~/assets/img/uk.png'
-  import { useI18n } from 'vue-i18n'
   
-  const { locale } = useI18n()
+  const localeState = useState('locale');
+
+  const { locale } = useI18n();
   
   function changeLanguage() {
-    locale.value = locale.value === 'en' ? 'es' : 'en'
+    locale.value = locale.value === 'en' ? 'es' : 'en';
+    localeState.value = locale.value;
   }
 
-  const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag))
-  const flagAlt = computed(() => (locale.value === 'en' ? 'Spanish' : 'English'))
+  const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag));
+  const flagAlt = computed(() => (locale.value === 'en' ? 'Spanish' : 'English'));
 </script>
 
 <template>

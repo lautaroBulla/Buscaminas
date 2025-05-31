@@ -14,12 +14,13 @@ type User = {
 export const useAuth = () => {
   const user = useState<User | null>('user', () => null);
   const isAuthReady = useState<boolean>('isAuthReady', () => false);
+
+  const { $customFetch } = useNuxtApp();
   
   const getProfile = async () => {
     try {
-      const data = await $fetch<User>('/api/users/me', {
-          method: 'GET',
-          credentials: 'include'
+      const data = await $customFetch<User>('/api/users/me', {
+          method: 'GET'
         })
       user.value = data;
     } catch (err) {
@@ -31,10 +32,9 @@ export const useAuth = () => {
 
   const login = async (username: string, password: string) => {
     try {
-      await $fetch('/api/auth/login', {
+      await $customFetch('/api/auth/login', {
         method: 'POST',
-        body: {username, password},
-        credentials: 'include'
+        body: {username, password}
       })
       await getProfile();
     } catch (error) {
@@ -44,10 +44,9 @@ export const useAuth = () => {
 
   const register = async (username: string, password: string) => {
     try {
-      await $fetch('/api/auth/register', {
+      await $customFetch('/api/auth/register', {
         method: 'POST',
-        body: {username, password},
-        credentials: 'include'
+        body: {username, password}
       })
       await getProfile();
     } catch (error) {

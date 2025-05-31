@@ -1,0 +1,11 @@
+{
+  "validation": {
+    "username": {
+      "isString": "El nombre de usuario debe ser un texto.",
+      "isNotEmpty": "El nombre de usuario es obligatorio."
+    },
+    "password": {
+      "isStrongPassword": "La contraseña es demasiado débil."
+    }
+  }
+}

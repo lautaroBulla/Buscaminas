@@ -1,17 +1,23 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { PrismaClientExceptionFilter } from 'nestjs-prisma';
+import { PrismaClientExceptionFilter } from './prisma-client-exception.filter';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
+  /*
+    Se usa el ValidationPipe para validar los DTOs
+  */
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
   }));
 
+  /*
+  Esto crea swagger, obtenido directamente de la documentacion
+  */
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
@@ -21,8 +27,8 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  const { httpAdapter } = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+  const httpAdapterHost = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapterHost));
 
   app.use(cookieParser());
 

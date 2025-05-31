@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Res, Body } from '@nestjs/common';
+import { Controller, Post, UseGuards, Res, Body, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBody } from '@nestjs/swagger';
 import { LoginDto } from './dto/login-dto.sto';
@@ -18,7 +18,8 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   async login(
     @CurrentUser() user: User,
-    @Res({ passthrough: true }) response: Response
+    @Res({ passthrough: true }) response: Response,
+    @Headers('language') lang: string
   ) {
     await this.authService.login(user, response);
   }

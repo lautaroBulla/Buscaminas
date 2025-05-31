@@ -29,6 +29,8 @@
         "username": "Username",
         "password": "Password",
         "submit": "Login",
-        "register": "Register"
+        "register": "Register",
+        "show": "Show",
+        "hide": "Hide"
     }
 }

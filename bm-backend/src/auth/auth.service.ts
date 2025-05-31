@@ -18,7 +18,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, password: string) {
+  async validateUser(username: string, password: string, lang: string) {
     try {
       const user = await this.userService.findOneUsername(username);
       const authenticated = await compare(password, user.password);
@@ -29,7 +29,11 @@ export class AuthService {
 
       return user;
     } catch(e) {
-      throw new UnauthorizedException('Credentials are not valid');
+      if (lang === 'en') {
+        throw new UnauthorizedException('Credentials are not valid');
+      } else if (lang === 'es') {
+        throw new UnauthorizedException('Las credenciales no son validas');
+      }
     }
   }
 

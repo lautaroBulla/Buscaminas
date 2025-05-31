@@ -20,6 +20,8 @@
   const errorMessage = ref('');
   const errors = ref<{username?: string, password?: string}>({});
 
+  const showPassword = ref(false);
+
   const submit = async () => {
     errorMessage.value = '';
     errors.value = {};
@@ -37,7 +39,18 @@
       await register(credentials.value.username, credentials.value.password);
       return navigateTo('/');
     } catch(error: any) {
+      console.error('Registration error:', error?.data);
       errorMessage.value = error?.data?.message || 'Register failed, please try again';
+    }
+  }
+
+  const changePassword = () => {
+    if (credentials.value.password) {
+      const toggleShow = document.getElementById('toggleShow');
+      toggleShow?.classList.remove('hidden');
+    } else {
+      const toggleShow = document.getElementById('toggleShow');
+      toggleShow?.classList.add('hidden');
     }
   }
 </script>
@@ -60,11 +73,22 @@
 
         <div class="flex flex-col items-start w-full">
           <p class="secondary">{{ $t('login.password') }}</p>
-          <input
-            type="password"
-            class="input"
-            v-model="credentials.password"
-          />
+          <div class="relative w-full">
+            <input
+              :type="showPassword ? 'text' : 'password'"
+              class="input w-full pr-10"
+              v-model="credentials.password"
+              @input="changePassword"
+            />
+            <button
+              type="button"
+              id="toggleShow"
+              class="hidden absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer hover:opacity-80"
+              @click="showPassword = !showPassword"
+            >
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
           <p v-if="errors.password" class="text-sm">{{ errors.password }}</p>
         </div>
 
