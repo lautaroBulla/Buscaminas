@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const { user, isAuthReady } = useAuth();
+  const { user, isAuthReady } = useAuth()
 </script>
 
 <template>
@@ -17,8 +17,15 @@
     </div>
 
     <div class="flex justify-end items-center pr-10 w-1/3">
-      
-      <div v-if="isAuthReady && user === null" class="flex space-x-5">
+      <div v-if="isAuthReady === false" class="flex space-x-5 items-center">
+        <p>...</p>
+      </div>
+      <div v-else-if="user && isAuthReady === true">
+        <p>
+          {{ user.username }}
+        </p>
+      </div>
+      <div v-else class="flex space-x-5">
         <button class="secondary">
           <NuxtLink to="/auth/login">
             {{ $t('nav.login') }}
@@ -29,9 +36,6 @@
             {{ $t('nav.register') }}
           </NuxtLink>
         </button>
-      </div>
-      <div v-else-if="isAuthReady && user">
-        {{ user.username }}
       </div>
 
     </div>

@@ -1,7 +1,10 @@
+import { FetchOptions } from 'ofetch'
+
 declare module '#app' {
   interface NuxtApp {
-    $customFetch: typeof $fetch
+    $apiFetch<T = any>(request: string, options?: FetchOptions): Promise<T>
   }
 }
 
 export {}
+

@@ -4,6 +4,7 @@ PENDIENTE
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
+  # Crear mina armandose para el loader
 
 COMPLETADO
   # Verificar los datos a mandar cuando se consulta la funcion me 
