@@ -8,7 +8,6 @@
 
 <template>
 	<button 
-		class="border"
 		@click="restartGame"
 	>
 		R

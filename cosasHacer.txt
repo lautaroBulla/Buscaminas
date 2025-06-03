@@ -1,6 +1,8 @@
 PENDIENTE
-  # Verificar la inyeccion de sql
-  # Crear el interceptor
+  # Diseño de los botones en SelectoDifficulty
+  # Diseño del board, cells y demas
+  # Asegurarme que sea responsive
+  # Realizar toda la logica de los rankings
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
@@ -11,3 +13,5 @@ COMPLETADO
   # Crear la pagina de registro
   # Generar midelwars para que si esta authenticado no pueda entrar a login
   # Crear mensajes personalizados por idioma en los errores de login y register
+  # Crear el interceptor
+  # Verificar la inyeccion de sql

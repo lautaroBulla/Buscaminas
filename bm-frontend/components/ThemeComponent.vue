@@ -1,10 +1,12 @@
 <script setup lang="ts">
-  import { useColorMode } from '#imports'
+  import { useColorMode } from '#imports';
 
-  const colorMode = useColorMode()
+  const colorMode = useColorMode();
+  const isDark = ref(colorMode.value === 'dark');
 
   const toggleDark = (): void => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+    isDark.value = !isDark.value;
   }
 
   function capitalize(str: string) {
@@ -18,7 +20,7 @@
         @click="toggleDark"
         class="secondary"
       >
-        {{ capitalize(colorMode.value) }}
+        {{ isDark ? 'Light' : 'Dark' }}	
       </button>
   </div>
 </template>

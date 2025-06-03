@@ -14,15 +14,21 @@
 </script>
 
 <template>
-  <div class="flex justify-between">
-    <RemainingMinesComponent
-      :remainingMines="remainingMines"
-    />
-    <ResetComponent
-      @restart-game="$emit('comp-restart-game')"
-    />
-    <TimerComponent
-      :seconds="seconds"
-    />
+  <div class="flex flex-row items-center header">
+    <div class="flex justify-start w-1/3 m-1">
+      <RemainingMinesComponent
+        :remainingMines="remainingMines"
+      />
+    </div>
+    <div class="flex justify-center w-1/3 m-1">
+      <ResetComponent
+        @restart-game="$emit('comp-restart-game')"
+      />
+    </div>
+    <div class="flex justify-end w-1/3 m-1">
+      <TimerComponent
+        :seconds="seconds"
+      />
+    </div>
   </div>
 </template>

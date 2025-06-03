@@ -10,14 +10,19 @@
 
   // se definen dos emits, uno para la dificultad y otro para los valores personalizados
   const emit = defineEmits(['update:modelValue', 'update:customValues']);
+  const customRows = ref(null);
+  const customCols = ref(null);
+  const customMines = ref(null);
 
   function selectDifficulty(difficulty) {
+    if (difficulty === 'custom') {
+      customRows.value = null;
+      customCols.value = null;
+      customMines.value = null;
+    }
     emit('update:modelValue', difficulty)
   }
 
-  const customRows = ref(9);
-  const customCols = ref(9);
-  const customMines = ref(10);
 
   const maxMines = computed(() => Math.floor((customRows.value * customCols.value) / 3))
   const minRowsAndCols = 5;
@@ -55,57 +60,67 @@
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <div class="flex flex-row">
+  <div class="flex flex-col space-y-2">
+    <div class="flex flex-row justify-center space-x-4">
       <button
         v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']"
         :key="difficulty"
         @click="selectDifficulty(difficulty)"
-        class="px-4"
+        class="text"
         :class="{
-        'underline': modelValue === difficulty
+          'underline': modelValue === difficulty
         }"
       >
         {{ $t(`difficultySelector.${difficulty}`) }}
       </button>
+      <span class="text">|</span>
+      <button
+        @click="emit('viewSettings')"
+        class="text"
+      >
+        {{ $t('gameSettings.setting') }}
+      </button>
     </div>
     <div 
       v-if="modelValue == 'custom'" 
-      class="flex flex-row gap-x-2"
+      class="flex flex-row space-x-4"
     >
-      <div class="flex">
-        <label>Filas:</label>
+      <div class="flex flex-row space-x-2">
+        <p class="secondary">Filas:</p>
         <input 
           v-model.number="customRows"
           :min="minRowsAndCols"
           :max="maxRowsAndCols"
-          type="number" class="border w-[50px]"
+          type="number" 
+          class="inputCustom"
         >
         </input>
       </div>
-      <div class="flex">
-        <label>Columnas:</label>
+      <div class="flex flex-row space-x-2">
+        <p class="secondary">Columnas:</p>
         <input 
           v-model.number="customCols"
           :min="minRowsAndCols"
           :max="maxRowsAndCols"
-          type="number" class="border w-[50px]"
+          type="number" 
+          class="inputCustom"
         >
         </input>
       </div>
-      <div class="flex">
-        <label>Minas:</label>
+      <div class="flex flex-row space-x-2">
+        <p class="secondary">Minas:</p>
         <input 
           v-model.number="customMines"
           :min="1"
           :max="maxMines"
-          type="number" class="border w-[50px]"
+          type="number" 
+          class="inputCustom"
         >
         </input>
       </div>
       <button
         @click="customVlues()" 
-        class="border hover:cursor-pointer"
+        class="text"
       >
         Actualizar
       </button>

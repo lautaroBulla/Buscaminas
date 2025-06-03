@@ -6,9 +6,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxtjs/color-mode'],
+
   colorMode: {
-    classSuffix: '', // <– esto es importante para usar solo "dark" y no "dark-mode"
+    classSuffix: '',
+    preference: 'dark', 
+    fallback: 'light', 
+    storageKey: 'nuxt-color-mode', 
+    storage: 'cookie'
   },
+
   i18n: {
     lazy: true,
     langDir: 'locales',
@@ -26,6 +32,7 @@ export default defineNuxtConfig({
       redirectOn: 'root' 
     }
   },
+
   vite: {
     plugins: [
       tailwindcss()
@@ -56,6 +63,7 @@ export default defineNuxtConfig({
       }
     }
   },
+  
   runtimeConfig: {
     jwtSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,

@@ -78,28 +78,25 @@
       <DifficultySelectorComponent
         v-model="difficulty"
         @update:customValues="setCustomValues"
+        @viewSettings="viewSettingComponent"
       />
-      <button
-        @click="viewSettingComponent"
-      >
-        {{ $t('gameSettings.setting') }}
-      </button>
     </div>
-
-    <div class="border">
-      <HeaderComponent
-        :remainingMines="remainingMines"
-        :seconds="seconds"
-        @comp-restart-game="resetGame()"
-      />
-      <BoardComponent 
-        :board="board"
-        :revealed="revealed"
-        :flags="flags"
-        :interrogations="interrogationsActivated ? interrogations : null"
-        @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
-        @cell-right-click="({row, col}) => rightClick(row, col)"
-      />
+    <div class="board-border">
+      <div class="board">
+        <HeaderComponent
+          :remainingMines="remainingMines"
+          :seconds="seconds"
+          @comp-restart-game="resetGame()"
+        />
+        <BoardComponent 
+          :board="board"
+          :revealed="revealed"
+          :flags="flags"
+          :interrogations="interrogationsActivated ? interrogations : null"
+          @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
+          @cell-right-click="({row, col}) => rightClick(row, col)"
+        />
+      </div>
     </div>
   </div>
 

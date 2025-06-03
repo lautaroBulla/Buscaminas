@@ -77,9 +77,204 @@ button.secondary:hover {
   cursor: pointer;
 }
 
+button.text:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 .input {
   border: 2px solid var(--color-quinary);
   background-color: var(--color-primary);
   color: var(--color-nonary);
   width: 100%;
 }
+
+.input {
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-primary);
+  color: var(--color-nonary);
+  width: 100%;
+}
+
+.inputCustom {
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-primary);
+  color: var(--color-nonary);
+  text-align: center;
+  width: 50px;
+}
+
+.board-border {
+  border-top: 5px solid #dee2e6;  
+  border-left: 5px solid #dee2e6;    
+  border-bottom: 5px solid #495057;        
+  border-right: 5px solid #495057; 
+}
+
+.board {
+  border: 10px solid #adb5bd;
+  display: inline-block;
+}
+
+.header {
+  border-top: 4px solid #495057;        
+  border-left: 4px solid #495057; 
+  border-bottom: 4px solid #dee2e6;  
+  border-right: 4px solid #dee2e6;    
+  background-color: #adb5bd;
+}
+
+.numbers-panel {
+  border-top: 2px solid #495057;        
+  border-left: 2px solid #495057; 
+  border-bottom: 2px solid #dee2e6;  
+  border-right: 2px solid #dee2e6;  
+  background-color: #000;
+  display: flex;
+  gap: 3px;
+  padding: 2px;
+}
+
+.seven-segment {
+  display: inline-flex;
+  position: relative;
+  width: 17.875px; 
+  height: 34.125px;
+}
+
+.segment {
+  position: absolute;
+  background: rgba(255, 0, 0, 0.2);
+  transition: background 0.2s;
+}
+
+/* Segment sizes */
+.segment.a, .segment.d, .segment.g {
+  width: 17.875px;
+  height: 4.095px;
+}
+
+.segment.b, .segment.c, .segment.e, .segment.f {
+  width: 4.095px;
+  height: 17.875px;
+}
+
+/* Segment positions */
+.segment.a { top: 0; 
+  clip-path: polygon(
+    5% 0%,      /* izquierda arriba */
+    95% 0%,    /* derecha arriba */
+    73% 100%,  /* derecha abajo */
+    25% 100%     /* izquierda abajo */
+  );
+}
+.segment.b { top: 0px; right: 0;
+  clip-path: polygon(
+    0% 27%,      /* izquierda arriba */
+    100% 5%,    /* derecha arriba */
+    100% 95%,  /* derecha abajo */
+    0% 75%     /* izquierda abajo */
+  );
+}
+.segment.c { bottom: 0; right: 0; 
+  clip-path: polygon(
+    0% 25%,      /* izquierda arriba */
+    100% 5%,    /* derecha arriba */
+    100% 95%,  /* derecha abajo */
+    0% 73%     /* izquierda abajo */
+  );
+}
+.segment.d { bottom: 0; 
+  clip-path: polygon(
+    27% 0%,      /* izquierda arriba */
+    73% 0%,    /* derecha arriba */
+    95% 100%,  /* derecha abajo */
+    5% 100%     /* izquierda abajo */
+  );
+}
+.segment.e { bottom: 0; left: 0; 
+  clip-path: polygon(
+    0% 5%,      /* izquierda arriba */
+    100% 25%,    /* derecha arriba */
+    100% 73%,  /* derecha abajo */
+    0% 95%     /* izquierda abajo */
+  );
+}
+.segment.f { top: 0; left: 0;
+  clip-path: polygon(
+    0% 5%,      /* izquierda arriba */
+    100% 27%,    /* derecha arriba */
+    100% 75%,  /* derecha abajo */
+    0% 95%     /* izquierda abajo */
+  );
+}
+.segment.g { top: 50%; left: 0; transform: translateY(-50%); 
+  clip-path: polygon(
+    25% 0%,   /* punto arriba izquierda */
+    75% 0%,   /* punto arriba derecha */
+    95% 50%, /* punto en el centro derecha */
+    75% 100%, /* punto abajo derecha */
+    25% 100%, /* punto abajo izquierda */
+    5% 50%    /* punto en el centro izquierda */
+  );
+}
+
+/* Active segments per digit */
+.seven-segment[data-digit="0"] .segment.a,
+.seven-segment[data-digit="0"] .segment.b,
+.seven-segment[data-digit="0"] .segment.c,
+.seven-segment[data-digit="0"] .segment.d,
+.seven-segment[data-digit="0"] .segment.e,
+.seven-segment[data-digit="0"] .segment.f { background: red; }
+
+.seven-segment[data-digit="1"] .segment.b,
+.seven-segment[data-digit="1"] .segment.c { background: red; }
+
+.seven-segment[data-digit="2"] .segment.a,
+.seven-segment[data-digit="2"] .segment.b,
+.seven-segment[data-digit="2"] .segment.g,
+.seven-segment[data-digit="2"] .segment.e,
+.seven-segment[data-digit="2"] .segment.d { background: red; }
+
+.seven-segment[data-digit="3"] .segment.a,
+.seven-segment[data-digit="3"] .segment.b,
+.seven-segment[data-digit="3"] .segment.g,
+.seven-segment[data-digit="3"] .segment.c,
+.seven-segment[data-digit="3"] .segment.d { background: red; }
+
+.seven-segment[data-digit="4"] .segment.f,
+.seven-segment[data-digit="4"] .segment.g,
+.seven-segment[data-digit="4"] .segment.b,
+.seven-segment[data-digit="4"] .segment.c { background: red; }
+
+.seven-segment[data-digit="5"] .segment.a,
+.seven-segment[data-digit="5"] .segment.f,
+.seven-segment[data-digit="5"] .segment.g,
+.seven-segment[data-digit="5"] .segment.c,
+.seven-segment[data-digit="5"] .segment.d { background: red; }
+
+.seven-segment[data-digit="6"] .segment.a,
+.seven-segment[data-digit="6"] .segment.f,
+.seven-segment[data-digit="6"] .segment.g,
+.seven-segment[data-digit="6"] .segment.e,
+.seven-segment[data-digit="6"] .segment.c,
+.seven-segment[data-digit="6"] .segment.d { background: red; }
+
+.seven-segment[data-digit="7"] .segment.a,
+.seven-segment[data-digit="7"] .segment.b,
+.seven-segment[data-digit="7"] .segment.c { background: red; }
+
+.seven-segment[data-digit="8"] .segment.a,
+.seven-segment[data-digit="8"] .segment.b,
+.seven-segment[data-digit="8"] .segment.c,
+.seven-segment[data-digit="8"] .segment.d,
+.seven-segment[data-digit="8"] .segment.e,
+.seven-segment[data-digit="8"] .segment.f,
+.seven-segment[data-digit="8"] .segment.g { background: red; }
+
+.seven-segment[data-digit="9"] .segment.a,
+.seven-segment[data-digit="9"] .segment.b,
+.seven-segment[data-digit="9"] .segment.c,
+.seven-segment[data-digit="9"] .segment.d,
+.seven-segment[data-digit="9"] .segment.f,
+.seven-segment[data-digit="9"] .segment.g { background: red; }
