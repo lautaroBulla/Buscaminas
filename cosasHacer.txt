@@ -3,6 +3,7 @@ PENDIENTE
   # Diseño del board, cells y demas
   # Asegurarme que sea responsive
   # Realizar toda la logica de los rankings
+  # Ver si le puedo meter themas al tablero
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google

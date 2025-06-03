@@ -324,3 +324,23 @@ button.text:hover {
   border-right: 3px solid #495057;
   background-color: #adb5bd;
 }
+
+.cell:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.symbol {
+  width: 16px;
+  height: 16px;
+}
+
+.reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background-color: #adb5bd;
+  border: 1px solid #495057;
+}

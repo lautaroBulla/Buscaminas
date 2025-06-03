@@ -42,30 +42,53 @@
 <template>
     <div
       :key="`${cell.row}-${cell.col}`"
-      class="cell hover:cursor-pointer"
-      :class="reveal ? 'bg-gray-200' : 'bg-gray-400'"
+      :class="reveal ? 'reveal' : 'cell'"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
     >
-      <span 
-        v-if="reveal"
-        class="text-red-500"
-      >
-        {{ cell }}
+      <span v-if="reveal">
+        <span v-if="cell === 1">
+          <img src="~/assets/img/one.png" alt="One" class="symbol"/>      
+        </span>
+        <span v-else-if="cell === 2">
+          <img src="~/assets/img/two.png" alt="Two" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 3">
+          <img src="~/assets/img/three.png" alt="Three" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 4">
+          <img src="~/assets/img/four.png" alt="Four" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 5">
+          <img src="~/assets/img/five.png" alt="Five" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 6">
+          <img src="~/assets/img/six.png" alt="Six" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 7">
+          <img src="~/assets/img/seven.png" alt="Seven" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 8">
+          <img src="~/assets/img/eight.png" alt="Eight" class="symbol"/>
+        </span>
+        <span v-else-if="cell === 'M'">
+          <img src="~/assets/img/mine.png" alt="Mine" class="symbol"/>
+        </span>
       </span> 
+
       <span v-else>
         <span 
           v-if="flag"
-          class="text-red-500"
         >
-          F
+          <img src="~/assets/img/flag.png" alt="Flag" class="symbol" />
         </span> 
+
         <span 
           v-else-if="interrogation"
-          class="text-red-500"
         >
-          ?
+          <img src="~/assets/img/interrogation.png" alt="Interrogation" class="symbol" />
         </span> 
       </span>
+      
     </div>
 </template>

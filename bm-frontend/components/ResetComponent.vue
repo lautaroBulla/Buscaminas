@@ -13,7 +13,7 @@
 				@click="restartGame"
 			>
 				<img 
-					src="~/assets/img/carita.png" 
+					src="~/assets/img/face.png" 
 					alt="Restart Game" 
 					class="face"
 				/>
