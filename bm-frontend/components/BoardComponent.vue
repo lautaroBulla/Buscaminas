@@ -40,7 +40,13 @@
 </script>
 
 <template>
-	<div :style="{ display: 'grid', gridTemplateColumns: `repeat(${board[0]?.length || 0}, 30px)` }">
+	<div 
+		:style="{ 
+			display: 'grid', 
+			gridTemplateColumns: `repeat(${board[0]?.length || 0}, 25px)`
+		}"
+		class="board-border-internal"
+	>
 		<CellComponent
 			v-for="(cell, index) in flatBoard"
 			:cell="cell.value"
@@ -52,5 +58,5 @@
 			@left-click="$emit('cell-left-click', $event)"
 			@rigth-click="$emit('cell-right-click', $event)"
 		/>
-  </div>
+	</div>
 </template>

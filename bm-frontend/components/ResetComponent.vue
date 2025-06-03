@@ -7,9 +7,17 @@
 </script>
 
 <template>
-	<button 
-		@click="restartGame"
-	>
-		R
-	</button>
+	<div class="reset-border">
+		<div class="reset">
+			<button 
+				@click="restartGame"
+			>
+				<img 
+					src="~/assets/img/carita.png" 
+					alt="Restart Game" 
+					class="face"
+				/>
+			</button>
+		</div>
+	</div>
 </template>

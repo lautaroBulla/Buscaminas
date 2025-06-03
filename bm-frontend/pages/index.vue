@@ -88,6 +88,7 @@
           :seconds="seconds"
           @comp-restart-game="resetGame()"
         />
+        <div class="separator-line"></div>
         <BoardComponent 
           :board="board"
           :revealed="revealed"

@@ -42,7 +42,7 @@
 <template>
     <div
       :key="`${cell.row}-${cell.col}`"
-      class="border w-[30px] h-[30px] border-gray-500 flex items-center justify-center hover:cursor-pointer"
+      class="cell hover:cursor-pointer"
       :class="reveal ? 'bg-gray-200' : 'bg-gray-400'"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
