@@ -6,9 +6,13 @@
     },
     "difficultySelector": {
         "easy": "Principiante",
+        "easyTitle": "Tablero 9x9, 10 minas",
         "intermediate": "Intermedio",
+        "intermediateTitle": "Tablero 16x16, 40 minas",
         "expert": "Experto",
-        "custom": "Personalizado"
+        "expertTitle": "Tablero 30x16, 99 minas",
+        "custom": "Personalizado",
+        "customTitle": "Tamaño de tablero y minas personalizados"
     },
     "gameSettings": {
         "setting": "Configuraciones",
@@ -18,11 +22,13 @@
         "interrogations": "Símbolos '?' activados en la partida"
     },
     "languageSelector": {
-        "changeLanguage": "EN"
+        "changeLanguage": "EN",
+        "changeLanguageTitle": "Cambiar idioma a Inglés"
     },
     "themeSelector": {
         "light": "Claro",
-        "dark": "Oscuro"
+        "dark": "Oscuro",
+        "themeSelectorTitle": "Cambiar tema"
     },  
     "login": {
         "title": "Iniciar sesión",

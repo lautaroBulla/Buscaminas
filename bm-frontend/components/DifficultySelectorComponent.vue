@@ -1,6 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue';
-
+  
   defineProps({
     modelValue: {
       type: String,
@@ -70,60 +70,65 @@
         :class="{
           'underline': modelValue === difficulty
         }"
+        :title="$t(`difficultySelector.${difficulty}Title`)"
       >
         {{ $t(`difficultySelector.${difficulty}`) }}
       </button>
-      <span class="text">|</span>
-      <button
+      <!-- <button
         @click="emit('viewSettings')"
         class="text"
       >
         {{ $t('gameSettings.setting') }}
-      </button>
+      </button> -->
     </div>
     <div 
       v-if="modelValue == 'custom'" 
-      class="flex flex-row space-x-4"
+      class="border-t border-t-quinary"
     >
-      <div class="flex flex-row space-x-2">
-        <p class="secondary">Filas:</p>
-        <input 
-          v-model.number="customRows"
-          :min="minRowsAndCols"
-          :max="maxRowsAndCols"
-          type="number" 
-          class="inputCustom"
+      <div class="flex flex-row space-x-4 pt-2">
+
+        <div class="flex flex-row space-x-2">
+          <p class="secondary">Filas:</p>
+          <input 
+            v-model.number="customRows"
+            :min="minRowsAndCols"
+            :max="maxRowsAndCols"
+            type="number" 
+            class="inputCustom"
+          >
+          </input>
+        </div>
+        <div class="flex flex-row space-x-2">
+          <p class="secondary">Columnas:</p>
+          <input 
+            v-model.number="customCols"
+            :min="minRowsAndCols"
+            :max="maxRowsAndCols"
+            type="number" 
+            class="inputCustom"
+          >
+          </input>
+        </div>
+        <div class="flex flex-row space-x-2">
+          <p class="secondary">Minas:</p>
+          <input 
+            v-model.number="customMines"
+            :min="1"
+            :max="maxMines"
+            type="number" 
+            class="inputCustom"
+          >
+          </input>
+        </div>
+        <button
+          @click="customVlues()" 
+          class="text"
         >
-        </input>
+          Actualizar
+        </button>
+
       </div>
-      <div class="flex flex-row space-x-2">
-        <p class="secondary">Columnas:</p>
-        <input 
-          v-model.number="customCols"
-          :min="minRowsAndCols"
-          :max="maxRowsAndCols"
-          type="number" 
-          class="inputCustom"
-        >
-        </input>
-      </div>
-      <div class="flex flex-row space-x-2">
-        <p class="secondary">Minas:</p>
-        <input 
-          v-model.number="customMines"
-          :min="1"
-          :max="maxMines"
-          type="number" 
-          class="inputCustom"
-        >
-        </input>
-      </div>
-      <button
-        @click="customVlues()" 
-        class="text"
-      >
-        Actualizar
-      </button>
+
     </div>
   </div>
 </template>

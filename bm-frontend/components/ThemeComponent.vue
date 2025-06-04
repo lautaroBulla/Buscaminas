@@ -19,6 +19,7 @@
       <button
         @click="toggleDark"
         class="secondary"
+        :title="$t('themeSelector.themeSelectorTitle')"
       >
         {{ isDark ? 'Light' : 'Dark' }}	
       </button>

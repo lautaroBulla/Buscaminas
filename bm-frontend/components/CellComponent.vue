@@ -51,49 +51,18 @@
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
     >
-      <span v-if="reveal">
-        <span v-if="cell === 1">
-          <img src="~/assets/img/one.png" alt="One" class="symbol"/>      
-        </span>
-        <span v-else-if="cell === 2">
-          <img src="~/assets/img/two.png" alt="Two" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 3">
-          <img src="~/assets/img/three.png" alt="Three" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 4">
-          <img src="~/assets/img/four.png" alt="Four" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 5">
-          <img src="~/assets/img/five.png" alt="Five" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 6">
-          <img src="~/assets/img/six.png" alt="Six" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 7">
-          <img src="~/assets/img/seven.png" alt="Seven" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 8">
-          <img src="~/assets/img/eight.png" alt="Eight" class="symbol"/>
-        </span>
-        <span v-else-if="cell === 'M'">
-          <img src="~/assets/img/mine.png" alt="Mine" class="symbol" />
-        </span>
-      </span> 
+      <img v-if="reveal && cell === 1" src="~/assets/img/one.png" alt="One" />
+      <img v-else-if="reveal && cell === 2" src="~/assets/img/two.png" alt="Two" />
+      <img v-else-if="reveal && cell === 3" src="~/assets/img/three.png" alt="Three" />
+      <img v-else-if="reveal && cell === 4" src="~/assets/img/four.png" alt="Four" />
+      <img v-else-if="reveal && cell === 5" src="~/assets/img/five.png" alt="Five" />
+      <img v-else-if="reveal && cell === 6" src="~/assets/img/six.png" alt="Six" />
+      <img v-else-if="reveal && cell === 7" src="~/assets/img/seven.png" alt="Seven" />
+      <img v-else-if="reveal && cell === 8" src="~/assets/img/eight.png" alt="Eight" />
+      <img v-else-if="reveal && cell === 'M'" src="~/assets/img/mine.png" alt="Mine" />
 
-      <span v-else>
-        <span 
-          v-if="flag"
-        >
-          <img src="~/assets/img/flag.png" alt="Flag" class="symbol" />
-        </span> 
-
-        <span 
-          v-else-if="interrogation"
-        >
-          <img src="~/assets/img/interrogation.png" alt="Interrogation" class="symbol" />
-        </span> 
-      </span>
-      
+      <!-- Si no revelada -->
+      <img v-else-if="flag" src="~/assets/img/flag.png" alt="Flag" />
+      <img v-else-if="interrogation" src="~/assets/img/interrogation.png" alt="Interrogation" />  
     </div>
 </template>

@@ -5,10 +5,14 @@
         "register": "Register"
     },
     "difficultySelector": {
-        "easy": "Begginer",
+        "easy": "Beginner",
+        "easyTitle": "Board 9x9, 10 mines",
         "intermediate": "Intermediate",
+        "intermediateTitle": "Board 16x16, 40 mines",
         "expert": "Expert",
-        "custom": "Custom"
+        "expertTitle": "Board 30x16, 99 mines",
+        "custom": "Custom",
+        "customTitle": "Custom board size and mines"
     },
     "gameSettings": {
         "setting": "Settings",
@@ -18,11 +22,13 @@
         "interrogations": "'?' symbols enabled in the game"
     },
     "languageSelector": {
-        "changeLanguage": "ES"
+        "changeLanguage": "ES",
+        "changeLanguageTitle": "Change language to Spanish"
     },
     "themeSelector": {
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "themeSelectorTitle": "Change theme"
     },
     "login": {
         "title": "Login",

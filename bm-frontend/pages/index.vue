@@ -2,6 +2,8 @@
   import { ref, watch, computed } from 'vue';
   import { useMinesweeper } from '~/composables/useMinesweeper';
 
+  const { isMobile } = useIsMobile();
+  
   // Obtengo todas lasvariables de composable useMinesweeper
   const {
     rows,
@@ -36,7 +38,17 @@
         case "intermediate":
           rows.value = 16; cols.value = 16; mines.value = 40; resetGame(); break;
         case "expert":
-          rows.value = 16; cols.value = 30; mines.value = 99; resetGame(); break;
+          if (isMobile.value) {         
+            rows.value = 30; 
+            cols.value = 16; 
+            mines.value = 99; 
+          } else {
+            rows.value = 16; 
+            cols.value = 30; 
+            mines.value = 99; 
+          }
+          resetGame(); 
+          break;
       }
     }
   })
@@ -74,7 +86,7 @@
 
 <template>
     
-  <div class="flex flex-col items-center gap-y-4">
+  <div class="flex flex-col items-center gap-y-4 p-1">
     <div class="flex flex-row gap-x-4">
       <DifficultySelectorComponent
         v-model="difficulty"
@@ -110,7 +122,7 @@
     @close="viewGameFinish"
   />
 
-  <SettingsComponent
+  <SettingsModal
     v-if="modalSettingsComponent"
     :firstClickZero="firstClickZero"
     :interrogationsActivated="interrogationsActivated"

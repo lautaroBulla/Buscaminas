@@ -107,7 +107,7 @@
     @close="viewGameFinish"
   />
 
-  <SettingsComponent
+  <SettingsModal
     v-if="modalSettingsComponent"
     :firstClickZero="firstClickZero"
     :interrogationsActivated="interrogationsActivated"

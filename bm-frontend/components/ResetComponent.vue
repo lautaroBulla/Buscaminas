@@ -42,9 +42,9 @@
 </script>
 
 <template>
-	<div class="reset-border">
-		<button @click="restartGame" class="reset">
-			<img :src="faceImage" :alt="faceAlt" class="face"/>
+	<div class="header-buttons-border">
+		<button @click="restartGame" class="header-buttons">
+			<img :src="faceImage" :alt="faceAlt"/>
 		</button>
 	</div>
 </template>

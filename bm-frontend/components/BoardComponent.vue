@@ -1,6 +1,8 @@
 <script setup>
 	import { computed } from 'vue';
 
+	const { isMobile } = useIsMobile();
+
 	const props = defineProps({
 		board: {
 			type: Array,
@@ -45,13 +47,13 @@
 <template>
 	<div 
 		:style="{ 
-			display: 'grid', 
-			gridTemplateColumns: `repeat(${board[0]?.length || 0}, 25px)`
+			display: 'grid',
+			gridTemplateColumns: `repeat(${board[0]?.length || 0}, minmax(${!isMobile ? 25 : 20}px, 1fr))`
 		}"
 		class="board-border-internal"
 	>
 		<CellComponent
-			v-for="(cell, index) in flatBoard"
+			v-for="(cell) in flatBoard"
 			:cell="cell.value"
 			:rowIndex="cell.row"
 			:colIndex="cell.col"

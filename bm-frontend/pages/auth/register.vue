@@ -69,7 +69,10 @@
 
 <template>
   <div class="flex items-center justify-center">
-    <form @submit.prevent="submit" class="card flex flex-col items-center space-y-5 p-5 w-2/12 h-fit">
+    <form @submit.prevent="submit" class="card flex flex-col items-center space-y-5 p-5 h-fit
+                                          w-11/12
+                                          md:w-3/12"
+    >
 
         <p v-if="errorMessage">{{ errorMessage }}</p>
 

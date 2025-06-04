@@ -20,6 +20,7 @@
       <button
         @click="changeLanguage"
         class="secondary flex items-center gap-x-2"
+        :title="$t('languageSelector.changeLanguageTitle')"
       >
         {{ $t('languageSelector.changeLanguage') }}
         <img :src="flagSrc" :alt="flagAlt"  />
