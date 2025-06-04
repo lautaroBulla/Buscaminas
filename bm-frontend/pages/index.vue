@@ -20,7 +20,8 @@
     rightClick,
     seconds,
     firstClickZero,
-    interrogationsActivated
+    interrogationsActivated,
+    explotedCell
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
@@ -86,6 +87,8 @@
         <HeaderComponent
           :remainingMines="remainingMines"
           :seconds="seconds"
+          :gameOver="gameOver"
+          :gameWin="gameWin"
           @comp-restart-game="resetGame()"
         />
         <div class="separator-line"></div>
@@ -94,6 +97,7 @@
           :revealed="revealed"
           :flags="flags"
           :interrogations="interrogationsActivated ? interrogations : null"
+          :explotedCell="explotedCell"
           @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
           @cell-right-click="({row, col}) => rightClick(row, col)"
         />

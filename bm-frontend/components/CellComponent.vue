@@ -23,10 +23,13 @@
     interrogation: {
       type: Boolean,
       required: true
+    },
+    exploted: {
+      type: Boolean
     }
-  })
+  });
 
-  const emit = defineEmits(['left-click', 'rigth-click'])
+  const emit = defineEmits(['left-click', 'rigth-click']);
 
   function handleLeftClick () {
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
@@ -41,8 +44,10 @@
 
 <template>
     <div
-      :key="`${cell.row}-${cell.col}`"
-      :class="reveal ? 'reveal' : 'cell'"
+      :class="[
+        reveal ? 'reveal' : 'cell',
+        exploted ? 'reveal-lose' : ''
+      ]"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
     >
@@ -72,7 +77,7 @@
           <img src="~/assets/img/eight.png" alt="Eight" class="symbol"/>
         </span>
         <span v-else-if="cell === 'M'">
-          <img src="~/assets/img/mine.png" alt="Mine" class="symbol"/>
+          <img src="~/assets/img/mine.png" alt="Mine" class="symbol" />
         </span>
       </span> 
 

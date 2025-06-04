@@ -6,24 +6,16 @@
     }
   })
 
-  // function format(s) {
-  //   const m = Math.floor(s / 60);
-  //   const ss = s % 60
-  //   return `${m.toString().padStart(2, '0')}:${ss.toString().padStart(2, '0')}`
-  // }
   const formattedNumber = computed(() => {
     return String(props.seconds).padStart(3, '0').split('')
   })
 </script>
 
 <template>
-  <!-- <div>
-    {{ formattedNumber(seconds) }}
-  </div> -->
   <div class="numbers-panel">
     <div 
-      v-for="second in formattedNumber" 
-      :key="second" 
+      v-for="(second, i) in formattedNumber"  
+      :key="i" 
       class="seven-segment" 
       :data-digit="second"
     >

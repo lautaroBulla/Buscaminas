@@ -152,6 +152,11 @@ button.text:hover {
   width: 38.22px; 
 }
 
+.reset:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 .face {
   height: 28px;
   width: 28px;
@@ -325,14 +330,14 @@ button.text:hover {
   background-color: #adb5bd;
 }
 
-.cell:hover {
-  opacity: 0.8;
-  cursor: pointer;
+.cell-lose {
+  background-color: #ff0000;
+  border: 3px solid #495057;
 }
 
 .symbol {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 .reveal {
@@ -343,4 +348,8 @@ button.text:hover {
   height: 25px;
   background-color: #adb5bd;
   border: 1px solid #495057;
+}
+
+.reveal-lose {
+  background-color: #ff0000;
 }

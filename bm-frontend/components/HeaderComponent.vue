@@ -7,6 +7,14 @@
     remainingMines: {
       type: Number,
       required: true
+    },
+    gameOver: {
+      type: Boolean,
+      required: true
+    },
+    gameWin: {
+      type: Boolean,
+      required: true
     }
   })
 
@@ -22,6 +30,8 @@
     </div>
     <div class="flex justify-center w-1/3 m-1">
       <ResetComponent
+        :gameOver="gameOver"
+        :gameWin="gameWin"
         @restart-game="$emit('comp-restart-game')"
       />
     </div>

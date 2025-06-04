@@ -17,6 +17,9 @@
 		interrogations: {
 			type: Array,
 			required: false
+		},
+		explotedCell: {
+			type: Object
 		}
 	});
 
@@ -55,6 +58,7 @@
 			:reveal="revealed[cell.row][cell.col]"
 			:flag="flags[cell.row][cell.col]"
 			:interrogation="interrogations ? interrogations[cell.row][cell.col] : false"
+			:exploted="explotedCell && explotedCell.row === cell.row && explotedCell.col === cell.col"
 			@left-click="$emit('cell-left-click', $event)"
 			@rigth-click="$emit('cell-right-click', $event)"
 		/>

@@ -1,33 +1,36 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
-  const rows = ref<number>(initialRows)
-  const cols = ref<number>(initialCols)
-  const mines = ref<number>(initialMines)
+  const rows = ref<number>(initialRows);
+  const cols = ref<number>(initialCols);
+  const mines = ref<number>(initialMines);
 
-  const board = ref<(number | 'M')[][]>([])
-  const revealed = ref<boolean[][]>([])
-  const flags = ref<boolean[][]>([])
-  const interrogations = ref<boolean[][]>([])
-  const gameOver = ref(false)
-  const gameWin = ref(false)
-  const firstClick = ref(true)
+  const board = ref<(number | 'M')[][]>([]);
+  const revealed = ref<boolean[][]>([]);
+  const flags = ref<boolean[][]>([]);
+  const interrogations = ref<boolean[][]>([]);
+  const gameOver = ref(false);
+  const gameWin = ref(false);
+  const firstClick = ref(true);
 
-  const firstClickZero = ref(true)
-  const interrogationsActivated = ref(true)
+  const firstClickZero = ref(true);
+  const interrogationsActivated = ref(true);
 
-  const seconds = ref(0)
-  let intervalId: ReturnType<typeof setInterval> | null = null
+  const seconds = ref(0);
+  let intervalId: ReturnType<typeof setInterval> | null = null;
 
-  const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]]
+  const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
+
+  const explotedCell = ref<{row: number, col: number} | null>(null); // necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
 
   //verifica que sea una celda del tablero
   function isValidCell(r: number, c: number): boolean {
-    return r >= 0 && r < rows.value && c >= 0 && c < cols.value
+    return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
   }
 
   //reinicia el juego
   function resetGame () {
+    explotedCell.value = null;
     stopTime();
     seconds.value = 0;
     initBoard();
@@ -118,7 +121,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   }
 
   function reveal(row: number, col: number) {
-    if (gameOver.value || flags.value[row][col]) return
+    if ( flags.value[row][col] || gameOver.value || gameWin.value) return
 
     if (!revealed.value[row][col]) {
       // lógica si no estaba revelada
@@ -126,6 +129,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
       
       if (board.value[row][col] === 'M') {
         stopTime();
+        explotedCell.value = { row, col };
         gameOver.value = true;
         revealGameOver();
         return;
@@ -170,7 +174,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     for (let r=0; r<rows.value; r++){
       for (let c=0; c<cols.value; c++){
         if (board.value[r][c] === 'M' && !flags.value[r][c]) {
-            revealed.value[r][c] = true;
+          revealed.value[r][c] = true;
         }
       }
     }
@@ -180,13 +184,24 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     //verifica si todas las casillas con valor diferente a M han sido reveladas
     if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
       stopTime();
+      revealGameWin();
       gameWin.value = true;
+    }
+  }
+
+  function revealGameWin() {
+    for (let r=0; r<rows.value; r++){
+      for (let c=0; c<cols.value; c++){
+        if (board.value[r][c] === 'M' && !flags.value[r][c]) {
+          flags.value[r][c] = true;
+        }
+      }
     }
   }
 
 
   function rightClick(row: number, col: number) {
-    if (revealed.value[row][col] || gameOver.value) return
+    if (revealed.value[row][col] || gameOver.value || gameWin.value) return
 
     // sirve para ir alterando la casilla con las marcas flags e interrogations
     if (interrogationsActivated.value) {
@@ -212,6 +227,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     flags,
     interrogations,
     gameWin,
+    gameOver,
     firstClick,
     boardFirstClick,
     resetGame,
@@ -219,6 +235,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     rightClick,
     seconds,
     firstClickZero,
-    interrogationsActivated
+    interrogationsActivated,
+    explotedCell,
   }
 }

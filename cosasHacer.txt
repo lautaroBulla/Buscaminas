@@ -4,6 +4,7 @@ PENDIENTE
   # Asegurarme que sea responsive
   # Realizar toda la logica de los rankings
   # Ver si le puedo meter themas al tablero
+  # Cuando ganas que se pongan flagas en las casillas faltantes
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
