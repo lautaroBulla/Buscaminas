@@ -14,8 +14,8 @@
 <template>
   <div class="numbers-panel">
     <div 
-      v-for="digit in formattedNumber" 
-      :key="digit" 
+      v-for="(digit, index) in formattedNumber" 
+      :key="`digit-${index}`" 
       class="seven-segment" 
       :data-digit="digit"
     >

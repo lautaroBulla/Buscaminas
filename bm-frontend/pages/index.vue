@@ -86,8 +86,12 @@
 
 <template>
     
-  <div class="flex flex-col items-center gap-y-4 p-1">
-    <div class="flex flex-row gap-x-4">
+  <div class="flex flex-col
+              p-2
+              md:items-center md:gap-y-4 md:pt-4">
+
+    <div class="
+                md:flex md:gap-x-4">
       <DifficultySelectorComponent
         v-model="difficulty"
         @update:customValues="setCustomValues"
@@ -115,6 +119,7 @@
         />
       </div>
     </div>
+
   </div>
 
   <GameFinishComponent

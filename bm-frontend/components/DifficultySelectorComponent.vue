@@ -26,7 +26,7 @@
 
   const maxMines = computed(() => Math.floor((customRows.value * customCols.value) / 3))
   const minRowsAndCols = 5;
-  const maxRowsAndCols = 50;
+  const maxRowsAndCols = 100;
 
   function customVlues() {
     //Validar filas

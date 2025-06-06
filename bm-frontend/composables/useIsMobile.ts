@@ -1,9 +1,13 @@
+/*
+Este composable se encarga de verificar el tamaño de la pantalla del lado del cliente
+*/
+
 export const useIsMobile = () => {
   const isMobile = useState('isMobile', () => {
     if (process.client) {
       return window.matchMedia('(max-width: 640px)').matches;
     }
-    return false; // en SSR, asumimos desktop
+    return false; 
   });
 
   const updateIsMobile = () => {

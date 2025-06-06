@@ -9,9 +9,9 @@ class= generales
 -->
 
 <template>
-  <nav class="flex justify-between items-center w-full py-4 mb-4 border-b-4 border-b-secondary
-              px-2
-              md:px-10"
+  <nav class="flex justify-between items-center w-full 
+              px-2 py-2 border-b-2 border-b-secondary
+              md:px-10 md:py-4 md:border-b-4 md:border-b-secondary"
   >
 
       <div class="hidden 

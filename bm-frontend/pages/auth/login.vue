@@ -55,9 +55,12 @@
 </script>
 
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center
+              p-2
+              md:pt-4"
+  >
     <form @submit.prevent="submit" class="card flex flex-col items-center space-y-5 p-5 h-fit
-                                          w-11/12
+                                          w-full  
                                           md:w-3/12"
     >
 
