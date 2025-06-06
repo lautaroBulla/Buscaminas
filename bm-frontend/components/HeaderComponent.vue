@@ -16,9 +16,9 @@
       type: Boolean,
       required: true
     }
-  })
+  });
 
-  const emit = defineEmits(['comp-restart-game'])
+  const emit = defineEmits(['comp-restart-game']);
 </script>
 
 <template>

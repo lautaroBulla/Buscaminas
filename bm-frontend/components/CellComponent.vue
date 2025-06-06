@@ -1,4 +1,16 @@
 <script setup>
+  import oneClasssic from '~/assets/img/themes/classic/one.png';
+  import twoClasssic from '~/assets/img/themes/classic/two.png';
+  import threeClasssic from '~/assets/img/themes/classic/three.png';
+  import fourClasssic from '~/assets/img/themes/classic/four.png';
+  import fiveClasssic from '~/assets/img/themes/classic/five.png';
+  import sixClasssic from '~/assets/img/themes/classic/six.png';
+  import sevenClasssic from '~/assets/img/themes/classic/seven.png';
+  import eightClasssic from '~/assets/img/themes/classic/eight.png';
+  import mineClasssic from '~/assets/img/themes/classic/mine.png';
+  import flagClasssic from '~/assets/img/themes/classic/flag.png';
+  import interrogationClasssic from '~/assets/img/themes/classic/interrogation.png';
+
   const props = defineProps({
     cell: {
       type: [Number, String],
@@ -29,6 +41,28 @@
     }
   });
 
+  const { currentTheme } = useCurrentTheme();
+
+	const imgByTheme = {
+		classic: {
+			one: oneClasssic,
+      two: twoClasssic,
+      three: threeClasssic,
+      four: fourClasssic,
+      five: fiveClasssic,
+      six: sixClasssic,
+      seven: sevenClasssic,
+      eight: eightClasssic,
+      mine: mineClasssic,
+      flag: flagClasssic,
+      interrogation: interrogationClasssic
+		}	
+  };
+
+  const currentThemeComputed = computed(() => {
+    return currentTheme.value;
+  });
+
   const emit = defineEmits(['left-click', 'rigth-click']);
 
   function handleLeftClick () {
@@ -51,18 +85,18 @@
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
     >
-      <img v-if="reveal && cell === 1" src="~/assets/img/one.png" alt="One" />
-      <img v-else-if="reveal && cell === 2" src="~/assets/img/two.png" alt="Two" />
-      <img v-else-if="reveal && cell === 3" src="~/assets/img/three.png" alt="Three" />
-      <img v-else-if="reveal && cell === 4" src="~/assets/img/four.png" alt="Four" />
-      <img v-else-if="reveal && cell === 5" src="~/assets/img/five.png" alt="Five" />
-      <img v-else-if="reveal && cell === 6" src="~/assets/img/six.png" alt="Six" />
-      <img v-else-if="reveal && cell === 7" src="~/assets/img/seven.png" alt="Seven" />
-      <img v-else-if="reveal && cell === 8" src="~/assets/img/eight.png" alt="Eight" />
-      <img v-else-if="reveal && cell === 'M'" src="~/assets/img/mine.png" alt="Mine" />
+      <img v-if="reveal && cell === 1" :src="imgByTheme[currentThemeComputed].one" alt="One" />
+      <img v-else-if="reveal && cell === 2" :src="imgByTheme[currentThemeComputed].two" alt="Two" />
+      <img v-else-if="reveal && cell === 3" :src="imgByTheme[currentThemeComputed].three" alt="Three" />
+      <img v-else-if="reveal && cell === 4" :src="imgByTheme[currentThemeComputed].four" alt="Four" />
+      <img v-else-if="reveal && cell === 5" :src="imgByTheme[currentThemeComputed].five" alt="Five" />
+      <img v-else-if="reveal && cell === 6" :src="imgByTheme[currentThemeComputed].six" alt="Six" />
+      <img v-else-if="reveal && cell === 7" :src="imgByTheme[currentThemeComputed].seven" alt="Seven" />
+      <img v-else-if="reveal && cell === 8" :src="imgByTheme[currentThemeComputed].eight" alt="Eight" />
+      <img v-else-if="reveal && cell === 'M'" :src="imgByTheme[currentThemeComputed].mine" alt="Mine" />
 
       <!-- Si no revelada -->
-      <img v-else-if="flag" src="~/assets/img/flag.png" alt="Flag" />
-      <img v-else-if="interrogation" src="~/assets/img/interrogation.png" alt="Interrogation" />  
+      <img v-else-if="flag" :src="imgByTheme[currentThemeComputed].flag" alt="Flag" />
+      <img v-else-if="interrogation" :src="imgByTheme[currentThemeComputed].interrogation" alt="Interrogation" />  
     </div>
 </template>

@@ -1,5 +1,17 @@
 <script setup>
-	import helpImg from '~/assets/img/help.png'
+	import helpClassic from '~/assets/img/themes/classic/help.png';
+
+	const { currentTheme } = useCurrentTheme();
+
+	const imgByTheme = {
+		classic: {
+			help: helpClassic
+		}	
+  };
+
+	const currentThemeComputed = computed(() => {
+    return currentTheme.value;
+  });
 
 	const emit = defineEmits(['help']);
 
@@ -11,7 +23,7 @@
 <template>
 	<div class="header-buttons-border">
 		<button @click="submitHelp" class="header-buttons">
-			<img :src="helpImg" alt="Help" />
+			<img :src="imgByTheme[currentThemeComputed].help" alt="Help" />
 		</button>
 	</div>
 </template>

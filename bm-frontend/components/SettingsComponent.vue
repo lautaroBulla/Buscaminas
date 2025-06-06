@@ -1,5 +1,17 @@
 <script setup>
-	import settingImg from '~/assets/img/settings.png';
+	import settingClassic from '~/assets/img/themes/classic/settings.png';
+	
+	const { currentTheme } = useCurrentTheme();
+
+	const imgByTheme = {
+		classic: {
+			setting: settingClassic
+		}	
+  };
+
+	const currentThemeComputed = computed(() => {
+    return currentTheme.value;
+  });
 
 	const emit = defineEmits(['open-settings']);
 
@@ -11,7 +23,7 @@
 <template>
 	<div class="header-buttons-border">
 		<button @click="openSettings" class="header-buttons">
-			<img :src="settingImg" alt="Settings"/>
+			<img :src="imgByTheme[currentThemeComputed].setting" alt="Settings"/>
 		</button>
 	</div>
 </template>

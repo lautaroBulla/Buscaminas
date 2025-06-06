@@ -1,0 +1,48 @@
+.classic {
+  --board-border-top: #FFFFFF;
+  --board-border-left: #FFFFFF;
+  --board-border-bottom: #808080;
+  --board-border-right: #808080;
+
+  --board-border: #C0C0C0;
+  
+  --separator-line-color: #C0C0C0;
+
+  --board-border-internal-top: #808080;
+  --board-border-internal-left: #808080;
+  --board-border-internal-bottom: #FFFFFF;
+  --board-border-internal-right: #FFFFFF;
+
+  --header-background: #C0C0C0;
+  --header-border-top: #808080;
+  --header-border-left: #808080;
+  --header-border-bottom: #FFFFFF;
+  --header-border-right: #FFFFFF;
+
+  --header-button-border: #808080;
+  
+  --header-button-background: #C0C0C0;
+  --header-button-border-top: #FFFFFF;
+  --header-button-border-left: #FFFFFF;
+  --header-button-border-bottom: #808080;
+  --header-button-border-right: #808080;
+  --header-button-hover-opacity: 0.8;
+  
+  --numbers-panel-background: #000;
+  --numbers-panel-border-top: #808080;
+  --numbers-panel-border-left: #808080;
+  --numbers-panel-border-bottom: #FFFFFF;
+  --numbers-panel-border-right: #FFFFFF;
+  --seven-segment-color: 255, 0, 0;
+  
+  --cell-background: #C0C0C0;
+  --cell-border-top: #FFFFFF;
+  --cell-border-left: #FFFFFF;
+  --cell-border-bottom: #808080;
+  --cell-border-right: #808080;
+  --cell-hover-opacity: 0.8;
+
+  --reveal-background: #C0C0C0;
+  --reveal-border: #808080;
+  --reveal-lose-background: #ff0000;
+}

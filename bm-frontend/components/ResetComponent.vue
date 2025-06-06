@@ -1,11 +1,11 @@
 <script setup>
-  import face from '~/assets/img/face.png';
-	import faceWin from '~/assets/img/faceWin.png';
-	import faceLose from '~/assets/img/faceLose.png';
-
+	import faceClassic from '~/assets/img/themes/classic/face.png';
+	import faceWinClassic from '~/assets/img/themes/classic/faceWin.png';
+	import faceLoseClassic from '~/assets/img/themes/classic/faceLose.png';
+	
 	const props = defineProps({
-    gameOver: {
-      type: Boolean,
+		gameOver: {
+			type: Boolean,
       required: true
     },
     gameWin: {
@@ -14,13 +14,23 @@
     }
   })
 
+	const { currentTheme } = useCurrentTheme();
+	
+	const imgByTheme = {
+		classic: {
+			face: faceClassic,
+			faceWin: faceWinClassic,
+			faceLose: faceLoseClassic
+		}	
+  };
+	
 	const faceImage = computed(() => {
 		if (props.gameOver) {
-			return faceLose;
+			return imgByTheme[currentTheme.value].faceLose;
 		} else if (props.gameWin) {
-			return faceWin;
+			return imgByTheme[currentTheme.value].faceWin;
 		} else {
-			return face;
+			return imgByTheme[currentTheme.value].face;
 		}
 	});
 	

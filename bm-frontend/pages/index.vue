@@ -3,6 +3,8 @@
   import { useMinesweeper } from '~/composables/useMinesweeper';
 
   const { isMobile } = useIsMobile();
+
+  const { currentTheme } = useCurrentTheme();
   
   // Obtengo todas lasvariables de composable useMinesweeper
   const {
@@ -98,25 +100,27 @@
         @viewSettings="viewSettingComponent"
       />
     </div>
-    <div class="board-border">
-      <div class="board">
-        <HeaderComponent
-          :remainingMines="remainingMines"
-          :seconds="seconds"
-          :gameOver="gameOver"
-          :gameWin="gameWin"
-          @comp-restart-game="resetGame()"
-        />
-        <div class="separator-line"></div>
-        <BoardComponent 
-          :board="board"
-          :revealed="revealed"
-          :flags="flags"
-          :interrogations="interrogationsActivated ? interrogations : null"
-          :explotedCell="explotedCell"
-          @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
-          @cell-right-click="({row, col}) => rightClick(row, col)"
-        />
+    <div :class="`${currentTheme}`">
+      <div class="board-border">
+        <div class="board">
+          <HeaderComponent
+            :remainingMines="remainingMines"
+            :seconds="seconds"
+            :gameOver="gameOver"
+            :gameWin="gameWin"
+            @comp-restart-game="resetGame()"
+          />
+          <div class="separator-line"></div>
+          <BoardComponent 
+            :board="board"
+            :revealed="revealed"
+            :flags="flags"
+            :interrogations="interrogationsActivated ? interrogations : null"
+            :explotedCell="explotedCell"
+            @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
+            @cell-right-click="({row, col}) => rightClick(row, col)"
+          />
+        </div>
       </div>
     </div>
 
