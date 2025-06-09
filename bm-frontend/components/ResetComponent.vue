@@ -2,6 +2,10 @@
 	import faceClassic from '~/assets/img/themes/classic/face.png';
 	import faceWinClassic from '~/assets/img/themes/classic/faceWin.png';
 	import faceLoseClassic from '~/assets/img/themes/classic/faceLose.png';
+
+	import faceDark from '~/assets/img/themes/dark/faceDark.png';
+	import faceWinDark from '~/assets/img/themes/dark/faceWinDark.png';
+	import faceLoseDark from '~/assets/img/themes/dark/faceLoseDark.png';
 	
 	const props = defineProps({
 		gameOver: {
@@ -21,7 +25,12 @@
 			face: faceClassic,
 			faceWin: faceWinClassic,
 			faceLose: faceLoseClassic
-		}	
+		},
+		dark: {
+			face: faceDark,
+			faceWin: faceWinDark,
+			faceLose: faceLoseDark
+		}
   };
 	
 	const faceImage = computed(() => {

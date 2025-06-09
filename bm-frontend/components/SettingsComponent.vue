@@ -1,12 +1,17 @@
 <script setup>
 	import settingClassic from '~/assets/img/themes/classic/settings.png';
+
+	import settingDark from '~/assets/img/themes/dark/settingsDark.png';
 	
 	const { currentTheme } = useCurrentTheme();
 
 	const imgByTheme = {
 		classic: {
 			setting: settingClassic
-		}	
+		},
+		dark: {
+			setting: settingDark
+		}
   };
 
 	const currentThemeComputed = computed(() => {

@@ -11,6 +11,18 @@
   import flagClasssic from '~/assets/img/themes/classic/flag.png';
   import interrogationClasssic from '~/assets/img/themes/classic/interrogation.png';
 
+  import oneDark from '~/assets/img/themes/dark/oneDark.png';
+  import twoDark from '~/assets/img/themes/dark/twoDark.png';
+  import threeDark from '~/assets/img/themes/dark/threeDark.png';
+  import fourDark from '~/assets/img/themes/dark/fourDark.png';
+  import fiveDark from '~/assets/img/themes/dark/fiveDark.png';
+  import sixDark from '~/assets/img/themes/dark/sixDark.png';
+  import sevenDark from '~/assets/img/themes/dark/sevenDark.png';
+  import eightDark from '~/assets/img/themes/dark/eightDark.png';
+  import mineDark from '~/assets/img/themes/classic/mine.png';
+  import flagDark from '~/assets/img/themes/dark/flagDark.png';
+  import interrogationDark from '~/assets/img/themes/dark/interrogationDark.png';
+
   const props = defineProps({
     cell: {
       type: [Number, String],
@@ -56,7 +68,20 @@
       mine: mineClasssic,
       flag: flagClasssic,
       interrogation: interrogationClasssic
-		}	
+		},
+    dark: {
+      one: oneDark,
+      two: twoDark,
+      three: threeDark,
+      four: fourDark,
+      five: fiveDark,
+      six: sixDark,
+      seven: sevenDark,
+      eight: eightDark,
+      mine: mineDark,
+      flag: flagDark,
+      interrogation: interrogationDark
+    }
   };
 
   const currentThemeComputed = computed(() => {
