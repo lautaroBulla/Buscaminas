@@ -1,18 +1,19 @@
 <script setup>
-	import helpClassic from '~/assets/img/themes/classic/help.png';
+	import helpClassic from '~/assets/img/themes/classicTheme/help.png';
 	
-	import helpDark from '~/assets/img/themes/dark/helpDark.png';
+	import helpDark from '~/assets/img/themes/darkTheme/helpDark.png';
 
 	const { currentTheme } = useCurrentTheme();
 
 	const imgByTheme = {
-		classic: {
+		classicTheme: {
 			help: helpClassic
 		},
-		dark: {
+		darkTheme: {
 			help: helpDark
 		}	
   };
+
 
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;

@@ -1,4 +1,4 @@
 export const useCurrentTheme = () => {
-  const currentTheme = useState('currentTheme', () => 'dark');
+  const currentTheme = useState('currentTheme', () => 'darkTheme');
   return { currentTheme };
 }

@@ -1,15 +1,15 @@
 <script setup>
-	import settingClassic from '~/assets/img/themes/classic/settings.png';
+	import settingClassic from '~/assets/img/themes/classicTheme/settings.png';
 
-	import settingDark from '~/assets/img/themes/dark/settingsDark.png';
+	import settingDark from '~/assets/img/themes/darkTheme/settingsDark.png';
 	
 	const { currentTheme } = useCurrentTheme();
 
 	const imgByTheme = {
-		classic: {
+		classicTheme: {
 			setting: settingClassic
 		},
-		dark: {
+		darkTheme: {
 			setting: settingDark
 		}
   };
@@ -18,16 +18,16 @@
     return currentTheme.value;
   });
 
-	const emit = defineEmits(['open-settings']);
+	const emit = defineEmits(['view-settings']);
 
-	function openSettings () {
-		emit('open-settings');
+	function viewSetting () {
+		emit('view-settings');
 	}
 </script>
 
 <template>
 	<div class="header-buttons-border">
-		<button @click="openSettings" class="header-buttons">
+		<button @click="viewSetting" class="header-buttons">
 			<img :src="imgByTheme[currentThemeComputed].setting" alt="Settings"/>
 		</button>
 	</div>

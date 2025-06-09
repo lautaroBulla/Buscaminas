@@ -1,12 +1,11 @@
 PENDIENTE
-  # Diseño de los botones en SelectoDifficulty
-  # Diseño del board, cells y demas
+  # Realizar el modal de setting
+  # Mejorar los estilos css, para que quede mas compacto
+  # Realizar la logica del boton pista
+  # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Asegurarme que sea responsive
+  # Verificar bien el thema dark para que quede bonito
   # Realizar toda la logica de los rankings
-  # Ver si le puedo meter themas al tablero
-  # Cuando ganas que se pongan flagas en las casillas faltantes
-  # Agregar boton pista? 
-  # Capaz meter configuraciones en el header
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
@@ -19,3 +18,8 @@ COMPLETADO
   # Crear mensajes personalizados por idioma en los errores de login y register
   # Crear el interceptor
   # Verificar la inyeccion de sql
+  # Ver si le puedo meter themas al tablero
+  # Diseño del board, cells y demas
+  # Cuando ganas que se pongan flagas en las casillas faltantes
+  # Capaz meter configuraciones en el header
+  # Agregar boton pista? 

@@ -1,5 +1,9 @@
 <script setup>
+  import closeClassic from '~/assets/img/themes/classicTheme/close.png';
+  import closeDark from '~/assets/img/themes/darkTheme/closeDark.png';
+
   import { ref } from 'vue';
+  
   const props = defineProps({
     firstClickZero: {
       type: Boolean,
@@ -9,6 +13,21 @@
       type: Boolean,
       required: true
     }
+  });
+
+  const { currentTheme } = useCurrentTheme();
+	
+	const imgByTheme = {
+    classicTheme: {
+      close: closeClassic
+    },
+		darkTheme: {
+			close: closeDark,
+		}
+  };
+
+  const currentThemeComputed = computed(() => {
+    return currentTheme.value;
   });
 
   const localFirstClickZero = ref(props.firstClickZero);
@@ -25,32 +44,46 @@
 </script>
 
 <template>
-  <div class="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
-    <div class="bg-black w-1/3 border-2 border-gray-500 p-5">
-      <div class="flex justify-end">
-        <button
-          @click="emit('close')"
+  <div :class="`${currentTheme}`">
+    <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div class="modal-border 
+                  w-full m-1
+                  md:w-1/3 md:m-0"
         >
-          {{ $t('gameSettings.close') }}
-        </button>
-      </div>
-      <div class="flex flex-col">
-        <div class="flex flex-row gap-x-2">
-          <label> {{ $t('gameSettings.firstClick') }} </label>
-          <input type="checkbox" v-model="localFirstClickZero">
+        <div class="modal">
+          <div class="modal-border-internal">
+
+            <div class="flex justify-end">
+              <div class="modal-button-close-border w-fit">
+                <button @click="emit('close')" class="modal-button-close">
+                  <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <div class="flex flex-row items-center gap-x-2">
+                <label class="text-color"> {{ $t('gameSettings.firstClick') }} </label>
+                <input type="checkbox" v-model="localFirstClickZero" class="checkbox" />
+              </div>
+              <div class="flex flex-row items-center gap-x-2">
+                <label class="text-color"> {{ $t('gameSettings.interrogations') }} </label>
+                <input type="checkbox" v-model="localInterrogationsActivated" class="checkbox" />
+              </div>
+            </div>
+
+            <div class="flex justify-center mt-2">
+              <div class="modal-button-update-border">
+                <button 
+                  @click="updateSettings"
+                  class="modal-button-update px-2"
+                >
+                  {{ $t('gameSettings.update') }}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="flex flex-row gap-x-2">
-          <label> {{ $t('gameSettings.interrogations') }} </label>
-          <input type="checkbox" v-model="localInterrogationsActivated">
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <button 
-          @click="updateSettings"
-          class="border w-fit"
-        >
-          {{ $t('gameSettings.update') }}
-        </button>
       </div>
     </div>
   </div>

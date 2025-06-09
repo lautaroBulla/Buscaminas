@@ -62,16 +62,16 @@
     resetGame();
   }
 
-  const modalSettingsComponent = ref(false);
-  function viewSettingComponent () {
-    modalSettingsComponent.value = !modalSettingsComponent.value;
+  const modalSettings = ref(false);
+  function viewSettings () {
+    modalSettings.value = !modalSettings.value;
   }
-  function updateSettingComponent (updateSettings) {
-    firstClickZero.value = updateSettings.firstClickZero;
-    interrogationsActivated.value = updateSettings.interrogationsActivated;
+  function updateSettings (updateSettingsValues) {
+    firstClickZero.value = updateSettingsValues.firstClickZero;
+    interrogationsActivated.value = updateSettingsValues.interrogationsActivated;
 
-    viewSettingComponent()
-    resetGame() 
+    viewSettings();
+    resetGame();
   }
 
   const modalGameFinish = ref(false);
@@ -92,15 +92,15 @@
               p-2
               md:items-center md:gap-y-4 md:pt-4">
 
-    <div class="
-                md:flex md:gap-x-4">
+    <div class="md:flex md:gap-x-4">
       <DifficultySelectorComponent
         v-model="difficulty"
         @update:customValues="setCustomValues"
-        @viewSettings="viewSettingComponent"
       />
     </div>
+
     <div :class="`${currentTheme}`">
+
       <div class="board-border">
         <div class="board">
           <HeaderComponent
@@ -108,7 +108,8 @@
             :seconds="seconds"
             :gameOver="gameOver"
             :gameWin="gameWin"
-            @comp-restart-game="resetGame()"
+            @restart-game="resetGame()"
+            @view-settings="viewSettings()"
           />
           <div class="separator-line"></div>
           <BoardComponent 
@@ -122,6 +123,7 @@
           />
         </div>
       </div>
+
     </div>
 
   </div>
@@ -130,13 +132,12 @@
     v-if="modalGameFinish"
     @close="viewGameFinish"
   />
-
   <SettingsModal
-    v-if="modalSettingsComponent"
+    v-if="modalSettings"
     :firstClickZero="firstClickZero"
     :interrogationsActivated="interrogationsActivated"
-    @update="updateSettingComponent"
-    @close="viewSettingComponent"
+    @update="updateSettings"
+    @close="viewSettings"
   />
 
 </template>

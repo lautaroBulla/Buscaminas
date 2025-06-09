@@ -1,27 +1,27 @@
 <script setup>
-  import oneClasssic from '~/assets/img/themes/classic/one.png';
-  import twoClasssic from '~/assets/img/themes/classic/two.png';
-  import threeClasssic from '~/assets/img/themes/classic/three.png';
-  import fourClasssic from '~/assets/img/themes/classic/four.png';
-  import fiveClasssic from '~/assets/img/themes/classic/five.png';
-  import sixClasssic from '~/assets/img/themes/classic/six.png';
-  import sevenClasssic from '~/assets/img/themes/classic/seven.png';
-  import eightClasssic from '~/assets/img/themes/classic/eight.png';
-  import mineClasssic from '~/assets/img/themes/classic/mine.png';
-  import flagClasssic from '~/assets/img/themes/classic/flag.png';
-  import interrogationClasssic from '~/assets/img/themes/classic/interrogation.png';
+  import oneClasssic from '~/assets/img/themes/classicTheme/one.png';
+  import twoClasssic from '~/assets/img/themes/classicTheme/two.png';
+  import threeClasssic from '~/assets/img/themes/classicTheme/three.png';
+  import fourClasssic from '~/assets/img/themes/classicTheme/four.png';
+  import fiveClasssic from '~/assets/img/themes/classicTheme/five.png';
+  import sixClasssic from '~/assets/img/themes/classicTheme/six.png';
+  import sevenClasssic from '~/assets/img/themes/classicTheme/seven.png';
+  import eightClasssic from '~/assets/img/themes/classicTheme/eight.png';
+  import mineClasssic from '~/assets/img/themes/classicTheme/mine.png';
+  import flagClasssic from '~/assets/img/themes/classicTheme/flag.png';
+  import interrogationClasssic from '~/assets/img/themes/classicTheme/interrogation.png';
 
-  import oneDark from '~/assets/img/themes/dark/oneDark.png';
-  import twoDark from '~/assets/img/themes/dark/twoDark.png';
-  import threeDark from '~/assets/img/themes/dark/threeDark.png';
-  import fourDark from '~/assets/img/themes/dark/fourDark.png';
-  import fiveDark from '~/assets/img/themes/dark/fiveDark.png';
-  import sixDark from '~/assets/img/themes/dark/sixDark.png';
-  import sevenDark from '~/assets/img/themes/dark/sevenDark.png';
-  import eightDark from '~/assets/img/themes/dark/eightDark.png';
-  import mineDark from '~/assets/img/themes/classic/mine.png';
-  import flagDark from '~/assets/img/themes/dark/flagDark.png';
-  import interrogationDark from '~/assets/img/themes/dark/interrogationDark.png';
+  import oneDark from '~/assets/img/themes/darkTheme/oneDark.png';
+  import twoDark from '~/assets/img/themes/darkTheme/twoDark.png';
+  import threeDark from '~/assets/img/themes/darkTheme/threeDark.png';
+  import fourDark from '~/assets/img/themes/darkTheme/fourDark.png';
+  import fiveDark from '~/assets/img/themes/darkTheme/fiveDark.png';
+  import sixDark from '~/assets/img/themes/darkTheme/sixDark.png';
+  import sevenDark from '~/assets/img/themes/darkTheme/sevenDark.png';
+  import eightDark from '~/assets/img/themes/darkTheme/eightDark.png';
+  import mineDark from '~/assets/img/themes/classicTheme/mine.png';
+  import flagDark from '~/assets/img/themes/darkTheme/flagDark.png';
+  import interrogationDark from '~/assets/img/themes/darkTheme/interrogationDark.png';
 
   const props = defineProps({
     cell: {
@@ -56,7 +56,7 @@
   const { currentTheme } = useCurrentTheme();
 
 	const imgByTheme = {
-		classic: {
+		classicTheme: {
 			one: oneClasssic,
       two: twoClasssic,
       three: threeClasssic,
@@ -69,7 +69,7 @@
       flag: flagClasssic,
       interrogation: interrogationClasssic
 		},
-    dark: {
+    darkTheme: {
       one: oneDark,
       two: twoDark,
       three: threeDark,

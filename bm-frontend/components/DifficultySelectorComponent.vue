@@ -74,12 +74,6 @@
       >
         {{ $t(`difficultySelector.${difficulty}`) }}
       </button>
-      <!-- <button
-        @click="emit('viewSettings')"
-        class="text"
-      >
-        {{ $t('gameSettings.setting') }}
-      </button> -->
     </div>
     <div 
       v-if="modelValue == 'custom'" 

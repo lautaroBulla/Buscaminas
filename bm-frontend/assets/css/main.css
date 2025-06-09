@@ -101,35 +101,34 @@ button.text:hover {
 
 /* tablero */
 .board-border {
-  border-top: 5px solid var(--board-border-top);  
-  border-left: 5px solid var(--board-border-top);    
-  border-bottom: 5px solid var(--board-border-bottom);       
-  border-right: 5px solid var(--board-border-bottom); 
+  border-top: 5px solid var(--border-light-color);  
+  border-left: 5px solid var(--border-light-color);    
+  border-bottom: 5px solid var(--border-dark-color);       
+  border-right: 5px solid var(--border-dark-color); 
 }
 .board {
-  display: inline-block;
-  border: 10px solid var(--board-border);
+  border: 10px solid var(--background-color);
 }
 .separator-line {
-  border: 5px solid var(--separator-line-color);
+  border: 5px solid var(--background-color);
 }
 .board-border-internal {
-  border-top: 5px solid var(--board-border-internal-top);        
-  border-left: 5px solid var(--board-border-internal-left);      
-  border-bottom: 5px solid var(--board-border-internal-bottom);      
-  border-right: 5px solid var(--board-border-internal-right);      
+  border-top: 5px solid var(--border-dark-color);        
+  border-left: 5px solid var(--border-dark-color);      
+  border-bottom: 5px solid var(--border-light-color);      
+  border-right: 5px solid var(--border-light-color);      
 }
 
 /* header del tablero */
 .header {
-  background-color: var(--header-background);    
-  border-top: 5px solid var(--header-border-top);       
-  border-left: 5px solid var(--header-border-left);    
-  border-bottom: 5px solid var(--header-border-bottom);    
-  border-right: 5px solid var(--header-border-right);     
+  background-color: var(--background-color);    
+  border-top: 5px solid var(--border-dark-color);       
+  border-left: 5px solid var(--border-dark-color);    
+  border-bottom: 5px solid var(--border-light-color);    
+  border-right: 5px solid var(--border-light-color);     
 }
 .header-buttons-border {
-  border: 1px solid var(--header-button-border);
+  border: 1px solid var(--border-dark-color);
 }
 .header-buttons {
   display: flex;
@@ -137,14 +136,14 @@ button.text:hover {
   align-items: center;
   height: 38px; 
   width: 38px; 
-  background-color: var(--header-button-background); 
-  border-top: 3px solid var(--header-button-border-top); 
-  border-left: 3px solid var(--header-button-border-left); 
-  border-bottom: 3px solid var(--header-button-border-bottom);       
-  border-right: 3px solid var(--header-button-border-right); 
+  background-color: var(--background-color); 
+  border-top: 3px solid var(--border-light-color); 
+  border-left: 3px solid var(--border-light-color); 
+  border-bottom: 3px solid var(--border-dark-color);       
+  border-right: 3px solid var(--border-dark-color); 
 }
 .header-buttons:hover {
-  opacity: var(--header-button-hover-opacity);
+  opacity: var(--opacity);
   cursor: pointer;
 }
 .header-buttons img {
@@ -157,10 +156,10 @@ button.text:hover {
   display: flex;
   gap: 3px;
   padding: 2px;
-  border-top: 2px solid var(--numbers-panel-border-top);        
-  border-left: 2px solid var(--numbers-panel-border-left);
-  border-bottom: 2px solid var(--numbers-panel-border-bottom);
-  border-right: 2px solid var(--numbers-panel-border-right);
+  border-top: 2px solid var(--border-dark-color);        
+  border-left: 2px solid var(--border-dark-color);
+  border-bottom: 2px solid var(--border-light-color);
+  border-right: 2px solid var(--border-light-color);
   background-color: var(--numbers-panel-background);
 }
 .seven-segment {
@@ -308,14 +307,14 @@ button.text:hover {
   align-items: center;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: var(--cell-background); 
-  border-top: 3px solid var(--cell-border-top);  
-  border-left: 3px solid var(--cell-border-left);  
-  border-bottom: 3px solid var(--cell-border-bottom);        
-  border-right: 3px solid var(--cell-border-right); 
+  background-color: var(--background-color); 
+  border-top: 3px solid var(--border-light-color);  
+  border-left: 3px solid var(--border-light-color);  
+  border-bottom: 3px solid var(--border-dark-color);        
+  border-right: 3px solid var(--border-dark-color); 
 }
 .cell:hover {
-  opacity: var(--cell-hover-opacity);
+  opacity: var(--opacity);
   cursor: pointer;
 }
 .cell img {
@@ -329,8 +328,8 @@ button.text:hover {
   align-items: center;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: var(--reveal-background);
-  border: 1px solid var(--reveal-border);
+  background-color: var(--background-color);
+  border: 1px solid var(--border-dark-color);
 }
 .reveal img {
   width: 60%;
@@ -339,6 +338,91 @@ button.text:hover {
 /* casillas reveladas del tablero con bomba */
 .reveal-lose {
   background-color: var(--reveal-lose-background);
+}
+
+/* modals */
+.modal-border {
+  border-top: 5px solid var(--border-light-color);  
+  border-left: 5px solid var(--border-light-color);    
+  border-bottom: 5px solid var(--border-dark-color);       
+  border-right: 5px solid var(--border-dark-color); 
+}
+.modal {
+  border: 10px solid var(--background-color);
+}
+.modal-border-internal {
+  border-top: 5px solid var(--border-dark-color);        
+  border-left: 5px solid var(--border-dark-color);      
+  border-bottom: 5px solid var(--border-light-color);      
+  border-right: 5px solid var(--border-light-color);   
+  padding: 10px;  
+  background-color: var(--background-color);
+}
+.modal-button-close-border {
+  border: 1px solid var(--border-dark-color);
+}
+.modal-button-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px; 
+  width: 30px; 
+  background-color: var(--background-color); 
+  border-top: 3px solid var(--border-light-color); 
+  border-left: 3px solid var(--border-light-color); 
+  border-bottom: 3px solid var(--border-dark-color);       
+  border-right: 3px solid var(--border-dark-color); 
+}
+.modal-button-close:hover {
+  opacity: var(--opacity);
+  cursor: pointer;
+}
+.modal-button-close img {
+  width: 70%;
+  aspect-ratio: 1 / 1;
+}
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-dark-color);
+  background-color: var(--background-color);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.checkbox:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.checkbox:checked {
+  background-image: url('img/check.png');
+  background-size: 80%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #22c55e;
+}
+.modal-button-update-border {
+  border: 1px solid var(--border-dark-color);
+}
+.modal-button-update {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color); 
+  border-top: 3px solid var(--border-light-color); 
+  border-left: 3px solid var(--border-light-color); 
+  border-bottom: 3px solid var(--border-dark-color);       
+  border-right: 3px solid var(--border-dark-color); 
+  color: var(--text-color);
+}
+.modal-button-update:hover {
+  opacity: var(--opacity);
+  cursor: pointer;
+}
+.text-color {
+  color: var(--text-color);
 }
 
 /* estilos para mobile y tablets */
@@ -350,39 +434,45 @@ button.text:hover {
     font-size: 2.5rem;
   }
   .board-border {
-    border-top: 4px solid var(--board-border-top);  
-    border-left: 4px solid var(--board-border-left);  
-    border-bottom: 4px solid var(--board-border-bottom);        
-    border-right: 4px solid var(--board-border-right);  
+    border-top: 4px solid var(--border-light-color);  
+    border-left: 4px solid var(--border-light-color);  
+    border-bottom: 4px solid var(--border-dark-color);        
+    border-right: 4px solid var(--border-dark-color);  
   }
   .board {
     display: inline-block;
     width: 100%;
     height: 100%;
-    border: 8px solid var(--board-border);  
+    border: 8px solid var(--background-color);  
   }
   .separator-line {
-    border: 4px solid var(--separator-line-color);
+    border: 4px solid var(--background-color);
   }
   .board-border-internal {
-    border-top: 4px solid var(--board-border-internal-top);       
-    border-left: 4px solid var(--board-border-internal-left);
-    border-bottom: 4px solid var(--board-border-internal-bottom);
-    border-right: 4px solid var(--board-border-internal-right);
+    border-top: 4px solid var(--border-dark-color);       
+    border-left: 4px solid var(--border-dark-color);
+    border-bottom: 4px solid var(--border-light-color);
+    border-right: 4px solid var(--border-light-color);
   } 
   .header {
-    border-top: 4px solid var(--header-border-top);        
-    border-left: 4px solid var(--header-border-left);        
-    border-bottom: 4px solid var(--header-border-bottom);        
-    border-right: 4px solid var(--header-border-right);         
+    border-top: 4px solid var(--border-dark-color);        
+    border-left: 4px solid var(--border-dark-color);        
+    border-bottom: 4px solid var(--border-light-color);        
+    border-right: 4px solid var(--border-light-color);         
   }
-  .header-buttons-border {
-    border: 1px solid var(--header-button-border);  
+  .modal-border {
+    border-top: 4px solid var(--border-light-color);  
+    border-left: 4px solid var(--border-light-color);    
+    border-bottom: 4px solid var(--border-dark-color);       
+    border-right: 4px solid var(--border-dark-color); 
   }
-  .header-buttons {
-    border-top: 3px solid var(--header-button-border-top);
-    border-left: 3px solid var(--header-button-border-left);    
-    border-bottom: 3px solid var(--header-button-border-bottom);      
-    border-right: 3px solid var(--header-button-border-right);
+  .modal {
+    border: 8px solid var(--background-color);
+  }
+  .modal-border-internal {
+    border-top: 4px solid var(--border-dark-color);        
+    border-left: 4px solid var(--border-dark-color);      
+    border-bottom: 4px solid var(--border-light-color);      
+    border-right: 4px solid var(--border-light-color);   
   }
 }

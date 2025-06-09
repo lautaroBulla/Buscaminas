@@ -18,7 +18,7 @@
     }
   });
 
-  const emit = defineEmits(['comp-restart-game']);
+  const emit = defineEmits(['restart-game', 'view-settings']);
 </script>
 
 <template>
@@ -35,7 +35,7 @@
       <ResetComponent
         :gameOver="gameOver"
         :gameWin="gameWin"
-        @restart-game="$emit('comp-restart-game')"
+        @restart-game="$emit('restart-game')"
       />
     </div>
     <div class="flex justify-center w-1/5 m-1">
@@ -44,7 +44,9 @@
       />
     </div>
     <div class="flex justify-end w-1/5 m-1">
-      <SettingsComponent />
+      <SettingsComponent 
+        @view-settings="$emit('view-settings')"
+      />
     </div>
   </div>
 </template>
