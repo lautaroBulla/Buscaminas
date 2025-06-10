@@ -18,8 +18,11 @@
         "setting": "Configuraciones",
         "update": "Actualizar",
         "close": "Cerrar",
-        "firstClick": "Primer click en una casilla con valor 0",
-        "interrogations": "Símbolos '?' activados en la partida"
+        "firstClick": "Primer click en una casilla vacia",
+        "interrogations": "Símbolos '?' activados en la partida",
+        "language": "Idioma",
+        "spanish": "Español",
+        "english": "Ingles"
     },
     "languageSelector": {
         "changeLanguage": "EN",

@@ -1,14 +1,12 @@
 <script setup>
   import esFlag from '~/assets/img/es.png'
   import ukFlag from '~/assets/img/uk.png'
-  
-  const localeState = useState('locale');
 
-  const { locale } = useI18n();
+  const { locale, setLocale } = useI18n();
   
-  function changeLanguage() {
+  const changeLanguage = async () => {
     locale.value = locale.value === 'en' ? 'es' : 'en';
-    localeState.value = locale.value;
+    await setLocale(locale.value);
   }
 
   const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag));

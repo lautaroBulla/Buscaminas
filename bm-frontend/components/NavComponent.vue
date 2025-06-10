@@ -11,18 +11,18 @@ class= generales
 <template>
   <nav class="flex justify-between items-center w-full 
               px-2 py-2 border-b-2 border-b-secondary
-              md:px-10 md:py-4 md:border-b-4 md:border-b-secondary"
+              lg:px-10 lg:py-4 lg:border-b-4 lg:border-b-secondary"
   >
 
       <div class="hidden 
-              md:flex md:justify-start md:space-x-5 md:w-1/3"
+              lg:flex lg:justify-start lg:space-x-5 lg:w-1/3"
       >
         <ThemeComponent />
         <LanguageSelectorComponent />
       </div>
 
       <div class="flex
-                  md:justify-center md:w-1/3"
+                  lg:justify-center lg:w-1/3"
       >
         <NuxtLink to="/">
           <label class="title">
@@ -32,7 +32,7 @@ class= generales
       </div>
   
       <div class="flex 
-                  md:justify-end md:w-1/3">
+                  lg:justify-end lg:w-1/3">
 
         <div v-if="isAuthReady === false">
           <p>...</p>
@@ -46,7 +46,7 @@ class= generales
 
         <div v-else class="flex 
                             space-x-2
-                            md:space-x-5"
+                            lg:space-x-5"
         >
 
           <button class="secondary">

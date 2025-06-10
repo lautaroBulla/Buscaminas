@@ -5,13 +5,13 @@ Este composable se encarga de verificar el tamaño de la pantalla del lado del c
 export const useIsMobile = () => {
   const isMobile = useState('isMobile', () => {
     if (process.client) {
-      return window.matchMedia('(max-width: 640px)').matches;
+      return window.matchMedia('(max-width: 768px)').matches;
     }
     return false; 
   });
 
   const updateIsMobile = () => {
-    isMobile.value = window.matchMedia('(max-width: 640px)').matches;
+    isMobile.value = window.matchMedia('(max-width: 768px)').matches;
   };
 
   onMounted(() => {

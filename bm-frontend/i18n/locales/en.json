@@ -18,8 +18,11 @@
         "setting": "Settings",
         "update": "Update",
         "close": "Close",
-        "firstClick": "First click on a cell with value 0",
-        "interrogations": "'?' symbols enabled in the game"
+        "firstClick": "First click on a empty cell",
+        "interrogations": "'?' symbols enabled in the game",
+        "language": "Language",
+        "spanish": "Spanish",
+        "english": "English"
     },
     "languageSelector": {
         "changeLanguage": "ES",

@@ -5,6 +5,9 @@
   const { isMobile } = useIsMobile();
 
   const { currentTheme } = useCurrentTheme();
+
+  const { locale, setLocale } = useI18n();
+  const language = ref(locale.value);
   
   // Obtengo todas lasvariables de composable useMinesweeper
   const {
@@ -39,23 +42,13 @@
           rows.value = 9; cols.value = 9; mines.value = 10; resetGame(); break;
         case "intermediate":
           rows.value = 16; cols.value = 16; mines.value = 40; resetGame(); break;
-        case "expert":
-          if (isMobile.value) {         
-            rows.value = 30; 
-            cols.value = 16; 
-            mines.value = 99; 
-          } else {
-            rows.value = 16; 
-            cols.value = 30; 
-            mines.value = 99; 
-          }
-          resetGame(); 
-          break;
+        case "expert": 
+          rows.value = 16; cols.value = 30; mines.value = 99; resetGame(); break;
       }
     }
   })
   //esta funcion es la responsable de setear los valores cuando se selecciona la dificultad personalizada
-  function setCustomValues ({ rows: customRows, cols: customCols, mines: customMines }) {
+  const setCustomValues = ({ rows: customRows, cols: customCols, mines: customMines }) => {
     rows.value = customRows;
     cols.value = customCols;
     mines.value = customMines;
@@ -63,10 +56,12 @@
   }
 
   const modalSettings = ref(false);
-  function viewSettings () {
+  const viewSettings = () => {
     modalSettings.value = !modalSettings.value;
   }
-  function updateSettings (updateSettingsValues) {
+  const updateSettings = async (updateSettingsValues) => {
+    locale.value = updateSettingsValues.language;
+    await setLocale(locale.value);
     firstClickZero.value = updateSettingsValues.firstClickZero;
     interrogationsActivated.value = updateSettingsValues.interrogationsActivated;
 
@@ -78,7 +73,7 @@
   watch(gameWin, (newValue) => {
     modalGameFinish.value = newValue;
   });
-  function viewGameFinish () {
+  const viewGameFinish = () => {
     modalGameFinish.value = !modalGameFinish.value;
   }
   
@@ -88,9 +83,7 @@
 
 <template>
     
-  <div class="flex flex-col
-              p-2
-              md:items-center md:gap-y-4 md:pt-4">
+  <div class="flex flex-col items-center pt-4 space-y-4">
 
     <div class="md:flex md:gap-x-4">
       <DifficultySelectorComponent
@@ -134,6 +127,7 @@
   />
   <SettingsModal
     v-if="modalSettings"
+    :language="language"
     :firstClickZero="firstClickZero"
     :interrogationsActivated="interrogationsActivated"
     @update="updateSettings"

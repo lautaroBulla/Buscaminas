@@ -1,5 +1,6 @@
 PENDIENTE
   # Realizar el modal de setting
+  # Ver si puedo poner cookies para el user, en vez de state
   # Mejorar los estilos css, para que quede mas compacto
   # Realizar la logica del boton pista
   # Diseño de los botones en SelectoDifficulty, carrusel? 

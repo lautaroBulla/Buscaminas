@@ -118,6 +118,12 @@ button.text:hover {
   border-bottom: 5px solid var(--border-light-color);      
   border-right: 5px solid var(--border-light-color);      
 }
+.board-rotated {
+  transform: rotate(90deg);
+  transform-origin: left top;
+  display: inline-block;
+}
+
 
 /* header del tablero */
 .header {
@@ -426,12 +432,12 @@ button.text:hover {
 }
 
 /* estilos para mobile y tablets */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   body {
     font-size: 1.2rem;
   }
   .title {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
   }
   .board-border {
     border-top: 4px solid var(--border-light-color);  
@@ -440,9 +446,6 @@ button.text:hover {
     border-right: 4px solid var(--border-dark-color);  
   }
   .board {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
     border: 8px solid var(--background-color);  
   }
   .separator-line {
@@ -474,5 +477,14 @@ button.text:hover {
     border-left: 4px solid var(--border-dark-color);      
     border-bottom: 4px solid var(--border-light-color);      
     border-right: 4px solid var(--border-light-color);   
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 1.1rem;
+  }
+  .title {
+    font-size: 2rem;
   }
 }

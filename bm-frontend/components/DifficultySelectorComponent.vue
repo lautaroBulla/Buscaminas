@@ -59,11 +59,12 @@
   }
 </script>
 
+<!-- v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']" -->
 <template>
   <div class="flex flex-col space-y-2">
     <div class="flex flex-row justify-center space-x-4">
       <button
-        v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']"
+        v-for="difficulty in ['easy', 'intermediate', 'expert']"
         :key="difficulty"
         @click="selectDifficulty(difficulty)"
         class="text"

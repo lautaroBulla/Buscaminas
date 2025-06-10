@@ -60,8 +60,10 @@
               md:pt-4"
   >
     <form @submit.prevent="submit" class="card flex flex-col items-center space-y-5 p-5 h-fit
-                                          w-full  
-                                          md:w-3/12"
+                                          w-full 
+                                          md:w-8/12 
+                                          lg:w-6/12
+                                          xl:w-4/12"
     >
 
         <p v-if="errorMessage">{{ errorMessage }}</p>
