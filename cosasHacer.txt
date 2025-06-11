@@ -1,16 +1,18 @@
 PENDIENTE
-  # Mejorar los estilos css, para que quede mas compacto
-  # Integrar la pagina al tema? Se puede ver
-  # Ver si puedo poner cookies para el user, en vez de state
-  # Realizar la logica del boton pista
-  # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Asegurarme que sea responsive
+  # Diseño de los botones en SelectoDifficulty, carrusel? 
+  # Realizar la logica del boton pista
+  # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
+  # Ver si puedo poner cookies para el user y el tema del board, en vez de state
   # Verificar bien el thema dark para que quede bonito
+  # Ver como hacer lo de custom
   # Realizar toda la logica de los rankings
+  # Perfil del usuario
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
   # Crear mina armandose para el loader
+  # Nacionalidad al registrar
 
 COMPLETADO
   # Verificar los datos a mandar cuando se consulta la funcion me 
@@ -25,3 +27,4 @@ COMPLETADO
   # Capaz meter configuraciones en el header
   # Agregar boton pista? 
   # Realizar el modal de setting
+  # Mejorar los estilos css, para que quede mas compacto

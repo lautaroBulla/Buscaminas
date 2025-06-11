@@ -76,7 +76,11 @@
 
             <div class="flex justify-end">
               <div class="button-border">
-                <button @click="emit('close')" class="button w-[30px] h-[30px]">
+                <button @click="emit('close')" 
+                        class="button w-[30px] h-[30px]
+                               md:w-[35px] md:h-[35px]
+                               lg:w-[40px] lg:h-[40px]"
+                >
                   <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
                 </button>
               </div>
@@ -90,25 +94,27 @@
                             flex flex-col"
                 >
                   <label class="text-color"> {{ $t('gameSettings.language') }}: </label>
-                  <div class="flex flex-row space-x-5">
+                  <div class="flex flex-row space-x-3">
 
                     <div :class="language !== 'en' ? 'opacity-50 button-border-2' : 'button-border'">
-                      <button class="gap-x-2 px-2"
+                      <button class="gap-x-2 px-2 h-[30px]
+                                    md:h-[35px]"
                               :class="language !== 'en' ? 'button-2' : 'button'"
                               @click="language = 'en'"
                       > 
                         {{ $t('gameSettings.english') }}  
-                        <img :src="ukFlag" class="w-6 h-4" />
+                        <img :src="ukFlag" />
                       </button>
                     </div>
                     
                     <div :class="language !== 'es' ? 'opacity-50 button-border-2' : 'button-border'">
-                      <button class="gap-x-2 px-2"
+                      <button class="gap-x-2 px-2 h-[30px]
+                                    md:h-[35px]"
                               :class="language !== 'es' ? 'button-2' : 'button'"
                               @click="language = 'es'"
                       > 
                         {{ $t('gameSettings.spanish') }} 
-                        <img :src="esFlag" class="w-6 h-4" />
+                        <img :src="esFlag" />
                       </button>
                     </div>
                   </div>
@@ -121,7 +127,9 @@
                               lg:grid-cols-4"
                   >
                     <div :class="theme !== 'classicTheme' ? 'button-border-2' : 'button-border'">
-                      <button class="gap-x-2 px-2 py-1"
+                      <button class="gap-x-2 px-2 py-1 h-[30px]
+                                    md:h-[35px]
+                                    lg:h-[40px]"
                               :class="theme !== 'classicTheme' ? 'opacity-50 modal-button-classic-2' : 'modal-button-classic'"
                               @click="theme = 'classicTheme'"
                       > 
@@ -133,7 +141,9 @@
                     </div>
                     
                     <div :class="theme !== 'darkTheme' ? 'button-border-2' : 'button-border'">
-                      <button class="gap-x-2 px-2 py-1"
+                      <button class="gap-x-2 px-2 py-1 h-[30px]
+                                    md:h-[35px]
+                                    lg:h-[40px]"
                               :class="theme !== 'darkTheme' ? 'opacity-50 modal-button-dark-2' : 'modal-button-dark'"
                               @click="theme = 'darkTheme'"
                       > 
@@ -185,7 +195,9 @@
               <div class="button-border">
                 <button 
                   @click="updateSettings"
-                  class="button px-2"
+                  class="button px-2 py-1 h-[30px]
+                        md:h-[35px]
+                        lg:h-[40px]"
                 >
                   {{ $t('gameSettings.update') }}
                 </button>

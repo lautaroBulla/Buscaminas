@@ -14,7 +14,6 @@
 		}	
   };
 
-
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
