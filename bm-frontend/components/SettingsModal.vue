@@ -5,6 +5,16 @@
   import esFlag from '~/assets/img/es.png'
   import ukFlag from '~/assets/img/uk.png'
 
+  import faceClassic from '~/assets/img/themes/classicTheme/face.png';
+  import mineClasssic from '~/assets/img/themes/classicTheme/mine.png';
+  import flagClasssic from '~/assets/img/themes/classicTheme/flag.png';
+  import oneClasssic from '~/assets/img/themes/classicTheme/one.png';
+
+  import faceDark from '~/assets/img/themes/darkTheme/faceDark.png';
+  import mineDark from '~/assets/img/themes/darkTheme/mineDark.png';
+  import flagDark from '~/assets/img/themes/darkTheme/flagDark.png';
+  import oneDark from '~/assets/img/themes/darkTheme/oneDark.png';
+
   import { ref } from 'vue';
   
   const props = defineProps({
@@ -19,10 +29,10 @@
   });
 
   const { locale } = useI18n();
-
   const language = ref(locale.value);
 
   const { currentTheme } = useCurrentTheme();
+  const theme = ref(currentTheme.value);
 	
 	const imgByTheme = {
     classicTheme: {
@@ -45,6 +55,7 @@
   function updateSettings () {
     emit('update', {
       language: language.value,
+      theme: theme.value,
       firstClickZero: localFirstClickZero.value,
       interrogationsActivated: localInterrogationsActivated.value
     });
@@ -64,53 +75,117 @@
           <div class="modal-border-internal">
 
             <div class="flex justify-end">
-              <div class="modal-button-close-border w-fit">
-                <button @click="emit('close')" class="modal-button-close">
+              <div class="modal-button-border">
+                <button @click="emit('close')" class="modal-button p-1">
                   <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
                 </button>
               </div>
             </div>
 
-            <div class="flex flex-col space-y-1">
+            <div class="flex flex-col">
 
-              <div class="lg:hidden
-                          flex flex-row items-center gap-x-2"
-              >
-                <label class="text-color"> {{ $t('gameSettings.language') }}: </label>
-                <button class="text-color flex flex-row items-center gap-x-1"
-                        :class="language !== 'en' ? 'opacity-40' : ''"
-                        @click="language = 'en'"
-                > 
-                  {{ $t('gameSettings.english') }}  
-                  <img :src="ukFlag" class="w-7 h-4" />
-                </button>
-                
-                <button class="text-color flex flex-row items-center gap-x-1"
-                        :class="language !== 'es' ? 'opacity-40' : ''"
-                        @click="language = 'es'"
-                > 
-                  {{ $t('gameSettings.spanish') }} 
-                  <img :src="esFlag" class="w-7 h-4" />
-                </button>
+              <div class="flex flex-col gap-y-1">
+
+                <div class="lg:hidden
+                            flex flex-col"
+                >
+                  <label class="text-color"> {{ $t('gameSettings.language') }}: </label>
+                  <div class="flex flex-row space-x-5">
+
+                    <div :class="language !== 'en' ? 'opacity-50 modal-button-border-2' : 'modal-button-border'">
+                      <button class="gap-x-2 px-2"
+                              :class="language !== 'en' ? 'modal-button-2' : 'modal-button'"
+                              @click="language = 'en'"
+                      > 
+                        {{ $t('gameSettings.english') }}  
+                        <img :src="ukFlag" class="w-6 h-4" />
+                      </button>
+                    </div>
+                    
+                    <div :class="language !== 'es' ? 'opacity-50 modal-button-border-2' : 'modal-button-border'">
+                      <button class="gap-x-2 px-2"
+                              :class="language !== 'es' ? 'modal-button-2' : 'modal-button'"
+                              @click="language = 'es'"
+                      > 
+                        {{ $t('gameSettings.spanish') }} 
+                        <img :src="esFlag" class="w-6 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-col">
+                  <label class="text-color"> {{ $t('gameSettings.theme') }}: </label>
+                  <div class="grid grid-cols-2 
+                              md:grid-cols-3 
+                              lg:grid-cols-4"
+                  >
+                    <div :class="theme !== 'classicTheme' ? 'modal-button-border-2' : 'modal-button-border'">
+                      <button class="gap-x-2 px-2 py-1"
+                              :class="theme !== 'classicTheme' ? 'opacity-50 modal-button-classic-2' : 'modal-button-classic'"
+                              @click="theme = 'classicTheme'"
+                      > 
+                        <img :src="faceClassic" class="w-5 h-5" />
+                        <img :src="mineClasssic" class="w-5 h-5" />
+                        <img :src="flagClasssic" class="w-3 h-4" />
+                        <img :src="oneClasssic" class="w-3 h-4" />
+                      </button>
+                    </div>
+                    
+                    <div :class="theme !== 'darkTheme' ? 'modal-button-border-2' : 'modal-button-border'">
+                      <button class="gap-x-2 px-2 py-1"
+                              :class="theme !== 'darkTheme' ? 'opacity-50 modal-button-dark-2' : 'modal-button-dark'"
+                              @click="theme = 'darkTheme'"
+                      > 
+                        <img :src="faceDark" class="w-5 h-5" />
+                        <img :src="mineDark" class="w-5 h-5" />
+                        <img :src="flagDark" class="w-3 h-4" />
+                        <img :src="oneDark" class="w-3 h-4" />
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
+              
+              <div class="modal-separator"></div>
 
-              <div class="flex flex-row items-center gap-x-2">
-                <label class="text-color"> {{ $t('gameSettings.firstClick') }}: </label>
-                <input type="checkbox" v-model="localFirstClickZero" class="checkbox" />
-              </div>
+              <div class="flex flex-col gap-y-1">
 
-              <div class="flex flex-row items-center gap-x-2">
-                <label class="text-color"> {{ $t('gameSettings.interrogations') }}: </label>
-                <input type="checkbox" v-model="localInterrogationsActivated" class="checkbox" />
+                <div class="flex flex-row items-center gap-x-2">
+                  <div :class="localFirstClickZero ? 'modal-button-border' : 'modal-button-border-2'">
+                    <input 
+                      type="checkbox" 
+                      class="checkbox" 
+                      :class="localFirstClickZero ? 'modal-button' : 'modal-button-2'"
+                      v-model="localFirstClickZero" 
+                    />
+                  </div>
+                  <label class="text-color"> {{ $t('gameSettings.firstClick') }} </label>
+                </div>
+
+                <div class="flex flex-row items-center gap-x-2">
+                  <div :class="localInterrogationsActivated ? 'modal-button-border' : 'modal-button-border-2'">
+                    <input 
+                      type="checkbox" 
+                      class="checkbox" 
+                      :class="localInterrogationsActivated ? 'modal-button' : 'modal-button-2'" 
+                      v-model="localInterrogationsActivated" 
+                    />
+                    </div>
+                  <label class="text-color"> {{ $t('gameSettings.interrogations') }} </label>
+                </div>
+
               </div>
 
             </div>
 
             <div class="flex justify-center mt-2">
-              <div class="modal-button-update-border">
+              <div class="modal-button-border">
                 <button 
                   @click="updateSettings"
-                  class="modal-button-update px-2"
+                  class="modal-button px-2"
                 >
                   {{ $t('gameSettings.update') }}
                 </button>

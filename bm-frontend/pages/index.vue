@@ -5,6 +5,7 @@
   const { isMobile } = useIsMobile();
 
   const { currentTheme } = useCurrentTheme();
+  const theme = ref(currentTheme.value);
 
   const { locale, setLocale } = useI18n();
   const language = ref(locale.value);
@@ -62,6 +63,7 @@
   const updateSettings = async (updateSettingsValues) => {
     locale.value = updateSettingsValues.language;
     await setLocale(locale.value);
+    currentTheme.value = updateSettingsValues.theme;
     firstClickZero.value = updateSettingsValues.firstClickZero;
     interrogationsActivated.value = updateSettingsValues.interrogationsActivated;
 

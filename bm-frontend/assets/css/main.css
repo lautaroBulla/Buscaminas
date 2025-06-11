@@ -364,36 +364,45 @@ button.text:hover {
   padding: 10px;  
   background-color: var(--background-color);
 }
-.modal-button-close-border {
+.modal-button-border {
   border: 1px solid var(--border-dark-color);
+  width: fit-content;
 }
-.modal-button-close {
+.modal-button-border-2 {
+  border: 1px solid var(--background-color);
+  width: fit-content;
+}
+.modal-button  {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px; 
-  width: 30px; 
   background-color: var(--background-color); 
   border-top: 3px solid var(--border-light-color); 
   border-left: 3px solid var(--border-light-color); 
   border-bottom: 3px solid var(--border-dark-color);       
   border-right: 3px solid var(--border-dark-color); 
+  color: var(--text-color);
 }
-.modal-button-close:hover {
+.modal-button-2  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color); 
+  border-bottom: 3px solid var(--border-light-color); 
+  border-right: 3px solid var(--border-light-color); 
+  border-top: 3px solid var(--border-dark-color);       
+  border-left: 3px solid var(--border-dark-color); 
+  color: var(--text-color);
+}
+.modal-button:hover {
   opacity: var(--opacity);
   cursor: pointer;
-}
-.modal-button-close img {
-  width: 70%;
-  aspect-ratio: 1 / 1;
 }
 .checkbox {
   appearance: none;
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--border-dark-color);
-  background-color: var(--background-color);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -407,27 +416,56 @@ button.text:hover {
   background-size: 80%; 
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #22c55e;
 }
-.modal-button-update-border {
-  border: 1px solid var(--border-dark-color);
+.text-color {
+  color: var(--text-color);
 }
-.modal-button-update {
+.modal-separator {
+  border-top: 2px solid var(--border-light-color);
+  margin-block: 1rem;
+}
+.modal-button-classic  {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color); 
-  border-top: 3px solid var(--border-light-color); 
-  border-left: 3px solid var(--border-light-color); 
-  border-bottom: 3px solid var(--border-dark-color);       
-  border-right: 3px solid var(--border-dark-color); 
+  background-color: #C0C0C0; 
+  border-top: 3px solid #FFFFFF; 
+  border-left: 3px solid #FFFFFF; 
+  border-bottom: 3px solid #808080;     
+  border-right: 3px solid #808080;
   color: var(--text-color);
 }
-.modal-button-update:hover {
-  opacity: var(--opacity);
-  cursor: pointer;
+.modal-button-classic-2  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #C0C0C0; 
+  border-top: 3px solid #808080; 
+  border-left: 3px solid #808080; 
+  border-bottom: 3px solid #FFFFFF;     
+  border-right: 3px solid #FFFFFF;
+  color: var(--text-color);
 }
-.text-color {
+.modal-button-dark  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #555555; 
+  border-top: 3px solid #777777; 
+  border-left: 3px solid #777777; 
+  border-bottom: 3px solid #333333;     
+  border-right: 3px solid #333333;
+  color: var(--text-color);
+}
+.modal-button-dark-2  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #555555; 
+  border-top: 3px solid #333333; 
+  border-left: 3px solid #333333; 
+  border-bottom: 3px solid #777777;     
+  border-right: 3px solid #777777;
   color: var(--text-color);
 }
 

@@ -19,7 +19,7 @@
   import sixDark from '~/assets/img/themes/darkTheme/sixDark.png';
   import sevenDark from '~/assets/img/themes/darkTheme/sevenDark.png';
   import eightDark from '~/assets/img/themes/darkTheme/eightDark.png';
-  import mineDark from '~/assets/img/themes/classicTheme/mine.png';
+  import mineDark from '~/assets/img/themes/darkTheme/mineDark.png';
   import flagDark from '~/assets/img/themes/darkTheme/flagDark.png';
   import interrogationDark from '~/assets/img/themes/darkTheme/interrogationDark.png';
 
