@@ -77,9 +77,9 @@
             <div class="flex justify-end">
               <div class="button-border">
                 <button @click="emit('close')" 
-                        class="button w-[30px] h-[30px]
-                               md:w-[35px] md:h-[35px]
-                               lg:w-[40px] lg:h-[40px]"
+                        class="button w-[25px] h-[25px]
+                               md:w-[30px] md:h-[30px]
+                               lg:w-[35px] lg:h-[35px]"
                 >
                   <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
                 </button>
