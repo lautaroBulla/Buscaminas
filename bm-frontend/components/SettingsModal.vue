@@ -65,18 +65,18 @@
 <template>
   <div :class="`${currentTheme}`">
     <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div class="modal-border 
+      <div class="border-external
                   w-full m-1
                   md:w-8/12 md:m-0
                   lg:w-6/12
                   xl:w-4/12"
         >
-        <div class="modal">
-          <div class="modal-border-internal">
+        <div class="border">
+          <div class="border-internal p-2">
 
             <div class="flex justify-end">
-              <div class="modal-button-border">
-                <button @click="emit('close')" class="modal-button p-1">
+              <div class="button-border">
+                <button @click="emit('close')" class="button w-[30px] h-[30px]">
                   <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
                 </button>
               </div>
@@ -92,9 +92,9 @@
                   <label class="text-color"> {{ $t('gameSettings.language') }}: </label>
                   <div class="flex flex-row space-x-5">
 
-                    <div :class="language !== 'en' ? 'opacity-50 modal-button-border-2' : 'modal-button-border'">
+                    <div :class="language !== 'en' ? 'opacity-50 button-border-2' : 'button-border'">
                       <button class="gap-x-2 px-2"
-                              :class="language !== 'en' ? 'modal-button-2' : 'modal-button'"
+                              :class="language !== 'en' ? 'button-2' : 'button'"
                               @click="language = 'en'"
                       > 
                         {{ $t('gameSettings.english') }}  
@@ -102,9 +102,9 @@
                       </button>
                     </div>
                     
-                    <div :class="language !== 'es' ? 'opacity-50 modal-button-border-2' : 'modal-button-border'">
+                    <div :class="language !== 'es' ? 'opacity-50 button-border-2' : 'button-border'">
                       <button class="gap-x-2 px-2"
-                              :class="language !== 'es' ? 'modal-button-2' : 'modal-button'"
+                              :class="language !== 'es' ? 'button-2' : 'button'"
                               @click="language = 'es'"
                       > 
                         {{ $t('gameSettings.spanish') }} 
@@ -120,7 +120,7 @@
                               md:grid-cols-3 
                               lg:grid-cols-4"
                   >
-                    <div :class="theme !== 'classicTheme' ? 'modal-button-border-2' : 'modal-button-border'">
+                    <div :class="theme !== 'classicTheme' ? 'button-border-2' : 'button-border'">
                       <button class="gap-x-2 px-2 py-1"
                               :class="theme !== 'classicTheme' ? 'opacity-50 modal-button-classic-2' : 'modal-button-classic'"
                               @click="theme = 'classicTheme'"
@@ -132,7 +132,7 @@
                       </button>
                     </div>
                     
-                    <div :class="theme !== 'darkTheme' ? 'modal-button-border-2' : 'modal-button-border'">
+                    <div :class="theme !== 'darkTheme' ? 'button-border-2' : 'button-border'">
                       <button class="gap-x-2 px-2 py-1"
                               :class="theme !== 'darkTheme' ? 'opacity-50 modal-button-dark-2' : 'modal-button-dark'"
                               @click="theme = 'darkTheme'"
@@ -149,16 +149,16 @@
 
               </div>
               
-              <div class="modal-separator"></div>
+              <div class="modal-separator-line my-3"></div>
 
               <div class="flex flex-col gap-y-1">
 
                 <div class="flex flex-row items-center gap-x-2">
-                  <div :class="localFirstClickZero ? 'modal-button-border' : 'modal-button-border-2'">
+                  <div :class="localFirstClickZero ? 'button-border' : 'button-border-2'">
                     <input 
                       type="checkbox" 
                       class="checkbox" 
-                      :class="localFirstClickZero ? 'modal-button' : 'modal-button-2'"
+                      :class="localFirstClickZero ? 'button' : 'button-2'"
                       v-model="localFirstClickZero" 
                     />
                   </div>
@@ -166,11 +166,11 @@
                 </div>
 
                 <div class="flex flex-row items-center gap-x-2">
-                  <div :class="localInterrogationsActivated ? 'modal-button-border' : 'modal-button-border-2'">
+                  <div :class="localInterrogationsActivated ? 'button-border' : 'button-border-2'">
                     <input 
                       type="checkbox" 
                       class="checkbox" 
-                      :class="localInterrogationsActivated ? 'modal-button' : 'modal-button-2'" 
+                      :class="localInterrogationsActivated ? 'button' : 'button-2'" 
                       v-model="localInterrogationsActivated" 
                     />
                     </div>
@@ -182,10 +182,10 @@
             </div>
 
             <div class="flex justify-center mt-2">
-              <div class="modal-button-border">
+              <div class="button-border">
                 <button 
                   @click="updateSettings"
-                  class="modal-button px-2"
+                  class="button px-2"
                 >
                   {{ $t('gameSettings.update') }}
                 </button>

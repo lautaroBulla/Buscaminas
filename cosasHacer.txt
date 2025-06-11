@@ -1,7 +1,7 @@
 PENDIENTE
-  # Realizar el modal de setting
-  # Ver si puedo poner cookies para el user, en vez de state
   # Mejorar los estilos css, para que quede mas compacto
+  # Integrar la pagina al tema? Se puede ver
+  # Ver si puedo poner cookies para el user, en vez de state
   # Realizar la logica del boton pista
   # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Asegurarme que sea responsive
@@ -24,3 +24,4 @@ COMPLETADO
   # Cuando ganas que se pongan flagas en las casillas faltantes
   # Capaz meter configuraciones en el header
   # Agregar boton pista? 
+  # Realizar el modal de setting

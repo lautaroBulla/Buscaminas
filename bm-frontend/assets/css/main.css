@@ -99,25 +99,35 @@ button.text:hover {
   width: 50px;
 }
 
-/* tablero */
-.board-border {
+
+/* 
+CSS DE LOS BORDES USADOS PARA EL TABLERO, MODALS Y HEADER
+*/
+.border-external {
+  background-color: var(--background-color); 
   border-top: 5px solid var(--border-light-color);  
   border-left: 5px solid var(--border-light-color);    
   border-bottom: 5px solid var(--border-dark-color);       
   border-right: 5px solid var(--border-dark-color); 
 }
-.board {
+.border {
   border: 10px solid var(--background-color);
 }
-.separator-line {
+.border-separator {
   border: 5px solid var(--background-color);
 }
-.board-border-internal {
-  border-top: 5px solid var(--border-dark-color);        
-  border-left: 5px solid var(--border-dark-color);      
-  border-bottom: 5px solid var(--border-light-color);      
-  border-right: 5px solid var(--border-light-color);      
+.border-internal {
+  background-color: var(--background-color);    
+  border-top: 5px solid var(--border-dark-color);       
+  border-left: 5px solid var(--border-dark-color);    
+  border-bottom: 5px solid var(--border-light-color);    
+  border-right: 5px solid var(--border-light-color);  
 }
+
+
+/* 
+ESTA CLASE DE USA PARA PODER ROTAR EL TABLERO EN MOBILE, ASI EL TABLERO SE MUESTRA VERTICALMENTE
+*/
 .board-rotated {
   transform: rotate(90deg);
   transform-origin: left top;
@@ -125,39 +135,52 @@ button.text:hover {
 }
 
 
-/* header del tablero */
-.header {
-  background-color: var(--background-color);    
-  border-top: 5px solid var(--border-dark-color);       
-  border-left: 5px solid var(--border-dark-color);    
-  border-bottom: 5px solid var(--border-light-color);    
-  border-right: 5px solid var(--border-light-color);     
-}
-.header-buttons-border {
+/* 
+CSS PARA LA MAYORIA DE BOTONES
+*/
+.button-border {
   border: 1px solid var(--border-dark-color);
+  width: fit-content;
 }
-.header-buttons {
+.button-border-2 {
+  border: 1px solid var(--background-color);
+  width: fit-content;
+}
+.button  {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 38px; 
-  width: 38px; 
   background-color: var(--background-color); 
   border-top: 3px solid var(--border-light-color); 
   border-left: 3px solid var(--border-light-color); 
   border-bottom: 3px solid var(--border-dark-color);       
   border-right: 3px solid var(--border-dark-color); 
+  color: var(--text-color);
 }
-.header-buttons:hover {
+.button-2  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color); 
+  border-bottom: 3px solid var(--border-light-color); 
+  border-right: 3px solid var(--border-light-color); 
+  border-top: 3px solid var(--border-dark-color);       
+  border-left: 3px solid var(--border-dark-color); 
+  color: var(--text-color);
+}
+.button:hover, .button-2:hover {
   opacity: var(--opacity);
   cursor: pointer;
 }
-.header-buttons img {
-  width: 90%;
+.button img {
+  height: 80%;
   aspect-ratio: 1 / 1;
 }
 
-/* display seven segment del header */
+
+/* 
+CSS PARA EL PANEL DE NUMEROS DEL TIMER Y DEL CONTADOR DE FLAGS
+ */
 .numbers-panel {
   display: flex;
   gap: 3px;
@@ -306,7 +329,10 @@ button.text:hover {
 .seven-segment[data-digit="9"] .segment.f,
 .seven-segment[data-digit="9"] .segment.g { background: rgba(var(--seven-segment-color), 1); }
 
-/* casillas del tablero */
+
+/*
+ESTILOS PARA LAS CASILLAS DEL JUEGO, SIN REVELAR 
+*/
 .cell {
   display: flex;
   justify-content: center;
@@ -325,9 +351,12 @@ button.text:hover {
 }
 .cell img {
   width: 60%;
-  height: 80%;
+  height: 65%;
 }
-/* casillas reveladas del tablero */
+
+/* 
+ESTILOS PARA LAS CASILLAS DEL JUEGO, REVELADAS
+ */
 .reveal {
   display: flex;
   justify-content: center;
@@ -339,91 +368,25 @@ button.text:hover {
 }
 .reveal img {
   width: 60%;
-  aspect-ratio: 1 / 1;
+  height: 65%;
 }
-/* casillas reveladas del tablero con bomba */
 .reveal-lose {
   background-color: var(--reveal-lose-background);
 }
 
-/* modals */
-.modal-border {
-  border-top: 5px solid var(--border-light-color);  
-  border-left: 5px solid var(--border-light-color);    
-  border-bottom: 5px solid var(--border-dark-color);       
-  border-right: 5px solid var(--border-dark-color); 
-}
-.modal {
-  border: 10px solid var(--background-color);
-}
-.modal-border-internal {
-  border-top: 5px solid var(--border-dark-color);        
-  border-left: 5px solid var(--border-dark-color);      
-  border-bottom: 5px solid var(--border-light-color);      
-  border-right: 5px solid var(--border-light-color);   
-  padding: 10px;  
-  background-color: var(--background-color);
-}
-.modal-button-border {
-  border: 1px solid var(--border-dark-color);
-  width: fit-content;
-}
-.modal-button-border-2 {
-  border: 1px solid var(--background-color);
-  width: fit-content;
-}
-.modal-button  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--background-color); 
-  border-top: 3px solid var(--border-light-color); 
-  border-left: 3px solid var(--border-light-color); 
-  border-bottom: 3px solid var(--border-dark-color);       
-  border-right: 3px solid var(--border-dark-color); 
-  color: var(--text-color);
-}
-.modal-button-2  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--background-color); 
-  border-bottom: 3px solid var(--border-light-color); 
-  border-right: 3px solid var(--border-light-color); 
-  border-top: 3px solid var(--border-dark-color);       
-  border-left: 3px solid var(--border-dark-color); 
-  color: var(--text-color);
-}
-.modal-button:hover {
-  opacity: var(--opacity);
-  cursor: pointer;
-}
-.checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.checkbox:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-.checkbox:checked {
-  background-image: url('img/check.png');
-  background-size: 80%; 
-  background-position: center;
-  background-repeat: no-repeat;
+
+/* 
+TODOS LOS ESTILOS NECESARIOS PARA LOS MODALS
+*/
+.modal-separator-line {
+  border: 1px solid var(--border-light-color);
 }
 .text-color {
   color: var(--text-color);
 }
-.modal-separator {
-  border-top: 2px solid var(--border-light-color);
-  margin-block: 1rem;
-}
+/*
+ESTILOS INDIVIDUALES PARA LOS BOTONES DE SELECCION DEL TEMA EN EL MODAL
+*/
 .modal-button-classic  {
   display: flex;
   justify-content: center;
@@ -468,6 +431,33 @@ button.text:hover {
   border-right: 3px solid #777777;
   color: var(--text-color);
 }
+.modal-button-classic-2:hover, .modal-button-dark-2:hover {
+  opacity: var(--opacity);
+  cursor: pointer;
+}
+/*
+CSS DEL LOS CHECKBOXES PERSONALIZADOS
+*/
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.checkbox:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.checkbox:checked {
+  background-image: url('img/check.png');
+  background-size: 80%; 
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 
 /* estilos para mobile y tablets */
 @media (max-width: 768px) {

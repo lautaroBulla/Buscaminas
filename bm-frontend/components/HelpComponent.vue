@@ -27,8 +27,8 @@
 </script>
 
 <template>
-	<div class="header-buttons-border">
-		<button @click="submitHelp" class="header-buttons">
+	<div class="button-border">
+		<button @click="submitHelp" class="button w-[38px] h-[38px]">
 			<img :src="imgByTheme[currentThemeComputed].help" alt="Help" />
 		</button>
 	</div>

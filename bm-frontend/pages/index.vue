@@ -96,8 +96,8 @@
 
     <div :class="`${currentTheme}`">
 
-      <div class="board-border">
-        <div class="board">
+      <div class="border-external">
+        <div class="border">
           <HeaderComponent
             :remainingMines="remainingMines"
             :seconds="seconds"
@@ -106,7 +106,7 @@
             @restart-game="resetGame()"
             @view-settings="viewSettings()"
           />
-          <div class="separator-line"></div>
+          <div class="border-separator"></div>
           <BoardComponent 
             :board="board"
             :revealed="revealed"

@@ -26,8 +26,8 @@
 </script>
 
 <template>
-	<div class="header-buttons-border">
-		<button @click="viewSetting" class="header-buttons">
+	<div class="button-border">
+		<button @click="viewSetting" class="button w-[38px] h-[38px]">
 			<img :src="imgByTheme[currentThemeComputed].setting" alt="Settings"/>
 		</button>
 	</div>

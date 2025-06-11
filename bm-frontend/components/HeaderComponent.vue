@@ -22,7 +22,7 @@
 </script>
 
 <template>
-  <div class="flex flex-row items-center header">
+  <div class="flex flex-row items-center border-internal">
     <div class="flex justify-start w-1/5 m-1">
       <HelpComponent />
     </div>

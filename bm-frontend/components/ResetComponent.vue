@@ -61,8 +61,8 @@
 </script>
 
 <template>
-	<div class="header-buttons-border">
-		<button @click="restartGame" class="header-buttons">
+	<div class="button-border">
+		<button @click="restartGame" class="button w-[38px] h-[38px]">
 			<img :src="faceImage" :alt="faceAlt"/>
 		</button>
 	</div>

@@ -81,7 +81,7 @@
       display: 'grid',
       gridTemplateColumns: `repeat(${boardToUse[0]?.length || 0}, minmax(${!isMobile ? 25 : 20}px, 1fr))`
     }"
-    class="board-border-internal"
+    class="border-internal"
   >
     <CellComponent
       v-for="(cell) in flatBoard"
