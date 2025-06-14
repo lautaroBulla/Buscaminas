@@ -1,7 +1,11 @@
+<script setup>
+  const { currentTheme } = useCurrentTheme();
+</script>
+
 <template>
   <div>
     <NavComponent />
-    <main>
+    <main class="background" :class="`${currentTheme}`">
       <NuxtPage />
     </main>
   </div>

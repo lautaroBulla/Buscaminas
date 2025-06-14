@@ -1,4 +1,7 @@
 export const useCurrentTheme = () => {
-  const currentTheme = useState('currentTheme', () => 'darkTheme');
+  const currentTheme = useCookie('currentTheme', {
+    default: () => "classicTheme",
+    path: "/"
+  });
   return { currentTheme };
 }

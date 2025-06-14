@@ -21,7 +21,7 @@
         :title="$t('languageSelector.changeLanguageTitle')"
       >
         {{ $t('languageSelector.changeLanguage') }}
-        <img :src="flagSrc" :alt="flagAlt"  />
+        <img :src="flagSrc" :alt="flagAlt" class="w-[20px] h-[15px]" />
       </button>
   </div>
 </template>

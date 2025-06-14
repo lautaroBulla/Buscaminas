@@ -89,7 +89,6 @@
     
   <div class="flex flex-col items-center pt-4 space-y-4">
 
-    
     <div class="md:flex md:gap-x-4">
       <DifficultySelectorComponent
       v-model="difficulty"
@@ -97,34 +96,30 @@
       />
     </div>
 
-    <div :class="`${currentTheme}`">
-
-      <div class="border-external">
-        <div class="border">
-          <HeaderComponent
-          :remainingMines="remainingMines"
-          :seconds="seconds"
-          :gameOver="gameOver"
-          :gameWin="gameWin"
-          @restart-game="resetGame()"
-          @view-settings="viewSettings()"
-          @help="help()"
-          />
-          <div class="border-separator"></div>
-          <BoardComponent 
-            :board="board"
-            :revealed="revealed"
-            :flags="flags"
-            :interrogations="interrogationsActivated ? interrogations : null"
-            :explotedCell="explotedCell"
-            :helpCells="helpCells"
-            :messageHelp="messageHelp"
-            @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
-            @cell-right-click="({row, col}) => rightClick(row, col)"
-          />
-        </div>
+    <div class="border-external">
+      <div class="border">
+        <HeaderComponent
+        :remainingMines="remainingMines"
+        :seconds="seconds"
+        :gameOver="gameOver"
+        :gameWin="gameWin"
+        @restart-game="resetGame()"
+        @view-settings="viewSettings()"
+        @help="help()"
+        />
+        <div class="border-separator"></div>
+        <BoardComponent 
+          :board="board"
+          :revealed="revealed"
+          :flags="flags"
+          :interrogations="interrogationsActivated ? interrogations : null"
+          :explotedCell="explotedCell"
+          :helpCells="helpCells"
+          :messageHelp="messageHelp"
+          @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
+          @cell-right-click="({row, col}) => rightClick(row, col)"
+        />
       </div>
-
     </div>
 
   </div>

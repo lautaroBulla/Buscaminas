@@ -32,7 +32,8 @@
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   font-family: 'VT323', monospace;
@@ -40,6 +41,15 @@ body {
   color: var(--color-nonary);
   font-size: 1.3rem;
   -webkit-text-size-adjust: 100%;
+}
+
+.background {
+  min-height: 100dvh;
+  background-image:
+    repeating-linear-gradient(0deg, var(--color-secondary) 0px, var(--color-secondary) 2px, transparent 2px, transparent 30px),
+    repeating-linear-gradient(90deg, var(--color-secondary) 0px, var(--color-secondary) 2px, transparent 2px, transparent 30px);
+  background-size: 30px 30px;
+  overflow: hidden;
 }
 
 /* titulo */

@@ -115,46 +115,44 @@
 
 <!-- v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']" -->
 <template>
-  <div :class="`${currentTheme}`">
 
-    <div class="border-external-sm flex flex-col space-y-2 w-[250px]">
-      <div class="border-sm">
-        <div class="border-internal-sm flex flex-row justify-between items-center px-1">
+  <div class="border-external-sm flex flex-col space-y-2 w-[250px]">
+    <div class="border-sm">
+      <div class="border-internal-sm flex flex-row justify-between items-center px-1">
 
-          <div class="button-border"> 
-            <button class="button-sm w-[20px] h-[20px]" 
-                    @click="changeDifficulty(index - 1)">
-              <
-            </button>
-          </div>
-
-          <label
-            :key="difficulty"
-            class="text flex flex-row items-center gap-x-2"
-            :title="$t(`difficultySelector.${difficulty}Title`)"
-          >
-            <img
-              :src="imgByTheme[currentThemeComputed][difficulty].face"
-              class="w-[15px] h-[15px]"
-            />
-            {{ $t(`difficultySelector.${difficulty}`) }}
-            <img
-              :src="imgByTheme[currentThemeComputed][difficulty].face"
-              class="w-[15px] h-[15px]"
-            />
-          </label>
-          <div class="button-border"> 
-            <button class="button-sm w-[20px] h-[20px]" 
-                    @click="changeDifficulty(index + 1)">
-              >
-            </button>
-          </div>
-
+        <div class="button-border"> 
+          <button class="button-sm w-[20px] h-[20px]" 
+                  @click="changeDifficulty(index - 1)">
+            <
+          </button>
         </div>
+
+        <label
+          :key="difficulty"
+          class="text text-color flex flex-row items-center gap-x-2"
+          :title="$t(`difficultySelector.${difficulty}Title`)"
+        >
+          <img
+            :src="imgByTheme[currentThemeComputed][difficulty].face"
+            class="w-[15px] h-[15px]"
+          />
+          {{ $t(`difficultySelector.${difficulty}`) }}
+          <img
+            :src="imgByTheme[currentThemeComputed][difficulty].face"
+            class="w-[15px] h-[15px]"
+          />
+        </label>
+        <div class="button-border"> 
+          <button class="button-sm w-[20px] h-[20px]" 
+                  @click="changeDifficulty(index + 1)">
+            >
+          </button>
+        </div>
+
       </div>
     </div>
-
   </div>
+
 </template>
 
 <style scoped>

@@ -1,8 +1,28 @@
 <script setup>
-  import { useColorMode } from '#imports';
+  import { useHead, useColorMode } from '#imports';
+  import ligthImg from '~/public/img/themes/light/light.png';
+  import darkImg from '~/public/img/themes/dark/dark.png';
 
   const colorMode = useColorMode();
-  const isDark = ref(colorMode.value === 'dark');
+
+  useHead({
+    htmlAttrs: {
+      class: colorMode.preference === 'dark' ? 'dark' : ''
+    }
+  });
+
+  const isDark = computed(() => {
+    const mode = process.server
+      ? colorMode.preference
+      : colorMode.value 
+    return mode === 'dark' ? 'dark' : 'light';
+  });
+  const img = computed(() => {
+    const mode = process.server
+      ? colorMode.preference 
+      : colorMode.value 
+    return mode === 'dark' ? ligthImg : darkImg;
+  });
 
   const toggleDark = () => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
@@ -14,10 +34,15 @@
   <div class="flex items-center">
       <button
         @click="toggleDark"
-        class="secondary"
+        class="secondary flex items-center gap-x-2"
         :title="$t('themeSelector.themeSelectorTitle')"
       >
         {{ isDark ? 'Light' : 'Dark' }}	
+        <img
+          :src="img"
+          alt="Theme Icon"
+          class="w-[15px] h-[15px]"
+        />
       </button>
   </div>
 </template>
