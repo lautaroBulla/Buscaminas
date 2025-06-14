@@ -51,12 +51,10 @@
     exploted: {
       type: Boolean
     },
-    helpCell: {
+    isHelpCell: {
       type: Boolean
     }
   });
-
-  console.log(props.helpCell);
 
   const { currentTheme } = useCurrentTheme();
 
@@ -111,7 +109,7 @@
       :class="[
         reveal ? 'reveal' : 'cell',
         exploted ? 'reveal-lose' : '',
-        helpCell ? 'help' : ''
+        isHelpCell ? 'help' : ''
       ]"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"

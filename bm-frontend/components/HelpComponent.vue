@@ -17,11 +17,22 @@
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
+
+	const disabled = ref(false);
+
+	const emit = defineEmits(['help']);
+	const submitHelp = () => {
+		disabled.value = true;
+		setTimeout(() => {
+			disabled.value = false;
+		}, 2000); 
+		emit('help');
+	};
 </script>
 
 <template>
 	<div class="button-border">
-		<button @click="$emit('help')" class="button w-[38px] h-[38px]">
+		<button :disabled="disabled" @click="submitHelp" class="button w-[38px] h-[38px]">
 			<img :src="imgByTheme[currentThemeComputed].help" alt="Help" />
 		</button>
 	</div>

@@ -23,8 +23,13 @@
 		explotedCell: { 
 			type: Object 
 		},
-		helpCell: { 
-			type: Object 
+		helpCells: {
+			type: Object,
+			default: () => []
+		},
+		messageHelp: {
+			type: String,
+			default: ''
 		}
 	});
 
@@ -84,8 +89,11 @@
       display: 'grid',
       gridTemplateColumns: `repeat(${boardToUse[0]?.length || 0}, minmax(${!isMobile ? 25 : 20}px, 1fr))`
     }"
-    class="border-internal"
+    class="relative border-internal"
   >
+		<div v-if="messageHelp" class="message-help">
+			{{ messageHelp }}
+		</div>
     <CellComponent
       v-for="(cell) in flatBoard"
       :cell="cell.value"
@@ -94,8 +102,15 @@
       :reveal="revealedToUse[cell.row][cell.col]"
       :flag="flagsToUse[cell.row][cell.col]"
       :interrogation="interrogationsToUse ? interrogationsToUse[cell.row][cell.col] : false"
-      :exploted="explotedCell && explotedCell.row === cell.row && explotedCell.col === cell.col"
-			:helpCell="helpCell && helpCell.row === cell.row && helpCell.col === cell.col"
+      :exploted="explotedCell && (
+				(!isMobile && explotedCell.row === cell.row && explotedCell.col === cell.col) ||
+				(isMobile && explotedCell.row === cell.col && explotedCell.col === cell.row)
+			)"
+			:isHelpCell="helpCells.some(c => {
+				return !isMobile
+					? c.row === cell.row && c.col === cell.col
+					: c.row === cell.col && c.col === cell.row
+			})"
       @left-click="onCellLeftClick(cell.row, cell.col)"
   		@rigth-click="onCellRightClick(cell.row, cell.col)"
     />

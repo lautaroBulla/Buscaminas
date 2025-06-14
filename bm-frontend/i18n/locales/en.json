@@ -43,5 +43,9 @@
         "show": "Show",
         "hide": "Hide",
         "failed": "Register failed, please try again"
+    },
+    "helpMessage": {
+        "firstClick": "Start the game",
+        "noHelp": "There is no help"
     }
 }

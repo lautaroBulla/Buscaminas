@@ -408,8 +408,53 @@ ESTILOS PARA LAS CASILLAS DEL JUEGO, REVELADAS
 .reveal-lose {
   background-color: var(--reveal-lose-background);
 }
+
 .help {
-  background-color: blue;
+  animation: flashHelp 2s ease-out;
+}
+@keyframes flashHelp {
+  0% {
+    background-color: rgba(var(--help-color), 0.1);
+    box-shadow: 0 0 2px rgba(var(--help-color), 0.1);
+  }
+  15% {
+    background-color: rgba(var(--help-color), 0.2);
+    box-shadow: 0 0 4px rgba(var(--help-color), 0.2);
+  }
+  30% {
+    background-color: rgba(var(--help-color), 0.3);
+    box-shadow: 0 0 6px rgba(var(--help-color), 0.3);
+  }
+  50% {
+    background-color: rgba(var(--help-color), 0.5);
+    box-shadow: 0 0 8px rgba(var(--help-color), 0.5);
+  }
+  65% {
+    background-color: rgba(var(--help-color), 0.3);
+    box-shadow: 0 0 6px rgba(var(--help-color), 0.3);
+  }
+  80% {
+    background-color: rgba(var(--help-color), 0.2);
+    box-shadow: 0 0 4px rgba(var(--help-color), 0.2);
+  }
+  100% {
+    background-color: rgba(var(--help-color), 0.1);
+    box-shadow: 0 0 2px rgba(var(--help-color), 0.1);
+  }
+}
+.message-help {
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-color);
+  border: 2px solid var(--text-color);
+  color: var(--text-color);
+  padding: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  animation: 1s;
 }
 
 
@@ -522,6 +567,12 @@ CSS DEL LOS CHECKBOXES PERSONALIZADOS
     border-left: 4px solid var(--border-dark-color);
     border-bottom: 4px solid var(--border-light-color);
     border-right: 4px solid var(--border-light-color);
+  }
+  .cell {
+    border-top: 2px solid var(--border-light-color);  
+    border-left: 2px solid var(--border-light-color);  
+    border-bottom: 2px solid var(--border-dark-color);        
+    border-right: 2px solid var(--border-dark-color); 
   }
 }
 

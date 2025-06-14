@@ -43,5 +43,9 @@
         "show": "Mostrar",
         "hide": "Ocultar",
         "failed": "El registro fallo, pruebe de nuevo"
+    },
+    "helpMessage": {
+        "firstClick": "Iniciar el juego",
+        "noHelp": "No hay ayudas"
     }
 }

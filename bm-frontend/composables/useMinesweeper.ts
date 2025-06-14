@@ -1,6 +1,9 @@
 import { ref } from 'vue';
 
+
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
+  const { t } = useI18n();
+
   const rows = ref<number>(initialRows);
   const cols = ref<number>(initialCols);
   const mines = ref<number>(initialMines);
@@ -23,7 +26,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
   const explotedCell = ref<{row: number, col: number} | null>(null); // necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
 
-  const helpCell = ref<{row: number, col: number} | null>(null);
+  const helpCells = ref<{ row: number; col: number }[]>([]);
+  const messageHelp = ref<string | null>(null);
 
   //verifica que sea una celda del tablero
   function isValidCell(r: number, c: number): boolean {
@@ -33,6 +37,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   //reinicia el juego
   function resetGame () {
     explotedCell.value = null;
+    helpCells.value = [];
     stopTime();
     seconds.value = 0;
     initBoard();
@@ -231,7 +236,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         if (cellValue === 'M' || cellValue === 0) continue;
 
         let flagsAround = 0;
-        let hiddenUnflagged = 0;
+        let hiddenUnFlagged = 0;
 
         directions.forEach(([dr, dc]) => {
           const nr = r + dr;
@@ -241,15 +246,15 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
           if (flags.value[nr][nc]) {
             flagsAround++;
           } else if (!revealed.value[nr][nc]) {
-            hiddenUnflagged++;
+            hiddenUnFlagged++;
           }
         });
 
-        const totalHidden = flagsAround + hiddenUnflagged;
+        const totalHidden = flagsAround + hiddenUnFlagged;
 
         if (
-          (totalHidden === cellValue && hiddenUnflagged > 0) ||
-          (flagsAround === cellValue && hiddenUnflagged > 0)
+          (totalHidden === cellValue && hiddenUnFlagged > 0) ||
+          (flagsAround === cellValue && hiddenUnFlagged > 0)
         ) {
           revealedCells.push({ row: r, col: c });
         }
@@ -262,11 +267,40 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     return revealedCells[randomIndex];
   } 
 
-  function help() {
+  function help() { 
+    helpCells.value = [];
     const helpCellFunction = getRandomRevealedCell();
-    helpCell.value = helpCellFunction;
-  }
+    
+    if (helpCellFunction) {
+      helpCells.value.push({ row: helpCellFunction.row, col: helpCellFunction.col});
+      directions.forEach(([dr, dc]) => {
+        const nr = helpCellFunction.row + dr;
+        const nc = helpCellFunction.col + dc;
+        
+        if (isValidCell(nr, nc)) {
+          helpCells.value.push({ row: nr, col: nc});
+        }
+      })
+      
+      setTimeout(() => {
+        helpCells.value = []
+      }, 2000);
+    } else {
+      messageHelp.value = t('helpMessage.noHelp');
+      setTimeout(() => {
+        messageHelp.value = null;
+      }, 1000);
+    }
 
+    if (firstClick.value) {
+      console.log('entre');
+      messageHelp.value = t('helpMessage.firstClick');
+      setTimeout(() => {
+        messageHelp.value = null;
+      }, 1000);
+    }
+  }
+  
   return {
     rows,
     cols,
@@ -287,6 +321,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     interrogationsActivated,
     explotedCell,
     help,
-    helpCell
+    helpCells,
+    messageHelp
   }
 }
