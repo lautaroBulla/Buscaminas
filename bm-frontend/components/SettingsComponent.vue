@@ -17,17 +17,11 @@
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
-
-	const emit = defineEmits(['view-settings']);
-
-	function viewSetting () {
-		emit('view-settings');
-	}
 </script>
 
 <template>
 	<div class="button-border">
-		<button @click="viewSetting" class="button w-[38px] h-[38px]">
+		<button @click="$emit('view-settings')" class="button w-[38px] h-[38px]">
 			<img :src="imgByTheme[currentThemeComputed].setting" alt="Settings"/>
 		</button>
 	</div>

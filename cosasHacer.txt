@@ -1,6 +1,5 @@
 PENDIENTE
   # Asegurarme que sea responsive
-  # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Realizar la logica del boton pista
   # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
   # Ver si puedo poner cookies para el user y el tema del board, en vez de state
@@ -28,3 +27,4 @@ COMPLETADO
   # Agregar boton pista? 
   # Realizar el modal de setting
   # Mejorar los estilos css, para que quede mas compacto
+  # Diseño de los botones en SelectoDifficulty, carrusel? 

@@ -50,8 +50,13 @@
     },
     exploted: {
       type: Boolean
+    },
+    helpCell: {
+      type: Boolean
     }
   });
+
+  console.log(props.helpCell);
 
   const { currentTheme } = useCurrentTheme();
 
@@ -90,12 +95,12 @@
 
   const emit = defineEmits(['left-click', 'rigth-click']);
 
-  function handleLeftClick () {
+  const handleLeftClick = () => {
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
   }
 
   // e se utliza para prevenir el menu contextual del click derecho
-  function handleRightClick (e) {
+  const handleRightClick = (e) => {
     e.preventDefault();
     emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
   }
@@ -105,7 +110,8 @@
     <div
       :class="[
         reveal ? 'reveal' : 'cell',
-        exploted ? 'reveal-lose' : ''
+        exploted ? 'reveal-lose' : '',
+        helpCell ? 'help' : ''
       ]"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"

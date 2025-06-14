@@ -52,17 +52,11 @@
 			return 'Restart Game';
 		}
 	});
-
-	const emit = defineEmits(['restart-game'])
-
-	function restartGame () {
-		emit('restart-game');
-	}
 </script>
 
 <template>
 	<div class="button-border">
-		<button @click="restartGame" class="button w-[38px] h-[38px]">
+		<button @click="$emit('restart-game')" class="button w-[38px] h-[38px]">
 			<img :src="faceImage" :alt="faceAlt"/>
 		</button>
 	</div>

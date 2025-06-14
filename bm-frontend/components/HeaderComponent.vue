@@ -17,14 +17,14 @@
       required: true
     }
   });
-
-  const emit = defineEmits(['restart-game', 'view-settings']);
 </script>
 
 <template>
   <div class="flex flex-row items-center border-internal">
     <div class="flex justify-start w-1/5 m-1">
-      <HelpComponent />
+      <HelpComponent 
+        @help="$emit('help')"
+      />
     </div>
     <div class="flex justify-center w-1/5 m-1">
       <RemainingMinesComponent

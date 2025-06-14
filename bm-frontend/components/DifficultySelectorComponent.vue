@@ -53,7 +53,7 @@
   const customCols = ref(null);
   const customMines = ref(null);
 
-  function selectDifficulty(difficulty) {
+  const selectDifficulty = (difficulty) => {
     if (difficulty === 'custom') {
       customRows.value = null;
       customCols.value = null;
@@ -67,7 +67,7 @@
   const minRowsAndCols = 5;
   const maxRowsAndCols = 100;
 
-  function customVlues() {
+  const customVlues = () => {
     //Validar filas
     if (customRows.value < minRowsAndCols)
       customRows.value = minRowsAndCols;

@@ -39,7 +39,7 @@
     }
   })
   //esta funcion es la responsable de setear los valores cuando se selecciona la dificultad personalizada
-  function setCustomValues ({ rows: customRows, cols: customCols, mines: customMines }) { 
+  const setCustomValues = ({ rows: customRows, cols: customCols, mines: customMines }) => { 
     rows.value = customRows;
     cols.value = customCols;
     mines.value = customMines;
@@ -47,10 +47,10 @@
   }
 
   const modalSettingsComponent = ref(false);
-  function viewSettingComponent () {
+  const viewSettingComponent = () => {
     modalSettingsComponent.value = !modalSettingsComponent.value;
   }
-  function updateSettingComponent (updateSettings) {
+  const updateSettingComponent = (updateSettings) => {
     firstClickZero.value = updateSettings.firstClickZero;
     interrogationsActivated.value = updateSettings.interrogationsActivated;
 
@@ -62,7 +62,7 @@
   watch(gameWin, (newValue) => {
     modalGameFinish.value = newValue;
   });
-  function viewGameFinish () {
+  const viewGameFinish = () => {
     modalGameFinish.value = !modalGameFinish.value;
   }
   

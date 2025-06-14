@@ -17,17 +17,11 @@
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
-
-	const emit = defineEmits(['help']);
-
-	function submitHelp () {
-		emit('help');
-	}
 </script>
 
 <template>
 	<div class="button-border">
-		<button @click="submitHelp" class="button w-[38px] h-[38px]">
+		<button @click="$emit('help')" class="button w-[38px] h-[38px]">
 			<img :src="imgByTheme[currentThemeComputed].help" alt="Help" />
 		</button>
 	</div>

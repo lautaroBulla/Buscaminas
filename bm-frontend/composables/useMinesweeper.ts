@@ -23,6 +23,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
   const explotedCell = ref<{row: number, col: number} | null>(null); // necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
 
+  const helpCell = ref<{row: number, col: number} | null>(null);
+
   //verifica que sea una celda del tablero
   function isValidCell(r: number, c: number): boolean {
     return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
@@ -218,6 +220,53 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     }
   }
 
+  function getRandomRevealedCell() {
+    const revealedCells: { row: number; col: number}[] = [];
+
+    for (let r=0; r<rows.value; r++) {
+      for (let c=0; c<cols.value; c++) {
+        const cellValue = board.value[r][c];
+
+        if (!revealed.value[r][c]) continue;
+        if (cellValue === 'M' || cellValue === 0) continue;
+
+        let flagsAround = 0;
+        let hiddenUnflagged = 0;
+
+        directions.forEach(([dr, dc]) => {
+          const nr = r + dr;
+          const nc = c + dc;
+          if (!isValidCell(nr, nc)) return;
+
+          if (flags.value[nr][nc]) {
+            flagsAround++;
+          } else if (!revealed.value[nr][nc]) {
+            hiddenUnflagged++;
+          }
+        });
+
+        const totalHidden = flagsAround + hiddenUnflagged;
+
+        if (
+          (totalHidden === cellValue && hiddenUnflagged > 0) ||
+          (flagsAround === cellValue && hiddenUnflagged > 0)
+        ) {
+          revealedCells.push({ row: r, col: c });
+        }
+      }
+    }
+
+    if (revealedCells.length === 0) return null;
+
+    const randomIndex = Math.floor(Math.random() * revealedCells.length);
+    return revealedCells[randomIndex];
+  } 
+
+  function help() {
+    const helpCellFunction = getRandomRevealedCell();
+    helpCell.value = helpCellFunction;
+  }
+
   return {
     rows,
     cols,
@@ -237,5 +286,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     firstClickZero,
     interrogationsActivated,
     explotedCell,
+    help,
+    helpCell
   }
 }

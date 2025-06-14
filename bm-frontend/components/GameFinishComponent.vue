@@ -1,5 +1,5 @@
 <script setup>
-  const emit = defineEmits(['close'])
+
 </script>
 
 <template>
@@ -11,7 +11,7 @@
         HAS GANADO!!!
       </p>
       <div class="flex justify-center">           
-        <button class="border hover:cursor-pointer" @click="emit('close')">
+        <button class="border hover:cursor-pointer" @click="$emit('close')">
           Aceptar
         </button>
       </div>

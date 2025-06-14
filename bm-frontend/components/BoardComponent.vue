@@ -22,6 +22,9 @@
 		},
 		explotedCell: { 
 			type: Object 
+		},
+		helpCell: { 
+			type: Object 
 		}
 	});
 
@@ -92,6 +95,7 @@
       :flag="flagsToUse[cell.row][cell.col]"
       :interrogation="interrogationsToUse ? interrogationsToUse[cell.row][cell.col] : false"
       :exploted="explotedCell && explotedCell.row === cell.row && explotedCell.col === cell.col"
+			:helpCell="helpCell && helpCell.row === cell.row && helpCell.col === cell.col"
       @left-click="onCellLeftClick(cell.row, cell.col)"
   		@rigth-click="onCellRightClick(cell.row, cell.col)"
     />

@@ -408,6 +408,9 @@ ESTILOS PARA LAS CASILLAS DEL JUEGO, REVELADAS
 .reveal-lose {
   background-color: var(--reveal-lose-background);
 }
+.help {
+  background-color: blue;
+}
 
 
 /* 

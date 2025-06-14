@@ -52,7 +52,7 @@
 
   const emit = defineEmits(['update', 'close']);
 
-  function updateSettings () {
+  const updateSettings = () => {
     emit('update', {
       language: language.value,
       theme: theme.value,
@@ -77,9 +77,9 @@
             <div class="flex justify-end">
               <div class="button-border">
                 <button @click="emit('close')" 
-                        class="button w-[25px] h-[25px]
-                               md:w-[30px] md:h-[30px]
-                               lg:w-[35px] lg:h-[35px]"
+                        class="button w-[20px] h-[20px]
+                               md:w-[25px] md:h-[25px]
+                               lg:w-[30px] lg:h-[30px]"
                 >
                   <img :src="imgByTheme[currentThemeComputed].close" alt="Close"/>
                 </button>
