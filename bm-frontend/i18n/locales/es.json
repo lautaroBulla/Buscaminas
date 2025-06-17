@@ -11,8 +11,10 @@
         "intermediateTitle": "Tablero 16x16, 40 minas",
         "expert": "Experto",
         "expertTitle": "Tablero 30x16, 99 minas",
-        "custom": "Personalizado",
-        "customTitle": "Tamaño de tablero y minas personalizados"
+        "rowsTitle": "Filas",
+        "colsTitle": "Columnas",
+        "minesTitle": "Minas",
+        "updateTitle": "Actualizar"
     },
     "gameSettings": {
         "setting": "Configuraciones",

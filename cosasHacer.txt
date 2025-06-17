@@ -1,7 +1,6 @@
 PENDIENTE
   # Asegurarme que sea responsive
   # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
-  # Ver si puedo poner cookies para el user y el tema del board, en vez de state
   # Verificar bien el thema dark para que quede bonito
   # Ver como hacer lo de custom
   # Realizar toda la logica de los rankings
@@ -28,3 +27,4 @@ COMPLETADO
   # Mejorar los estilos css, para que quede mas compacto
   # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Realizar la logica del boton pista
+  # Ver si puedo poner cookies el tema del board, en vez de state

@@ -11,8 +11,10 @@
         "intermediateTitle": "Board 16x16, 40 mines",
         "expert": "Expert",
         "expertTitle": "Board 30x16, 99 mines",
-        "custom": "Custom",
-        "customTitle": "Custom board size and mines"
+        "rowsTitle": "Rows",
+        "colsTitle": "Cols",
+        "minesTitle": "Mines",
+        "updateTitle": "Update"
     },
     "gameSettings": {
         "setting": "Settings",

@@ -4,10 +4,18 @@
   import faceEasyClassic from '~/assets/img/themes/classicTheme/faceEasy.png';
   import faceIntermediateClassic from '~/assets/img/themes/classicTheme/faceIntermediate.png';
   import faceExpertClassic from '~/assets/img/themes/classicTheme/faceExpert.png';
+  import rowsClassic from '~/assets/img/themes/classicTheme/rows.png';
+  import colsClassic from '~/assets/img/themes/classicTheme/cols.png';
+  import mineClassic from '~/assets/img/themes/classicTheme/mine.png';
+  import updateClassic from '~/assets/img/themes/classicTheme/update.png';
 
   import faceEasyDark from '~/assets/img/themes/darkTheme/faceEasyDark.png';
   import faceIntermediateDark from '~/assets/img/themes/darkTheme/faceIntermediateDark.png';
   import faceExpertDark from '~/assets/img/themes/darkTheme/faceExpertDark.png';
+  import rowsDark from '~/assets/img/themes/darkTheme/rowsDark.png';
+  import colsDark from '~/assets/img/themes/darkTheme/colsDark.png';
+  import mineDark from '~/assets/img/themes/darkTheme/mineDark.png';
+  import updateDark from '~/assets/img/themes/darkTheme/updateDark.png';
   
   defineProps({
     modelValue: {
@@ -17,6 +25,7 @@
   })
 
   const { currentTheme } = useCurrentTheme();
+  const { isMobile } = useIsMobile();
 
   const imgByTheme = {
     classicTheme: {
@@ -28,7 +37,11 @@
       },
       expert: {
         face: faceExpertClassic
-      }
+      },
+      rows: rowsClassic,
+      cols: colsClassic,
+      mine: mineClassic,
+      update: updateClassic
     },
 		darkTheme: {
       easy: {
@@ -39,7 +52,11 @@
       },
       expert: {
         face: faceExpertDark
-      }
+      },
+      rows: rowsDark,
+      cols: colsDark,
+      mine: mineDark,     
+      update: updateDark
 		}	
   };
 
@@ -82,8 +99,9 @@
 
     // Validar minas
     const maxMinesValue = Math.floor((customRows.value * customCols.value) / 3);
-    if (customMines.value < 1)
-      customMines.value = 1;
+    const minMinesValue = Math.floor((customRows.value * customCols.value) / 10);
+    if (customMines.value < minMinesValue)
+      customMines.value = minMinesValue;
     if (customMines.value > maxMinesValue)
       customMines.value = maxMinesValue;
 
@@ -97,26 +115,43 @@
     )
   }
 
+  const maxDifficulty = ref(isMobile.value ? 2 : 3);
+  const minDifficulty = ref(0);
+
+  watch(isMobile, (newValue) => {
+    if (newValue) {
+      maxDifficulty.value = 2;
+      minDifficulty.value = 0;
+      difficulty.value = 'easy';
+      changeDifficulty(0);
+    } else {
+      maxDifficulty.value = 3;
+      minDifficulty.value = 0;
+    }
+  });
+  
   const index = ref(0);
-  const difficultys = ['easy', 'intermediate', 'expert'];
+  const difficultys = ['easy', 'intermediate', 'expert', 'custom'];
   const difficulty = ref('easy');
   const changeDifficulty = (newIndex) => {
-    if (newIndex > 2) {
-      index.value = 0;
-    } else if (newIndex < 0) {
-      index.value = 2;
+    console.log('changeDifficulty', maxDifficulty.value);
+    if (newIndex > maxDifficulty.value) {
+      index.value = minDifficulty.value;
+    } else if (newIndex < minDifficulty.value) {
+      index.value = maxDifficulty.value;
     } else {
       index.value = newIndex;
     }
     difficulty.value = difficultys[index.value];
     selectDifficulty(difficulty.value);
   }
+  
 </script>
 
 <!-- v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']" -->
 <template>
 
-  <div class="border-external-sm flex flex-col space-y-2 w-[250px]">
+  <div class="border-external-sm flex flex-col space-y-2 w-[325px]">
     <div class="border-sm">
       <div class="border-internal-sm flex flex-row justify-between items-center px-1">
 
@@ -128,6 +163,7 @@
         </div>
 
         <label
+          v-if="difficulty !== 'custom'"
           :key="difficulty"
           class="text text-color flex flex-row items-center gap-x-2"
           :title="$t(`difficultySelector.${difficulty}Title`)"
@@ -142,6 +178,72 @@
             class="w-[15px] h-[15px]"
           />
         </label>
+        <div v-if="difficulty === 'custom'" class="hidden md:flex md:items-center md:gap-x-2">
+          <div class="flex flex-row items-center">
+            <img
+              :src="imgByTheme[currentThemeComputed].rows"
+              class="w-[15px] h-[15px]"
+              :title="$t('difficultySelector.rowsTitle')"
+            />
+            <div class="border-sm">
+              <input 
+                v-model.number="customRows"
+                :min="minRowsAndCols"
+                :max="maxRowsAndCols"
+                type="number" 
+                class="border-internal-sm w-[40px] h-[30px] text-color"
+              >
+              </input>
+            </div>
+          </div>
+          <div class="flex flex-row items-center">
+            <img
+              :src="imgByTheme[currentThemeComputed].cols"
+              class="w-[15px] h-[15px]"           
+              :title="$t('difficultySelector.colsTitle')"
+            />
+            <div class="border-sm">
+              <input 
+                v-model.number="customCols"
+                :min="minRowsAndCols"
+                :max="maxRowsAndCols"
+                type="number" 
+                class="border-internal-sm w-[40px] h-[30px] text-color"
+              >
+              </input>
+            </div>
+          </div>
+          <div class="flex flex-row items-center">
+            <img
+              :src="imgByTheme[currentThemeComputed].mine"
+              class="w-[15px] h-[15px]"
+              :title="$t('difficultySelector.minesTitle')"
+            />
+            <div class="border-sm">
+              <input 
+                v-model.number="customMines"
+                :min="1"
+                :max="maxMines"
+                type="number" 
+                class="border-internal-sm w-[40px] h-[30px] text-color"
+              >
+              </input>
+            </div>
+          </div>
+          <div class="button-border"> 
+            <button
+              @click="customVlues()" 
+              class="text-color button-sm w-[30px] h-[30px]"
+              :title="$t('difficultySelector.updateTitle')"
+            >
+              <img
+                :src="imgByTheme[currentThemeComputed].update"
+                class="w-[15px] h-[15px]"
+              />
+            </button>
+          </div>
+        </div>
+
         <div class="button-border"> 
           <button class="button-sm w-[20px] h-[20px]" 
                   @click="changeDifficulty(index + 1)">
@@ -168,53 +270,3 @@
   -moz-appearance: textfield;
   }
 </style>
-
-<!-- <div 
-  v-if="modelValue == 'custom'" 
-  class="border-t border-t-quinary"
->
-  <div class="flex flex-row space-x-4 pt-2">
-
-    <div class="flex flex-row space-x-2">
-      <p class="secondary">Filas:</p>
-      <input 
-        v-model.number="customRows"
-        :min="minRowsAndCols"
-        :max="maxRowsAndCols"
-        type="number" 
-        class="inputCustom"
-      >
-      </input>
-    </div>
-    <div class="flex flex-row space-x-2">
-      <p class="secondary">Columnas:</p>
-      <input 
-        v-model.number="customCols"
-        :min="minRowsAndCols"
-        :max="maxRowsAndCols"
-        type="number" 
-        class="inputCustom"
-      >
-      </input>
-    </div>
-    <div class="flex flex-row space-x-2">
-      <p class="secondary">Minas:</p>
-      <input 
-        v-model.number="customMines"
-        :min="1"
-        :max="maxMines"
-        type="number" 
-        class="inputCustom"
-      >
-      </input>
-    </div>
-    <button
-      @click="customVlues()" 
-      class="text"
-    >
-      Actualizar
-    </button>
-
-  </div>
-
-</div> -->

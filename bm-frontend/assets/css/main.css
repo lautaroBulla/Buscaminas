@@ -45,11 +45,7 @@ body {
 
 .background {
   min-height: 100dvh;
-  background-image:
-    repeating-linear-gradient(0deg, var(--color-secondary) 0px, var(--color-secondary) 2px, transparent 2px, transparent 30px),
-    repeating-linear-gradient(90deg, var(--color-secondary) 0px, var(--color-secondary) 2px, transparent 2px, transparent 30px);
-  background-size: 30px 30px;
-  overflow: hidden;
+  background-color: var(--color-primary);
 }
 
 /* titulo */
@@ -121,6 +117,7 @@ CSS DE LOS BORDES USADOS PARA EL TABLERO, MODALS Y HEADER
   border-left: 5px solid var(--border-light-color);    
   border-bottom: 5px solid var(--border-dark-color);       
   border-right: 5px solid var(--border-dark-color); 
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
 }
 .border {
   border: 10px solid var(--background-color);
@@ -141,6 +138,7 @@ CSS DE LOS BORDES USADOS PARA EL TABLERO, MODALS Y HEADER
   border-left: 2px solid var(--border-light-color);    
   border-bottom: 2px solid var(--border-dark-color);       
   border-right: 2px solid var(--border-dark-color); 
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
 }
 .border-sm {
   border: 3px solid var(--background-color);

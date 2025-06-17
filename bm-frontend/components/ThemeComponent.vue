@@ -15,15 +15,9 @@
     const mode = process.server
       ? colorMode.preference
       : colorMode.value 
-    return mode === 'dark' ? 'dark' : 'light';
+    return mode === 'dark' ? true : false;
   });
-  const img = computed(() => {
-    const mode = process.server
-      ? colorMode.preference 
-      : colorMode.value 
-    return mode === 'dark' ? ligthImg : darkImg;
-  });
-
+  
   const toggleDark = () => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
     isDark.value = !isDark.value;
@@ -39,7 +33,7 @@
       >
         {{ isDark ? 'Light' : 'Dark' }}	
         <img
-          :src="img"
+          :src="isDark ? ligthImg : darkImg"
           alt="Theme Icon"
           class="w-[15px] h-[15px]"
         />
