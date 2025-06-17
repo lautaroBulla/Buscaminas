@@ -1,8 +1,8 @@
 import { ref } from 'vue';
 
-
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
   const { t } = useI18n();
+  const { isMobile } = useIsMobile();
 
   const rows = ref<number>(initialRows);
   const cols = ref<number>(initialCols);
@@ -17,7 +17,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const firstClick = ref(true);
 
   const firstClickZero = ref(true);
-  const interrogationsActivated = ref(true);
+  const interrogationsActivated = ref(isMobile.value ? false : true);
 
   const seconds = ref(0);
   let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -209,7 +209,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
   function rightClick(row: number, col: number) {
     if (revealed.value[row][col] || gameOver.value || gameWin.value) return
-
     // sirve para ir alterando la casilla con las marcas flags e interrogations
     if (interrogationsActivated.value) {
       if (!flags.value[row][col] && !interrogations.value[row][col]){ 
@@ -293,7 +292,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     }
 
     if (firstClick.value) {
-      console.log('entre');
       messageHelp.value = t('helpMessage.firstClick');
       setTimeout(() => {
         messageHelp.value = null;

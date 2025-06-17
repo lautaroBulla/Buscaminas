@@ -175,7 +175,7 @@
                 <label class="text-color"> {{ $t('gameSettings.firstClick') }} </label>
               </div>
 
-              <div class="flex flex-row items-center gap-x-2">
+              <div class="hidden md:flex flex-row items-center gap-x-2">
                 <div :class="localInterrogationsActivated ? 'button-border' : 'button-border-2'">
                   <input 
                     type="checkbox" 

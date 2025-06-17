@@ -115,9 +115,11 @@
     )
   }
 
+  /*Nescesario para definir cuando es mobile y no
+  y en caso de cambiar de pc a mobile setear la dificultad a easy
+  */
   const maxDifficulty = ref(isMobile.value ? 2 : 3);
   const minDifficulty = ref(0);
-
   watch(isMobile, (newValue) => {
     if (newValue) {
       maxDifficulty.value = 2;
@@ -134,7 +136,6 @@
   const difficultys = ['easy', 'intermediate', 'expert', 'custom'];
   const difficulty = ref('easy');
   const changeDifficulty = (newIndex) => {
-    console.log('changeDifficulty', maxDifficulty.value);
     if (newIndex > maxDifficulty.value) {
       index.value = minDifficulty.value;
     } else if (newIndex < minDifficulty.value) {
@@ -151,7 +152,7 @@
 <!-- v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']" -->
 <template>
 
-  <div class="border-external-sm flex flex-col space-y-2 w-[325px]">
+  <div class="border-external-sm flex flex-col space-y-2 w-[250px] md:w-[325px]">
     <div class="border-sm">
       <div class="border-internal-sm flex flex-row justify-between items-center px-1">
 

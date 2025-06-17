@@ -57,6 +57,7 @@
   });
 
   const { currentTheme } = useCurrentTheme();
+  const { isMobile } = useIsMobile();
 
 	const imgByTheme = {
 		classicTheme: {
@@ -93,14 +94,47 @@
 
   const emit = defineEmits(['left-click', 'rigth-click']);
 
-  const handleLeftClick = () => {
+  //pc
+  const handleLeftClick = (e) => {
+    if (isMobile.value) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
   }
-
   // e se utliza para prevenir el menu contextual del click derecho
   const handleRightClick = (e) => {
+    if (isMobile.value) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
     e.preventDefault();
     emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
+  }
+
+  //mobile
+  let timer = null;
+  const handleLong = ref(false);
+  const handleTouchStart = () => {
+    console.log('entreMobile');
+    timer = setTimeout(() => {
+      handleLong.value = true;
+    }, 250);
+  }
+  const handleTouchEnd = () => {
+    clearTimeout(timer);
+    if (handleLong.value) {
+      emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
+      handleLong.value = false;
+    } else {
+      emit('left-click', {row: props.rowIndex, col: props.colIndex});
+    }
+  }
+  const handleTouchCancel = () => {
+    clearTimeout(pressTimer)
+    isLongPress.value = false
   }
 </script>
 
@@ -113,6 +147,9 @@
       ]"
       @click="handleLeftClick"
       @contextmenu="handleRightClick"
+      @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd"
+      @touchcancel="handleTouchCancel"
     >
       <img v-if="reveal && cell === 1" :src="imgByTheme[currentThemeComputed].one" alt="One" />
       <img v-else-if="reveal && cell === 2" :src="imgByTheme[currentThemeComputed].two" alt="Two" />
