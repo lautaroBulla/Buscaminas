@@ -95,46 +95,43 @@
   const emit = defineEmits(['left-click', 'rigth-click']);
 
   //pc
-  const handleLeftClick = (e) => {
-    if (isMobile.value) {
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
+  const handleLeftClick = () => {
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
   }
   // e se utliza para prevenir el menu contextual del click derecho
   const handleRightClick = (e) => {
-    if (isMobile.value) {
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
     e.preventDefault();
     emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
   }
 
   //mobile
   let timer = null;
-  const handleLong = ref(false);
+  const changeCell = ref(false);
+  const isTouched = ref(false);
   const handleTouchStart = () => {
-    console.log('entreMobile');
+    isTouched.value = true;
     timer = setTimeout(() => {
-      handleLong.value = true;
+      changeCell.value = true;
     }, 250);
   }
   const handleTouchEnd = () => {
-    clearTimeout(timer);
-    if (handleLong.value) {
+    isTouched.value = false;
+    if (changeCell.value === true) {
       emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
-      handleLong.value = false;
+      clearTimeout(timer);
+      timer = null;
+      changeCell.value = false;
     } else {
       emit('left-click', {row: props.rowIndex, col: props.colIndex});
+      clearTimeout(timer);
+      timer = null;
     }
   }
   const handleTouchCancel = () => {
-    clearTimeout(pressTimer)
-    isLongPress.value = false
+    isTouched.value = false;
+    clearTimeout(touchTimeout);
+    touchTimeout = null;
+    changeCell.value = false;
   }
 </script>
 
@@ -143,13 +140,14 @@
       :class="[
         reveal ? 'reveal' : 'cell',
         exploted ? 'reveal-lose' : '',
-        isHelpCell ? 'help' : ''
+        isHelpCell ? 'help' : '',
+        isTouched ? 'is-active' : ''
       ]"
-      @click="handleLeftClick"
-      @contextmenu="handleRightClick"
-      @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd"
-      @touchcancel="handleTouchCancel"
+      @click="!isMobile ? handleLeftClick() : null"
+      @contextmenu="!isMobile ? handleRightClick($event) : null"
+      @touchstart.prevent="isMobile ? handleTouchStart() : null"
+      @touchend="isMobile ? handleTouchEnd() : null"
+      @touchcancel="isMobile ? handleTouchCancel() : null"
     >
       <img v-if="reveal && cell === 1" :src="imgByTheme[currentThemeComputed].one" alt="One" />
       <img v-else-if="reveal && cell === 2" :src="imgByTheme[currentThemeComputed].two" alt="Two" />
@@ -162,7 +160,7 @@
       <img v-else-if="reveal && cell === 'M'" :src="imgByTheme[currentThemeComputed].mine" alt="Mine" />
 
       <!-- Si no revelada -->
-      <img v-else-if="flag" :src="imgByTheme[currentThemeComputed].flag" alt="Flag" />
-      <img v-else-if="interrogation" :src="imgByTheme[currentThemeComputed].interrogation" alt="Interrogation" />  
+      <img v-else-if="!reveal && flag" :src="imgByTheme[currentThemeComputed].flag" alt="Flag" />
+      <img v-else-if="!reveal && interrogation" :src="imgByTheme[currentThemeComputed].interrogation" alt="Interrogation" />  
     </div>
 </template>

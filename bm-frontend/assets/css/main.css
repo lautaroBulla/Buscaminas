@@ -219,6 +219,23 @@ CSS PARA LA MAYORIA DE BOTONES
   opacity: var(--opacity);
   cursor: pointer;
 }
+.button:active, .button-2:active {
+  border-top: 3px solid var(--border-dark-color);  
+  border-left: 3px solid var(--border-dark-color);  
+  border-bottom: 3px solid var(--border-light-color);        
+  border-right: 3px solid var(--border-light-color); 
+}
+.button-sm:active {
+  border-top: 2px solid var(--border-dark-color);  
+  border-left: 2px solid var(--border-dark-color);  
+  border-bottom: 2px solid var(--border-light-color);        
+  border-right: 2px solid var(--border-light-color); 
+}
+.button:active img, .button-2:active img {
+  height: 70%;
+  aspect-ratio: 1 / 1;
+}
+
 
 
 /* 
@@ -395,6 +412,16 @@ ESTILOS PARA LAS CASILLAS DEL JUEGO, SIN REVELAR
 .cell img {
   width: 60%;
   height: 65%;
+}
+.cell:active {
+  border-top: 3px solid var(--border-dark-color);  
+  border-left: 3px solid var(--border-dark-color);  
+  border-bottom: 3px solid var(--border-light-color);        
+  border-right: 3px solid var(--border-light-color); 
+}
+.cell:active img {
+  width: 50%;
+  height: 55%;
 }
 
 /* 
@@ -581,6 +608,16 @@ CSS DEL LOS CHECKBOXES PERSONALIZADOS
     border-left: 2px solid var(--border-light-color);  
     border-bottom: 2px solid var(--border-dark-color);        
     border-right: 2px solid var(--border-dark-color); 
+  }
+  .cell.is-active {
+    border-top: 2px solid var(--border-dark-color);  
+    border-left: 2px solid var(--border-dark-color);  
+    border-bottom: 2px solid var(--border-light-color);        
+    border-right: 2px solid var(--border-light-color); 
+  }
+  .cell.is-active img {
+    width: 50%;
+    height: 55%;
   }
 }
 

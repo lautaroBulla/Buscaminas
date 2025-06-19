@@ -17,7 +17,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const firstClick = ref(true);
 
   const firstClickZero = ref(true);
-  const interrogationsActivated = ref(isMobile.value ? false : true);
+  const interrogationsActivated = ref(false);
 
   const seconds = ref(0);
   let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -27,6 +27,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const explotedCell = ref<{row: number, col: number} | null>(null); // necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
 
   const helpCells = ref<{ row: number; col: number }[]>([]);
+  const lastHelp = ref<{ row: number; col: number }>();
   const messageHelp = ref<string | null>(null);
 
   //verifica que sea una celda del tablero
@@ -210,16 +211,20 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   function rightClick(row: number, col: number) {
     if (revealed.value[row][col] || gameOver.value || gameWin.value) return
     // sirve para ir alterando la casilla con las marcas flags e interrogations
-    if (interrogationsActivated.value) {
-      if (!flags.value[row][col] && !interrogations.value[row][col]){ 
-        flags.value[row][col] = true;
-      } else if (flags.value[row][col]) {
-        flags.value[row][col] = false;
-        interrogations.value[row][col] = true;
-      } else if (interrogations.value[row][col]) {
-        interrogations.value[row][col] = false;
+    if (!isMobile.value) {
+      if (interrogationsActivated.value) {
+        if (!flags.value[row][col] && !interrogations.value[row][col]){ 
+          flags.value[row][col] = true;
+        } else if (flags.value[row][col]) {
+          flags.value[row][col] = false;
+          interrogations.value[row][col] = true;
+        } else if (interrogations.value[row][col]) {
+          interrogations.value[row][col] = false;
+        }
+      } else if (!interrogationsActivated.value) {
+        flags.value[row][col] = !flags.value[row][col];
       }
-    } else if (!interrogationsActivated.value) {
+    } else {
       flags.value[row][col] = !flags.value[row][col];
     }
   }
@@ -262,13 +267,22 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
     if (revealedCells.length === 0) return null;
 
+    if (lastHelp.value) {
+      const { row, col } = lastHelp.value;
+      const sameHelp = revealedCells.find(cell => cell.row === row && cell.col === col)
+      if (sameHelp) {
+        return sameHelp;
+      }
+    }
+
     const randomIndex = Math.floor(Math.random() * revealedCells.length);
     return revealedCells[randomIndex];
   } 
 
   function help() { 
-    helpCells.value = [];
+    console.log(helpCells.value);
     const helpCellFunction = getRandomRevealedCell();
+    helpCells.value = [];
     
     if (helpCellFunction) {
       helpCells.value.push({ row: helpCellFunction.row, col: helpCellFunction.col});
@@ -281,6 +295,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         }
       })
       
+      lastHelp.value = helpCells.value[0];
+
       setTimeout(() => {
         helpCells.value = []
       }, 2000);

@@ -21,7 +21,10 @@
 
 <template>
 	<div class="button-border">
-		<button @click="$emit('view-settings')" class="button w-[38px] h-[38px]">
+		<button @click="$emit('view-settings')" 
+						class="button w-[38px] h-[38px]"
+						:title="$t('header.settings')"
+		>
 			<img :src="imgByTheme[currentThemeComputed].setting" alt="Settings"/>
 		</button>
 	</div>

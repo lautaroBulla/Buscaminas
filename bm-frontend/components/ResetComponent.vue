@@ -56,7 +56,10 @@
 
 <template>
 	<div class="button-border">
-		<button @click="$emit('restart-game')" class="button w-[38px] h-[38px]">
+		<button @click="$emit('restart-game')" 
+						class="button w-[38px] h-[38px]"
+						:title="$t('header.reset')"
+		>
 			<img :src="faceImage" :alt="faceAlt"/>
 		</button>
 	</div>

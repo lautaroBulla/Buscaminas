@@ -32,7 +32,10 @@
 
 <template>
 	<div class="button-border">
-		<button :disabled="disabled" @click="submitHelp" class="button w-[38px] h-[38px]">
+		<button :disabled="disabled" @click="submitHelp" 
+						class="button w-[38px] h-[38px]"
+						:title="$t('header.help')"
+		>
 			<img :src="imgByTheme[currentThemeComputed].help" alt="Help" />
 		</button>
 	</div>

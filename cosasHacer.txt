@@ -1,9 +1,7 @@
 PENDIENTE
   # Asegurarme que sea responsive
-  # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
-  # Verificar bien el thema dark para que quede bonito
-  # Ver como hacer lo de custom
   # Realizar toda la logica de los rankings
+  # Animacion de los botones cuando son apretados
   # Perfil del usuario
 
 PENDIENTE A FUTURO
@@ -28,3 +26,6 @@ COMPLETADO
   # Diseño de los botones en SelectoDifficulty, carrusel? 
   # Realizar la logica del boton pista
   # Ver si puedo poner cookies el tema del board, en vez de state
+  # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
+  # Verificar bien el thema dark para que quede bonito
+  # Ver como hacer lo de custom

@@ -4,6 +4,11 @@
         "login": "Login",
         "register": "Register"
     },
+    "header": {
+        "reset": "Reset",
+        "settings": "Open settings",
+        "help": "Ask for help"
+    },
     "difficultySelector": {
         "easy": "Beginner",
         "easyTitle": "Board 9x9, 10 mines",
