@@ -64,8 +64,8 @@
     modalSettings.value = !modalSettings.value;
   }
   const updateSettings = async (updateSettingsValues) => {
-    locale.value = updateSettingsValues.language;
-    await setLocale(locale.value);
+    const newLocale = updateSettingsValues.language;
+    await setLocale(newLocale);
     currentTheme.value = updateSettingsValues.theme;
     firstClickZero.value = updateSettingsValues.firstClickZero;
     interrogationsActivated.value = updateSettingsValues.interrogationsActivated;

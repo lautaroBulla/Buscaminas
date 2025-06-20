@@ -37,8 +37,10 @@
 
     try {
       await login(credentials.value.username, credentials.value.password);
+      console.log('console good');
       return navigateTo('/');
     } catch (error: any) {
+      console.log(error?.data?.message);
       errorMessage.value = error?.data?.message || 'Login failed., please try again';
     }
   }

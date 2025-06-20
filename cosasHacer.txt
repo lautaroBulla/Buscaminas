@@ -1,8 +1,8 @@
 PENDIENTE
   # Asegurarme que sea responsive
   # Realizar toda la logica de los rankings
-  # Animacion de los botones cuando son apretados
   # Perfil del usuario
+  # Vichar en el backend, el eliminar funciones que no se vayan a usar
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
@@ -29,3 +29,4 @@ COMPLETADO
   # Mejorar la interfaz de la pagina (poner un fondo para que no sea plano)
   # Verificar bien el thema dark para que quede bonito
   # Ver como hacer lo de custom
+  # Animacion de los botones cuando son apretados

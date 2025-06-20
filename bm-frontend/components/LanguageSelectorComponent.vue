@@ -5,8 +5,9 @@
   const { locale, setLocale } = useI18n();
   
   const changeLanguage = async () => {
-    locale.value = locale.value === 'en' ? 'es' : 'en';
-    await setLocale(locale.value);
+    const newLocale = locale.value === 'en' ? 'es' : 'en';
+    await setLocale(newLocale);
+    console.log(locale.value);
   }
 
   const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag));
@@ -16,6 +17,7 @@
 <template>
   <div class="flex items-center">
       <button
+        type="button"
         @click="changeLanguage"
         class="secondary flex items-center gap-x-2"
         :title="$t('languageSelector.changeLanguageTitle')"

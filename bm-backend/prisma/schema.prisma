@@ -13,12 +13,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Difficulty {
+  easy
+  intermediate
+  expert
+  custom
+}
+
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique
+  games        Game[]
   password     String
   refreshToken String?  
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Game {
+  id          Int         @id @default(autoincrement())
+  
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  help        Boolean   
+  seconds     Int      
+  difficulty  Difficulty
+  rows        Int
+  cols        Int
+  mines       Int
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("games")
 }

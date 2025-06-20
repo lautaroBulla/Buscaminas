@@ -11,6 +11,9 @@ npx prisma migrate deploy
 //resetear base de datos y aplicar migraciones (desarrollo)
 npx prisma migrate reset
 
+//ejecutar las migraciones
+npm run seed
+
 //crear recurso
 npx nest g resource auth
 

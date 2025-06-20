@@ -149,7 +149,6 @@
   
 </script>
 
-<!-- v-for="difficulty in ['easy', 'intermediate', 'expert', 'custom']" -->
 <template>
 
   <div class="border-external-sm flex flex-col space-y-2 w-[250px] md:w-[325px]">

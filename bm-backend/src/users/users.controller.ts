@@ -5,7 +5,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { User } from '@prisma/client';
-import { JwtRefresAuthGuard } from 'src/auth/guards/jwt-refresh-auth.guard';
 
 @Controller('users')
 export class UsersController {

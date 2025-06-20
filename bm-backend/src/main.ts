@@ -4,6 +4,8 @@ import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { PrismaClientExceptionFilter } from './common/filters/prisma-client-exception.filter';
 import * as cookieParser from 'cookie-parser';
+import { i18nValidationErrorFactory } from 'nestjs-i18n';
+import { I18nValidationPipe } from 'nestjs-i18n';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +23,9 @@ async function bootstrap() {
       return new BadRequestException(message);
     }
   }));
+  // app.useGlobalPipes(
+  //   new I18nValidationPipe(),
+  // );
 
   /*
   Esto crea swagger, obtenido directamente de la documentacion

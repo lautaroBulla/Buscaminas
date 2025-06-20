@@ -41,6 +41,7 @@
       await register(credentials.value.username, credentials.value.password);
       return navigateTo('/');
     } catch(error: any) {
+      console.log(error?.data);
       let msg = error?.data?.message; 
       if (!msg) {
         errorMessage.value = t('login.failed');

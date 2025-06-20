@@ -10,14 +10,14 @@ import { defineNuxtPlugin } from '#app';
 import { ofetch } from 'ofetch';
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const locale = useState('locale', () => 'en');
-  
+  const locale = useCookie('i18n_locale');
+
   const apiFetch = ofetch.create({
     onRequest({ options }) {
       options.credentials = 'include',
       options.headers = {
         ...(options.headers || {}),
-        'language': locale.value
+        'lang': locale.value
       } as any
     }
   });
@@ -33,7 +33,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
           return await apiFetch<T>(request, options);
         } catch (refreshErr) {
-          navigateTo('/');
+          // navigateTo('/');
+          console.log(refreshErr);
         }
       }
 
