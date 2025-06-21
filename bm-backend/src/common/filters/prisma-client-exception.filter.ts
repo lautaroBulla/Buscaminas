@@ -16,7 +16,7 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
     const httpAdapter = this.httpAdapterHost.httpAdapter;
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
-    const language = request.headers['language'] || 'en';
+    const language = request.headers['lang'] || 'en';
 
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'Internal server error';
@@ -35,7 +35,7 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
         // Ejemplo: personalizar por campo
         if (target?.includes('username')) {
           if (language === 'es') {
-            message = 'Username ya existente';
+            message = 'Nombre de usuario ya existente';
           } else if (language === 'en') {
             message = 'Username already exists';
           }

@@ -26,6 +26,8 @@ export class UsersController {
     return this.usersService.getProfile(user.id);
   }
 
+  /*-------------------------------------------------*/
+
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   findOne(

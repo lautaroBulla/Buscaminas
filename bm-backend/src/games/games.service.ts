@@ -15,6 +15,27 @@ export class GamesService {
     return await this.prisma.game.findMany();
   }
 
+  async findByDifficulty(rows, cols, mines, page, take) {
+    const skip = (page - 1) * take;
+
+    return await this.prisma.game.findMany({
+      skip: skip,
+      take: take,
+      where: {
+        rows,
+        cols,
+        mines
+      },
+      orderBy: {
+        seconds: "asc"
+      }
+    })
+  }
+
+  async findMyGames(id) {
+    return await this.prisma.game.findMany({ where: {userId: id} })
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} game`;
   }
