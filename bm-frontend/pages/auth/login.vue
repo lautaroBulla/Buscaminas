@@ -5,11 +5,13 @@
 
   import { z } from 'zod/v4';
 
+  const { t } = useI18n();
+
   const { login } = useAuth();
 
   const schema = z.object({
-    username: z.string().min(1, 'Username is required'),
-    password: z.string().min(1, 'Password is required')
+    username: z.string().min(1, t('login.emptyUsername')),
+    password: z.string().min(1, t('login.emptyPassword'))
   });
 
   const credentials = ref({
@@ -40,8 +42,12 @@
       console.log('console good');
       return navigateTo('/');
     } catch (error: any) {
-      console.log(error?.data?.message);
-      errorMessage.value = error?.data?.message || 'Login failed., please try again';
+      let msg = error?.data?.message; 
+      if (!msg) {
+        errorMessage.value = t('login.failedLogin');
+      } else {
+        errorMessage.value = error?.data?.message;
+      }
     }
   }
 

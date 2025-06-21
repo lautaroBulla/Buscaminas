@@ -9,9 +9,16 @@
 
   const { register } = useAuth();
 
+  const passwordSchema = z.string()
+    .min(8, t('login.strongPassword'))
+    .regex(/[A-Z]/, t('login.strongPassword'))
+    .regex(/[a-z]/, t('login.strongPassword'))
+    .regex(/[0-9]/, t('login.strongPassword'))  
+    .regex(/[^A-Za-z0-9]/, t('login.strongPassword')); 
+
   const schema = z.object({
-    username: z.string().min(1, 'Username is required'),
-    password: z.string().min(1, 'Password is required')
+    username: z.string().min(1, t('login.emptyUsername')),
+    password: passwordSchema
   })
 
   const credentials = ref({
@@ -41,16 +48,9 @@
       await register(credentials.value.username, credentials.value.password);
       return navigateTo('/');
     } catch(error: any) {
-      console.log(error?.data);
       let msg = error?.data?.message; 
       if (!msg) {
-        errorMessage.value = t('login.failed');
-      } else if (msg === 'password is not strong enough') {
-        if (locale.value === 'en') {
-          errorMessage.value = 'Password is not strong enough';
-        } else {
-          errorMessage.value = 'La contraseña es muy debil';
-        }
+        errorMessage.value = t('login.failedRegister');
       } else {
         errorMessage.value = error?.data?.message;
       } 

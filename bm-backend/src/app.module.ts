@@ -9,7 +9,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { GamesModule } from './games/games.module';
 import * as path from 'path';
-import { I18nModule, QueryResolver, AcceptLanguageResolver } from 'nestjs-i18n';
+import { I18nModule, HeaderResolver, AcceptLanguageResolver } from 'nestjs-i18n';
 
 @Module({
   imports: [
@@ -27,10 +27,7 @@ import { I18nModule, QueryResolver, AcceptLanguageResolver } from 'nestjs-i18n';
         path: path.join(__dirname, '/i18n/'),
         watch: true,
       },
-      resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-      ],
+      resolvers: [{ use: HeaderResolver, options: ['lang'] }],
     }),
     UsersModule,
     AuthModule,

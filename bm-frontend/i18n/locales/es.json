@@ -49,7 +49,11 @@
         "register": "Registrarse",
         "show": "Mostrar",
         "hide": "Ocultar",
-        "failed": "El registro fallo, pruebe de nuevo"
+        "failedLogin": "El inicio de sesión fallo, pruebe de nuevo",
+        "failedRegister": "El registro fallo, pruebe de nuevo",
+        "emptyUsername": "El nombre de usuario es requerido",
+        "emptyPassword": "La contraseña es requerida",
+        "strongPassword": "La contraseña no es lo suficientemente fuerte"
     },
     "helpMessage": {
         "firstClick": "Iniciar el juego",

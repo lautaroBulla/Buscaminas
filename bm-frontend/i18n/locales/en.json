@@ -49,7 +49,11 @@
         "register": "Register",
         "show": "Show",
         "hide": "Hide",
-        "failed": "Register failed, please try again"
+        "failedLogin": "Login failed, please try again",
+        "failedRegister": "Register failed, please try again",
+        "emptyUsername": "Username is required",
+        "emptyPassword": "Password is required",
+        "strongPassword": "Password is not strong enough"
     },
     "helpMessage": {
         "firstClick": "Start the game",
