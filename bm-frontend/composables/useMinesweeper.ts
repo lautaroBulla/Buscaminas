@@ -3,6 +3,7 @@ import { ref } from 'vue';
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
   const { t } = useI18n();
   const { isMobile } = useIsMobile();
+  const { getMyBestTime } = useGame();
 
   const rows = ref<number>(initialRows); //rows del tablero
   const cols = ref<number>(initialCols); //cols del tablero
@@ -33,6 +34,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
   const click3BV = ref(0);
   const countClicks = ref(0);
+
+  const bestTime = ref(null);
 
   //verifica que sea una celda valida del tablero
   function isValidCell(r: number, c: number): boolean {
@@ -69,7 +72,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     placeMines(row, col);
     click3BV.value = calculate3BV();
     startTime();
-    reveal(row, col, true);
+    reveal(row, col);
   }
 
   /*esta funcion se encarga de calcular la cantidad de clicks minimos necesarios para completar
@@ -207,9 +210,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   revelara las celdas adyacentes que esten sin revelar
   las flags no la revelara por el if inical de la funcion
   */
-  function reveal(row: number, col: number, sumClick: boolean) {
-    if (sumClick) countClicks.value += 1;
-
+  function reveal(row: number, col: number) {
     if ( flags.value[row][col] || gameOver.value || gameWin.value ) return
 
     if (!revealed.value[row][col]) {
@@ -229,7 +230,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
             const nr = row + dr;
             const nc = col + dc;
             if (isValidCell(nr, nc)) {
-                reveal(nr, nc, false);
+                reveal(nr, nc);
             }
         });
       }
@@ -253,7 +254,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         const nr = row + dr;
         const nc = col + dc;
         if (isValidCell(nr, nc) && !revealed.value[nr][nc]) {
-          reveal(nr, nc, false);
+          reveal(nr, nc);
         }
       });
     }
@@ -271,10 +272,12 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   }
 
   //verifica si todas las casillas con valor diferente a M han sido reveladas, en ese caso el usuario gano la partida
-  function checkWin() {
+  async function checkWin() {
     if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
       stopTime();
       revealGameWin();
+      bestTime.value = await getMyBestTime(rows.value, cols.value, mines.value);
+      console.log(bestTime.value);
       gameWin.value = true;
     }
   }
@@ -292,7 +295,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
 
   function rightClick(row: number, col: number) {
-    countClicks.value += 1;
     if (revealed.value[row][col] || gameOver.value || gameWin.value) return
     // sirve para ir alterando la casilla con las marcas flags e interrogations
     if (!isMobile.value) { //si no es mobile se dejara usar ?
@@ -439,6 +441,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     messageHelp,
     countHelp,
     click3BV,
-    countClicks
+    countClicks,
+    bestTime
   }
 }

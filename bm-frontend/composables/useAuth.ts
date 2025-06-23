@@ -23,7 +23,7 @@ export const useAuth = () => {
         method: 'GET'
       });
       user.value = data;
-    } catch (err) {
+    } catch (error) {
       user.value = null;
     } finally {
       isAuthReady.value = true;

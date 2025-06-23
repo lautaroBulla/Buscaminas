@@ -4,6 +4,10 @@
       type: Number,
       required: true
     },
+    bestTime: {
+      type: Number,
+      required: true
+    },
     countHelp: {
       type: Number,
       required: true
@@ -27,39 +31,50 @@
 
 <template>
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="border-external
-                w-full m-1
-                md:w-8/12 md:m-0
-                lg:w-6/12
-                xl:w-3/12"
+    <div class="border-external m-1"
       >
       <div class="border">
-        <div class="border-internal p-2 flex flex-col gap-y-5">
+        <div class="border-internal p-5 flex flex-col gap-y-5 text-color">
 
-          <h2 class="flex justify-center text-3xl text-color underline">
+          <h2 class="flex justify-center text-3xl underline text-color">
             {{ $t('finishGames.win') }}
           </h2>
 
-          <div class="grid grid-rows-4 gap-2 text-color text-2xl">
-            <div class="flex flex-row justify-between items-center px-32">
-              <p>Tiempo:</p>
-              <p>{{ formattedTime }}s</p>
+          <div class="md:text-2xl mt-4">
+            <div class="flex justify-between w-full px-2">
+              <span>Tiempo:</span>
+              <span>{{ formattedTime }}s</span>
             </div>
-            <div class="flex flex-row justify-between items-center px-32">
-              <p>Ayudas:</p>
-              <p>{{ countHelp }}</p>
+            <div class="flex justify-between w-full px-2" v-if="bestTime && formattedTime > bestTime">
+              <span>Mejor tiempo:</span>
+              <span>{{ bestTime }}s</span>
             </div>
-            <div class="flex flex-row justify-between items-center px-32">
-              <p>3BV:</p>
-              <p>{{ click3BV }}</p>
+            <div class="flex justify-between w-full px-2" v-else>
+              <span>Nuevo mejor tiempo:</span>
+              <span>{{ formattedTime }}s</span>
             </div>
-            <div class="flex flex-row justify-between items-center px-32">
-              <p>Clicks:</p>
-              <p>{{ countClicks }}</p>
+          </div>
+
+          <!-- Divider opcional -->
+          <hr class="my-4 border-color opacity-50" />
+
+          <!-- Bloque: Estadísticas -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-y-2 text-lg md:text-xl">
+            <div class="flex flex-row space-x-1 px-2">
+              <span>Ayudas:</span>
+              <span>{{ countHelp }}</span>
             </div>
-            <div class="flex flex-row justify-between items-center px-32">
-              <p>Eficiencia:</p>
-              <p>{{ Math.round((click3BV * 100) / countClicks) }}%</p>            
+            <div class="flex flex-row space-x-1 px-2">
+              <span>3BV:</span>
+              <span>{{ click3BV }}</span>
+            </div>
+            <div class="flex flex-row space-x-1 px-2">
+              <span>Clicks:</span>
+              <span>{{ countClicks }}</span>
+            </div>
+            <div class="flex flex-row space-x-1 px-2">
+              <span>Eficiencia:</span>
+              <span>{{ Math.round((click3BV * 100) / countClicks) }}%</span>
             </div>
           </div>
 

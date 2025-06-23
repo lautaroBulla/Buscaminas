@@ -16,13 +16,12 @@ export class GamesService {
   }
 
   async findMyBestTime(id, rows, cols, mines) {
-    return await this.prisma.game.findMany({
-      skip: 0,
-      take: 1,
-      where: {userId: id, rows, cols, mines},
-      orderBy: {seconds: "asc"},
-      select: {seconds: true}
-    })
+    const result = await this.prisma.game.findFirst({
+      where: { userId: id, rows, cols, mines },
+      orderBy: { seconds: "asc" },
+      select: { seconds: true }
+    });
+    return result ? Number(result.seconds) : null;
   }
   
   async findByDifficulty(rows, cols, mines, page, take) {
