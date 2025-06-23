@@ -4,41 +4,48 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const { t } = useI18n();
   const { isMobile } = useIsMobile();
 
-  const rows = ref<number>(initialRows);
-  const cols = ref<number>(initialCols);
-  const mines = ref<number>(initialMines);
+  const rows = ref<number>(initialRows); //rows del tablero
+  const cols = ref<number>(initialCols); //cols del tablero
+  const mines = ref<number>(initialMines); //mines del tablero
 
-  const board = ref<(number | 'M')[][]>([]);
-  const revealed = ref<boolean[][]>([]);
-  const flags = ref<boolean[][]>([]);
-  const interrogations = ref<boolean[][]>([]);
-  const gameOver = ref(false);
-  const gameWin = ref(false);
-  const firstClick = ref(true);
+  const board = ref<(number | 'M')[][]>([]); //board contendra los valores de las celdas, tanto numericos como las minas
+  const revealed = ref<boolean[][]>([]); //esta matriz llevara la logica a las celdas ya reveladas
+  const flags = ref<boolean[][]>([]); //esta matriz llevara la logica a las celdas marcadas como flags
+  const interrogations = ref<boolean[][]>([]); //esta matriz llevara la logica a las celdas marcadas como interrogations
+  const gameOver = ref(false); //en caso de que pierda
+  const gameWin = ref(false); //en caso de que gane 
+  const firstClick = ref(true); //para saber si es el primer click de la partida
 
-  const firstClickZero = ref(true);
-  const interrogationsActivated = ref(false);
+  const firstClickZero = ref(true); //opcion de juego, para que el primer click sea en una celda vacia
+  const interrogationsActivated = ref(false); //opcion de juego, para habilidar el uso de ?
 
-  const seconds = ref(0);
+  const seconds = ref(0); //lleva ek timepo de la partida
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
-  const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]];
+  const directions = [[-1, -1],[-1, 0],[-1, 1],[0, -1],[0, 1],[1, -1],[1, 0],[1, 1]]; //celdas adyacentes de una celda
 
-  const explotedCell = ref<{row: number, col: number} | null>(null); // necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
+  const explotedCell = ref<{row: number, col: number} | null>(null); //necesario para saber cual mina fue la que exploto, para mostrarla al con fondo rojo
 
-  const helpCells = ref<{ row: number; col: number }[]>([]);
-  const lastHelp = ref<{ row: number; col: number }>();
-  const messageHelp = ref<string | null>(null);
+  const helpCells = ref<{ row: number; col: number }[]>([]); //las celdas que se le mostraran al usuario como ayuda
+  const lastHelp = ref<{ row: number; col: number }>(); //controla cual fue la ultima ayuda
+  const countHelp = ref(0); //contador de ayudas
+  const messageHelp = ref<string | null>(null); //mensaje para cuando no ha iniciado el game o no hay ayudas
 
-  //verifica que sea una celda del tablero
+  const click3BV = ref(0);
+  const countClicks = ref(0);
+
+  //verifica que sea una celda valida del tablero
   function isValidCell(r: number, c: number): boolean {
     return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
   }
 
-  //reinicia el juego
+  //se setean las variables para el inicio de un nuevo juego e inicia un nuevo board
   function resetGame () {
     explotedCell.value = null;
     helpCells.value = [];
+    countHelp.value = 0;
+    click3BV.value = 0;
+    countClicks.value = 0;
     stopTime();
     seconds.value = 0;
     initBoard();
@@ -56,7 +63,74 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     firstClick.value = true;    
   }
 
-  //coloca las minas en el tablero, en caso de que sea el primer click, evita que se coloquen minas en las casillas adyacentes
+  //esta funcion sirve para que el jugador no pierda en el primer moviminto en caso de apretar una mina
+  function boardFirstClick(row: number, col: number) {
+    firstClick.value = false;
+    placeMines(row, col);
+    click3BV.value = calculate3BV();
+    startTime();
+    reveal(row, col, true);
+  }
+
+  /*esta funcion se encarga de calcular la cantidad de clicks minimos necesarios para completar
+  el tablero, de esta manera obtener la eficiencia de clicks de la partida
+  */
+  function calculate3BV() {
+    const visited = Array.from({ length: rows.value }, () =>
+      Array(cols.value).fill(false)
+    );
+
+    const dfs = (r: number, c: number) => {
+      visited[r][c] = true;
+      for (const [dr, dc] of directions) {
+        const nr = r + dr;
+        const nc = c + dc;
+        if (
+          isValidCell(nr, nc) &&
+          board.value[nr][nc] === 0 &&
+          !visited[nr][nc]
+        ) {
+          dfs(nr, nc);
+        }
+      }
+    };
+
+    let zeroZones = 0;
+    let isolatedNumbers = 0;
+
+    for (let r = 0; r < rows.value; r++) {
+      for (let c = 0; c < cols.value; c++) {
+        const cell = board.value[r][c];
+
+        // Buscar zonas de ceros
+        if (cell === 0 && !visited[r][c]) {
+          dfs(r, c);
+          zeroZones++;
+        }
+
+        // Buscar números aislados (no adyacentes a un cero)
+        if (cell !== 'M' && cell !== 0) {
+          let adjacentToZero = false;
+          for (const [dr, dc] of directions) {
+            const nr = r + dr;
+            const nc = c + dc;
+            if (isValidCell(nr, nc) && board.value[nr][nc] === 0) {
+              adjacentToZero = true;
+              break;
+            }
+          }
+          if (!adjacentToZero) isolatedNumbers++;
+        }
+      }
+    }
+
+    return zeroZones + isolatedNumbers;
+  }
+
+  /*coloca las minas en el tablero, evitando colocar una mina en la cell incial
+  en caso de que firstClickZero (opcion de juego) sea true, lo que va a hacer es setear esa primer cell como vacia
+  evitando que se coloquen minas al rededor de la misma
+  */
   function placeMines(row: number, col: number) {
     let mineCount = 0;
     const invalidCells = new Set();
@@ -84,29 +158,6 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
     adjacentMines();
   }
-  
-  //esta funcion sirve para que el jugador no pierda en el primer moviminto en caso de apretar una mina
-  function boardFirstClick(row: number, col: number) {
-    firstClick.value = false;
-    placeMines(row, col);
-    startTime();
-    reveal(row, col);
-  }
-
-  //funciones del tiempo de la partida
-  function startTime() {
-    if (intervalId !== null) return // evitar múltiples timers
-
-    intervalId = setInterval(() => {
-        seconds.value++
-    }, 1000)
-  }
-  function stopTime() {
-    if (intervalId !== null) {
-      clearInterval(intervalId)
-      intervalId = null
-    }
-  }
 
   //recorre cada casilla del tablero, en caso de no ser una mina, cuenta las minas adyacentes y setea el numero
   function adjacentMines() {
@@ -128,8 +179,38 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     } 
   }
 
-  function reveal(row: number, col: number) {
-    if ( flags.value[row][col] || gameOver.value || gameWin.value) return
+  //funciones del tiempo de la partida
+  function startTime() {
+    if (intervalId !== null) return // evitar múltiples timers
+
+    intervalId = setInterval(() => {
+      seconds.value += 10;
+    }, 10)
+  }
+  function stopTime() {
+    if (intervalId !== null) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+  }
+
+  /*funcion que se encargara de la revelacion de las minas
+  por lo tanto a su vez contemplara, que no se puede revelar una vez el juego terminado o una cell con flag marcada
+
+  en caso de que sea una cell no revelada 
+  verificara si el usuario perdio, al revelar una cell con mina
+  en caso de revelar una celda vacia, lo que hara es autollamarse con el valor de las celdas adyacentes
+  por ultimo checkea si el usuario gano
+
+  en caso de que sea un cell revelada
+  cuenta las flags a su alrededor, si estas son igual al numero de la cell
+  revelara las celdas adyacentes que esten sin revelar
+  las flags no la revelara por el if inical de la funcion
+  */
+  function reveal(row: number, col: number, sumClick: boolean) {
+    if (sumClick) countClicks.value += 1;
+
+    if ( flags.value[row][col] || gameOver.value || gameWin.value ) return
 
     if (!revealed.value[row][col]) {
       // lógica si no estaba revelada
@@ -148,7 +229,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
             const nr = row + dr;
             const nc = col + dc;
             if (isValidCell(nr, nc)) {
-                reveal(nr, nc);
+                reveal(nr, nc, false);
             }
         });
       }
@@ -163,7 +244,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
       const nr = row + dr;
       const nc = col + dc;
       if (isValidCell(nr, nc) && flags.value[nr][nc]) {
-          adjacentFlags++;
+        adjacentFlags++;
       }
     });
 
@@ -172,12 +253,13 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         const nr = row + dr;
         const nc = col + dc;
         if (isValidCell(nr, nc) && !revealed.value[nr][nc]) {
-            reveal(nr, nc);
+          reveal(nr, nc, false);
         }
       });
     }
   }
 
+  //simplemente revela todas las minas sin revelar cuando el usuario pierde
   function revealGameOver() {
     for (let r=0; r<rows.value; r++){
       for (let c=0; c<cols.value; c++){
@@ -188,8 +270,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     }
   }
 
+  //verifica si todas las casillas con valor diferente a M han sido reveladas, en ese caso el usuario gano la partida
   function checkWin() {
-    //verifica si todas las casillas con valor diferente a M han sido reveladas
     if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
       stopTime();
       revealGameWin();
@@ -197,6 +279,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     }
   }
 
+  //esta funcion seimplemente los que hace es marcar las flags faltantes al ganar la partida
   function revealGameWin() {
     for (let r=0; r<rows.value; r++){
       for (let c=0; c<cols.value; c++){
@@ -209,9 +292,10 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
 
   function rightClick(row: number, col: number) {
+    countClicks.value += 1;
     if (revealed.value[row][col] || gameOver.value || gameWin.value) return
     // sirve para ir alterando la casilla con las marcas flags e interrogations
-    if (!isMobile.value) {
+    if (!isMobile.value) { //si no es mobile se dejara usar ?
       if (interrogationsActivated.value) {
         if (!flags.value[row][col] && !interrogations.value[row][col]){ 
           flags.value[row][col] = true;
@@ -224,11 +308,14 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
       } else if (!interrogationsActivated.value) {
         flags.value[row][col] = !flags.value[row][col];
       }
-    } else {
+    } else { //en caso de ser mobile solo se alternara entre flag y no flag
       flags.value[row][col] = !flags.value[row][col];
     }
   }
 
+  /*hace el calculo de las celdas con valor de ser ayuda
+  y te devuelve una al azar
+  */
   function getRandomRevealedCell() {
     const revealedCells: { row: number; col: number}[] = [];
 
@@ -256,6 +343,14 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
         const totalHidden = flagsAround + hiddenUnFlagged;
 
+        /*
+        las celdas consideradas como ayuda van a ser 2 tipos
+        1. las que tienen la cantidad de celdas adyacentes sin revelar igual al valor de la celda,
+        con la intencion de que marque las celdas con una flag
+        2. las que tienen la cantidad de celdas adyacentes con flag igual al valor de la celda y
+        tienes celdas sin revelar sin marcar como flag,
+        con la intencion de que revele las celdas 
+        */
         if (
           (totalHidden === cellValue && hiddenUnFlagged > 0) ||
           (flagsAround === cellValue && hiddenUnFlagged > 0)
@@ -267,7 +362,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
     if (revealedCells.length === 0) return null;
 
-    if (lastHelp.value) {
+    if (lastHelp.value) { //lastHelp sireve para devolver la misma ayuda, si no fue utilizada
       const { row, col } = lastHelp.value;
       const sameHelp = revealedCells.find(cell => cell.row === row && cell.col === col)
       if (sameHelp) {
@@ -275,12 +370,17 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
       }
     }
 
+    countHelp.value += 1;
+
     const randomIndex = Math.floor(Math.random() * revealedCells.length);
     return revealedCells[randomIndex];
   } 
 
+  /*obtiene la celda de ayuda, de la funcion anterior
+  y crea el conjunto de celdas de ayuda que va a ser la celda devuela mas sus adyacentes
+  las cuales se marcaran en el board, para informarle al usuario de la ayuda.
+  */
   function help() { 
-    console.log(helpCells.value);
     const helpCellFunction = getRandomRevealedCell();
     helpCells.value = [];
     
@@ -301,14 +401,14 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         helpCells.value = []
       }, 2000);
     } else {
-      messageHelp.value = t('helpMessage.noHelp');
+      messageHelp.value = t('helpMessage.noHelp'); //en caso de que no hayan celdas de ayuda
       setTimeout(() => {
         messageHelp.value = null;
       }, 1000);
     }
 
     if (firstClick.value) {
-      messageHelp.value = t('helpMessage.firstClick');
+      messageHelp.value = t('helpMessage.firstClick'); //si el usuario no ha arrancado la partida
       setTimeout(() => {
         messageHelp.value = null;
       }, 1000);
@@ -336,6 +436,9 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     explotedCell,
     help,
     helpCells,
-    messageHelp
+    messageHelp,
+    countHelp,
+    click3BV,
+    countClicks
   }
 }

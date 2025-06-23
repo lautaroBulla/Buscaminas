@@ -10,11 +10,21 @@ export class GamesService {
   async create(createGameDto: CreateGameDto) {
     return await this.prisma.game.create({ data:createGameDto });
   }
-
-  async findAll() {
-    return await this.prisma.game.findMany();
+  
+  async findMyGames(id) {
+    return await this.prisma.game.findMany({ where: {userId: id} })
   }
 
+  async findMyBestTime(id, rows, cols, mines) {
+    return await this.prisma.game.findMany({
+      skip: 0,
+      take: 1,
+      where: {userId: id, rows, cols, mines},
+      orderBy: {seconds: "asc"},
+      select: {seconds: true}
+    })
+  }
+  
   async findByDifficulty(rows, cols, mines, page, take) {
     const skip = (page - 1) * take;
 
@@ -32,8 +42,9 @@ export class GamesService {
     })
   }
 
-  async findMyGames(id) {
-    return await this.prisma.game.findMany({ where: {userId: id} })
+
+  async findAll() {
+    return await this.prisma.game.findMany();
   }
 
   findOne(id: number) {

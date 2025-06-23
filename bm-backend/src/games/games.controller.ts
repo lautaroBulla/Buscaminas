@@ -23,6 +23,17 @@ export class GamesController {
     return this.gamesService.findMyGames(user.id);
   }
   
+  @Get('myBestTime')
+  @UseGuards(JwtAuthGuard)
+  findMyBestTime(
+    @CurrentUser() user: User,
+    @Query('rows', ParseIntPipe) rows: number, 
+    @Query('cols', ParseIntPipe) cols: number,
+    @Query('mines', ParseIntPipe) mines: number,
+  ) {
+    return this.gamesService.findMyBestTime(user.id, rows, cols, mines);
+  }
+
   @Get('difficulty') 
   findByDifficulty(
     @Query('rows', ParseIntPipe) rows: number, 
@@ -33,6 +44,7 @@ export class GamesController {
   ) {
     return this.gamesService.findByDifficulty(rows, cols, mines, page, take);
   }
+
   
   /*-------------------------------------------------*/
 

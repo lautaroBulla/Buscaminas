@@ -59,4 +59,9 @@
         "firstClick": "Start the game",
         "noHelp": "There is no help"
     }
+    ,
+    "finishGames": {
+        "win": "YOU WIN",
+        "continue": "Continue"
+    }
 }

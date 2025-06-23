@@ -43,4 +43,19 @@ export class CreateGameDto {
   @IsNotEmpty()
   @ApiProperty({ required: true })
   mines: number
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  n3BV: number
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  clicks: number
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  efficiency: number
 }

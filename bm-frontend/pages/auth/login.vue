@@ -39,7 +39,6 @@
 
     try {
       await login(credentials.value.username, credentials.value.password);
-      console.log('console good');
       return navigateTo('/');
     } catch (error: any) {
       let msg = error?.data?.message; 

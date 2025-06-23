@@ -7,7 +7,6 @@
   const changeLanguage = async () => {
     const newLocale = locale.value === 'en' ? 'es' : 'en';
     await setLocale(newLocale);
-    console.log(locale.value);
   }
 
   const flagSrc = computed(() => (locale.value === 'en' ? esFlag : ukFlag));

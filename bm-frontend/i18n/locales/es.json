@@ -58,5 +58,9 @@
     "helpMessage": {
         "firstClick": "Iniciar el juego",
         "noHelp": "No hay ayudas"
+    },
+    "finishGames": {
+        "win": "TU GANAS",
+        "continue": "Continuar"
     }
 }

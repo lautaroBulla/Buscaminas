@@ -7,8 +7,9 @@
   })
 
   const formattedNumber = computed(() => {
-    return String(props.seconds).padStart(3, '0').split('')
-  })
+    const seconds2 = Math.floor(props.seconds / 1000); // redondea hacia abajo
+    return String(seconds2).padStart(3, '0').split('');
+  });
 </script>
 
 <template>

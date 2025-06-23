@@ -32,7 +32,10 @@
     explotedCell,
     help,
     helpCells,
-    messageHelp
+    messageHelp,
+    countHelp,
+    click3BV,
+    countClicks
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
@@ -116,7 +119,7 @@
           :explotedCell="explotedCell"
           :helpCells="helpCells"
           :messageHelp="messageHelp"
-          @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col)"
+          @cell-left-click="({row, col}) => firstClick ? boardFirstClick(row, col) : reveal(row, col, true)"
           @cell-right-click="({row, col}) => rightClick(row, col)"
         />
       </div>
@@ -126,6 +129,10 @@
 
   <GameFinishComponent
     v-if="modalGameFinish"
+    :seconds="seconds"
+    :countHelp="countHelp"
+    :click3BV="click3BV"
+    :countClicks="countClicks"
     @close="viewGameFinish"
   />
   <SettingsModal
