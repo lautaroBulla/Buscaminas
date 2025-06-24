@@ -3,6 +3,7 @@ PENDIENTE
   # Realizar toda la logica de los rankings
   # Perfil del usuario
   # Vichar en el backend, el eliminar funciones que no se vayan a usar
+  # Mostrar la bandera cuando se llega al tiempo en mobile
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google

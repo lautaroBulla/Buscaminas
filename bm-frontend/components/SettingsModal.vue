@@ -159,7 +159,7 @@
 
             </div>
             
-            <div class="modal-separator-line my-3"></div>
+            <div class="modal-separator-line my-4"></div>
 
             <div class="flex flex-col gap-y-1">
 

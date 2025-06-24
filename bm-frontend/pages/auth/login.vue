@@ -8,6 +8,7 @@
   const { t } = useI18n();
 
   const { login } = useAuth();
+  const { saveGame } = useGame();
 
   const schema = z.object({
     username: z.string().min(1, t('login.emptyUsername')),
@@ -39,6 +40,19 @@
 
     try {
       await login(credentials.value.username, credentials.value.password);
+      const data = useCookie<GameToSave | null>('gameToSave');
+      if (data && data.value) {
+        const dataDecod = data.value;
+        const res = await saveGame(
+          dataDecod.help, dataDecod.seconds, dataDecod.difficulty, 
+          dataDecod.rows, dataDecod.cols, dataDecod.mines,
+          dataDecod.n3BV, dataDecod.clicks, dataDecod.efficiency
+        );
+        console.log('-------------------');
+        console.log(res);
+        console.log('-------------------');
+        data.value = null;
+      }
       return navigateTo('/');
     } catch (error: any) {
       let msg = error?.data?.message; 

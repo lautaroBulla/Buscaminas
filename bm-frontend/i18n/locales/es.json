@@ -59,8 +59,20 @@
         "firstClick": "Iniciar el juego",
         "noHelp": "No hay ayudas"
     },
-    "finishGames": {
-        "win": "TU GANAS",
-        "continue": "Continuar"
+    "finishGame": {
+        "win": "GANASTE",
+        "continue": "Continuar",
+        "time": "Tiempo",
+        "bestTime": "Mejor tiempo",
+        "newBestTime": "Nuevo mejor tiempo",
+        "help": "Ayudas",
+        "helpTitle": "Ayudas usadas",
+        "3bv": "3BV",
+        "3bvTitle": "3BV es el numero de clicks minimos necesarios para completar la partida",
+        "clicks": "Clicks",
+        "clicksTitle": "Numero de clicks",
+        "efficiency": "Eficiencia",
+        "efficiencyTitle": "Eficiencia de los clicks (3BV / clicks)",
+        "noAuth": "Para guardar la partida Iniciar Sesión o Registrarse"
     }
 }

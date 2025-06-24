@@ -12,12 +12,7 @@ export class CreateGameDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ required: true })
-  userId: number
-
-  @IsBoolean()
-  @IsNotEmpty()
-  @ApiProperty({ required: true })
-  help: boolean
+  help: number
 
   @IsNumber()
   @IsNotEmpty()

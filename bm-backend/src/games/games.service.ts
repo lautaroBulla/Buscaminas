@@ -7,8 +7,9 @@ import { PrismaService } from 'src/prisma.service';
 export class GamesService {
   constructor(private readonly prisma: PrismaService){}
 
-  async create(createGameDto: CreateGameDto) {
-    return await this.prisma.game.create({ data:createGameDto });
+  async create(id, createGameDto) {
+    const saveGame = { ...createGameDto, userId: id };
+    return await this.prisma.game.create({ data:saveGame });
   }
   
   async findMyGames(id) {
@@ -21,7 +22,7 @@ export class GamesService {
       orderBy: { seconds: "asc" },
       select: { seconds: true }
     });
-    return result ? Number(result.seconds) : null;
+    return result ? result.seconds : null;
   }
   
   async findByDifficulty(rows, cols, mines, page, take) {

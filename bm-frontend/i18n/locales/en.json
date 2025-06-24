@@ -58,10 +58,21 @@
     "helpMessage": {
         "firstClick": "Start the game",
         "noHelp": "There is no help"
-    }
-    ,
-    "finishGames": {
+    },
+    "finishGame": {
         "win": "YOU WIN",
-        "continue": "Continue"
+        "continue": "Continue",
+        "time": "Time",
+        "bestTime": "Best time",
+        "newBestTime": "New best time",
+        "help": "Help",
+        "helpTitle": "Help used",
+        "3bv": "3BV",
+        "3bvTitle": "3BV is the minimum number of clicks needed to complete the game",
+        "clicks": "Clicks",
+        "clicksTitle": "Total number of clicks",
+        "efficiency": "Efficiency",
+        "efficiencyTitle": "Click efficiency (3BV / clicks)",
+        "noAuth": "To save the game Login or Register"
     }
 }

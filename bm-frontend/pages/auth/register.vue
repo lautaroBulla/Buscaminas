@@ -8,6 +8,7 @@
   const { locale, t } = useI18n();
 
   const { register } = useAuth();
+  const { saveGame } = useGame();
 
   const passwordSchema = z.string()
     .min(8, t('login.strongPassword'))
@@ -46,6 +47,16 @@
     
     try {
       await register(credentials.value.username, credentials.value.password);
+      const data = useCookie<GameToSave | null>('gameToSave');
+      if (data && data.value) {
+        const dataDecod = data.value;
+        await saveGame(
+          dataDecod.help, dataDecod.seconds, dataDecod.difficulty, 
+          dataDecod.rows, dataDecod.cols, dataDecod.mines,
+          dataDecod.n3BV, dataDecod.clicks, dataDecod.efficiency
+        );
+        data.value = null;
+      }
       return navigateTo('/');
     } catch(error: any) {
       let msg = error?.data?.message; 

@@ -13,8 +13,8 @@ export class GamesController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createGameDto: CreateGameDto) {
-    return this.gamesService.create(createGameDto);
+  create(@CurrentUser() user: User, @Body() createGameDto: CreateGameDto) {
+    return this.gamesService.create(user.id, createGameDto);
   }
 
   @Get('myGames')

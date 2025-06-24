@@ -13,7 +13,7 @@ async function main() {
       games: {
         create: [
           {
-            help: false,
+            help: 1,
             seconds: 15.123,
             difficulty: 'easy',
             rows: 9,
@@ -24,7 +24,7 @@ async function main() {
             efficiency: 100
           },
           {
-            help: false,
+            help: 2,
             seconds: 10.000,
             difficulty: 'easy',
             rows: 9,
@@ -35,7 +35,7 @@ async function main() {
             efficiency: 90
           },
           {
-            help: false,
+            help: 1,
             seconds: 100.453,
             difficulty: 'expert',
             rows: 30,
@@ -46,7 +46,7 @@ async function main() {
             efficiency: 76
           },
           {
-            help: false,
+            help: 3,
             seconds: 200.120,
             difficulty: 'custom',
             rows: 44,
@@ -68,7 +68,7 @@ async function main() {
       games: {
         create: [
           {
-            help: false,
+            help: 0,
             seconds: 13.120,
             difficulty: 'easy',
             rows: 9,
@@ -79,7 +79,7 @@ async function main() {
             efficiency: 100
           },
           {
-            help: true,
+            help: 2,
             seconds: 10.123,
             difficulty: 'easy',
             rows: 9,
@@ -90,7 +90,7 @@ async function main() {
             efficiency: 100
           },
           {
-            help: false,
+            help: 7,
             seconds: 59.324,
             difficulty: 'intermediate',
             rows: 16,
@@ -101,7 +101,7 @@ async function main() {
             efficiency: 80
           },
           {
-            help: true,
+            help: 0,
             seconds: 250.154,
             difficulty: 'custom',
             rows: 44,
@@ -123,7 +123,7 @@ async function main() {
       games: {
         create: [
           {
-            help: false,
+            help: 0,
             seconds: 13.253,
             difficulty: 'easy',
             rows: 9,
@@ -134,7 +134,7 @@ async function main() {
             efficiency: 100
           },
           {
-            help: true,
+            help: 0,
             seconds: 10,
             difficulty: 'easy',
             rows: 9,
@@ -145,7 +145,7 @@ async function main() {
             efficiency: 100
           },
           {
-            help: false,
+            help: 0,
             seconds: 123.291,
             difficulty: 'custom',
             rows: 44,
@@ -156,7 +156,7 @@ async function main() {
             efficiency: 64
           },
           {
-            help: true,
+            help: 2,
             seconds: 150.005,
             difficulty: 'custom',
             rows: 44,

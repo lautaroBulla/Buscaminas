@@ -1,9 +1,11 @@
+import { form } from '#build/ui';
 import { ref } from 'vue';
 
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
   const { t } = useI18n();
   const { isMobile } = useIsMobile();
-  const { getMyBestTime } = useGame();
+  const { user } = useAuth();
+  const { getMyBestTime, saveGame } = useGame();
 
   const rows = ref<number>(initialRows); //rows del tablero
   const cols = ref<number>(initialCols); //cols del tablero
@@ -35,7 +37,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const click3BV = ref(0);
   const countClicks = ref(0);
 
-  const bestTime = ref(null);
+  const bestTime = ref<number | null>(null);
 
   //verifica que sea una celda valida del tablero
   function isValidCell(r: number, c: number): boolean {
@@ -49,6 +51,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     countHelp.value = 0;
     click3BV.value = 0;
     countClicks.value = 0;
+    bestTime.value = null;
     stopTime();
     seconds.value = 0;
     initBoard();
@@ -276,8 +279,28 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
       stopTime();
       revealGameWin();
-      bestTime.value = await getMyBestTime(rows.value, cols.value, mines.value);
-      console.log(bestTime.value);
+      const difficulty = rows.value === 9 && cols.value === 9 && mines.value === 10 ? 'easy' :
+        rows.value === 16 && cols.value === 16 && mines.value === 40 ? 'intermediate' :
+        rows.value === 16 && cols.value === 30 && mines.value === 99 ? 'expert' :
+        'custom';
+      if (user.value !== null) {
+        await saveGame(countHelp.value, seconds.value / 1000, difficulty, rows.value, cols.value, mines.value, click3BV.value, countClicks.value, Math.round(100 * (click3BV.value / countClicks.value)));
+        bestTime.value = await getMyBestTime(rows.value, cols.value, mines.value);
+      } else {
+        useCookie<GameToSave>('gameToSave', {
+          expires: new Date(Date.now() + 1000 * 60 * 10),  
+        }).value = {
+          help: countHelp.value,
+          seconds: seconds.value / 1000,
+          difficulty,
+          rows: rows.value,
+          cols: cols.value,
+          mines: mines.value,
+          n3BV: click3BV.value,
+          clicks: countClicks.value,
+          efficiency: Math.round(100 * (click3BV.value / countClicks.value))
+        };
+      }
       gameWin.value = true;
     }
   }
