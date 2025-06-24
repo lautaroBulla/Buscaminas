@@ -274,7 +274,12 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     }
   }
 
-  //verifica si todas las casillas con valor diferente a M han sido reveladas, en ese caso el usuario gano la partida
+  /*verifica si todas las casillas con valor diferente a M han sido reveladas, en ese caso el usuario gano la partida
+  si gano la partida, y existe un usuario autenticado, se manda la informacion del juego al backend para guardarla
+  y luego se obtiene le mejor tiempo para mostrar en el componente GameFinish
+  en caso de que no haya un usuario autenticado, se guarda la informacion del juego en una cookie,
+  para ser guardada en el backend luego de que el usuario se autentique, en caso de que no expirara
+  */
   async function checkWin() {
     if (board.value.flat().filter(cell => cell !== 'M').length === revealed.value.flat().filter(cell => cell === true).length){
       stopTime();

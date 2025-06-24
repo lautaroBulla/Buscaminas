@@ -2,7 +2,9 @@
     "nav": {
         "title": "Minesweeper",
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "ranking": "View ranking",
+        "logout": "Logout"
     },
     "header": {
         "reset": "Reset",

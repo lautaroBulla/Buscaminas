@@ -4,10 +4,11 @@ PENDIENTE
   # Perfil del usuario
   # Vichar en el backend, el eliminar funciones que no se vayan a usar
   # Mostrar la bandera cuando se llega al tiempo en mobile
+  # Realizar el logout
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
-  # Crear mina armandose para el loader
+  # Crear mina armandose para pantalla de carga
   # Nacionalidad al registrar
 
 COMPLETADO

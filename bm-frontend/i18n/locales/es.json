@@ -2,7 +2,9 @@
     "nav": {
         "title": "Buscaminas",
         "login": "Iniciar sesión",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "ranking": "Ver ranking",
+        "logout": "Cerrar sesión"   
     },
     "header": {
         "reset": "Reinciar",

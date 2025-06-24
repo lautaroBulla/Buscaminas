@@ -54,6 +54,7 @@ body {
 }
 .title:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 /* estilos generales de los componentes */
@@ -105,6 +106,29 @@ button.text:hover {
   color: var(--color-nonary);
   text-align: center;
   width: 50px;
+}
+.dropdown {
+  position: absolute;
+  top: 100%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-secondary);
+}
+.optionsDropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding-inline: 1rem;
+  padding-block: 0.25rem;
+  color: var(--color-nonary);
+}
+.optionsDropdown:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: var(--color-tertiary);
 }
 
 
