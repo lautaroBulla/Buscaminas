@@ -76,5 +76,10 @@
         "efficiency": "Efficiency",
         "efficiencyTitle": "Click efficiency (3BV / clicks)",
         "noAuth": "To save the game Login or Register"
+    },
+    "ranking": {
+        "username": "Username",
+        "date": "Date",
+        "stats": "Stats",
     }
 }

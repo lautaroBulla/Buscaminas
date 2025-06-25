@@ -6,14 +6,25 @@ realizara el refresh del token si es valido realizara la peticion incial nuevame
 si no se redirigira al usuario a la pagina de inicio
 */
 
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin, useRuntimeConfig, useCookie } from '#app';
 import { ofetch } from 'ofetch';
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const config = useRuntimeConfig();
   const locale = useCookie('i18n_locale');
 
   const apiFetch = ofetch.create({
-    onRequest({ options }) {
+    async onRequest({ request, options }) {
+      const isServer = process.server;
+
+      if (isServer) {
+        // Si es SSR, usamos baseURL sin `/api`
+        if (typeof request === 'string' && request.startsWith('/api')) {
+          options.baseURL = config.public.apiBaseUrl;
+          request = request.replace(/^\/api/, ''); // Quitamos `/api`
+        }
+      }
+
       options.credentials = 'include',
       options.headers = {
         ...(options.headers || {}),
@@ -21,7 +32,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       } as any
     }
   });
-
+  
   const safeApiFetch = async <T>(request: any, options?: any): Promise<T> => {
     try {
       return await apiFetch<T>(request, options);

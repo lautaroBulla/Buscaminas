@@ -36,8 +36,8 @@ class= generales
 
 <template>
   <nav class="flex justify-between items-center w-full 
-              px-5 py-2 border-b-2 border-b-secondary
-              lg:px-10 lg:py-4 lg:border-b-4 lg:border-b-secondary"
+              px-7.5 py-2 border-b-2 border-b-secondary
+              lg:px-15 lg:py-4 lg:border-b-4 lg:border-b-secondary"
   >
 
       <div class="hidden 
@@ -98,8 +98,10 @@ class= generales
                   Perfil
                 </NuxtLink> -->
                 <NuxtLink 
+                  to="/ranking"
                   class="optionsDropdown gap-x-2"
                   :title="$t('nav.ranking')"
+                  @click="show = false"
                 >
                   <img
                     :src="isDark ? trophyDark : trophyLigth"
@@ -111,6 +113,7 @@ class= generales
                   <img
                     :src="isDark ? logoutDark : logoutLight"
                     class="w-[12px] h-[12px] lg:w-[15px] lg:h-[15px]"
+                    @click="show = false"
                   >
                   {{ $t('nav.logout') }}
                 </NuxtLink>

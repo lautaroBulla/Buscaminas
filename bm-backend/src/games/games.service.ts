@@ -38,6 +38,19 @@ export class GamesService {
       },
       orderBy: {
         seconds: "asc"
+      },
+      select: {
+        help: true,
+        seconds: true,
+        createdAt: true,
+        clicks: true,
+        n3BV: true,
+        efficiency: true,
+        user: {
+          select: {
+            username: true
+          }
+        }
       }
     })
   }

@@ -76,5 +76,10 @@
         "efficiency": "Eficiencia",
         "efficiencyTitle": "Eficiencia de los clicks (3BV / clicks)",
         "noAuth": "Para guardar la partida Iniciar Sesión o Registrarse"
+    },
+    "ranking": {
+        "username": "Usuario",
+        "date": "Fecha",
+        "stats": "Estadísticas",
     }
 }

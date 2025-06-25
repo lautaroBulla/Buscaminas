@@ -126,9 +126,18 @@ button.text:hover {
   color: var(--color-nonary);
 }
 .optionsDropdown:hover {
-  opacity: 0.8;
   cursor: pointer;
   background-color: var(--color-tertiary);
+}
+.tableHeader {
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-oct);
+  color: var(--color-primary);
+}
+.tableCell {
+  border: 2px solid var(--color-quinary);
+  background-color: var(--color-quaternary);
+  color: var(--color-nonary);
 }
 
 

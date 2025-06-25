@@ -1,11 +1,11 @@
 export const useGame = () => {
   const { $apiFetch } = useNuxtApp();
 
-  const getMyBestTime = async (rowsLocal: number, colsLocal: number, minesLocal: number) => {
+  const getMyBestTime = async (rows: number, cols: number, mines: number) => {
     try {
       const data = await $apiFetch('/api/games/myBestTime', {
         method: 'GET',
-        query: {rows: rowsLocal, cols: colsLocal, mines: minesLocal}
+        query: {rows, cols, mines}
       })
       return Number(data);
     } catch (error) {
@@ -41,13 +41,31 @@ export const useGame = () => {
       })
       return res;
     } catch (error) {
-      console.error('Error saving game:', error);
+      throw error;
+    }
+  }
+
+  const findByDifficulty = async (
+    rows: number,
+    cols: number,
+    mines: number,
+    page: number,
+    take: number
+  ) => {
+    try {
+      const data = await $apiFetch('/api/games/difficulty', {
+        method: 'GET',
+        query: {rows, cols, mines, page, take}
+      })
+      return data;
+    } catch (error) {
       throw error;
     }
   }
 
   return {
     getMyBestTime,
-    saveGame
+    saveGame,
+    findByDifficulty
   }
 }
