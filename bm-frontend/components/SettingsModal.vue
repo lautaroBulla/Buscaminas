@@ -65,12 +65,7 @@
 <template>
 
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="border-external
-                w-full m-1
-                md:w-8/12 md:m-0
-                lg:w-6/12
-                xl:w-4/12"
-      >
+    <div class="border-external w-full max-w-xl m-1">
       <div class="border">
         <div class="border-internal p-2">
 
@@ -90,7 +85,7 @@
 
             <div class="flex flex-col gap-y-1">
 
-              <div class="lg:hidden
+              <div class="md:hidden
                           flex flex-col"
               >
                 <label class="text-color"> {{ $t('gameSettings.language') }}: </label>

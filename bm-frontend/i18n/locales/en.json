@@ -81,5 +81,10 @@
         "username": "Username",
         "date": "Date",
         "stats": "Stats",
+        "rows": "Rows",
+        "cols": "Cols",
+        "mines": "Mines",
+        "update": "Update",
+        "noGames": "No games found"
     }
 }

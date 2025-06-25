@@ -97,8 +97,8 @@
 
     <div class="md:flex md:gap-x-4">
       <DifficultySelectorComponent
-      v-model="difficulty"
-      @update:customValues="setCustomValues"
+        v-model="difficulty"
+        @update:customValues="setCustomValues"
       />
     </div>
 

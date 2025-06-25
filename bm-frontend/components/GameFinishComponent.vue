@@ -33,9 +33,7 @@
 
 <template>
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="border-external m-1 
-                w-full 
-                md:w-fit"
+    <div class="border-external mx-2 w-full max-w-xl"
       >
       <div class="border">
         <div class="border-internal p-5 flex flex-col gap-y-5 text-color">

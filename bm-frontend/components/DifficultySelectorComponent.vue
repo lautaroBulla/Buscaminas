@@ -76,7 +76,7 @@
       customCols.value = null;
       customMines.value = null;
     }
-    emit('update:modelValue', difficulty)
+    emit('update:modelValue', difficulty);
   }
 
 

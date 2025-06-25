@@ -37,18 +37,18 @@ class= generales
 <template>
   <nav class="flex justify-between items-center w-full 
               px-7.5 py-2 border-b-2 border-b-secondary
-              lg:px-15 lg:py-4 lg:border-b-4 lg:border-b-secondary"
+              md:px-15 md:py-4 md:border-b-4 md:border-b-secondary"
   >
 
       <div class="hidden 
-              lg:flex lg:justify-start lg:space-x-5 lg:w-1/3"
+              md:flex md:justify-start md:space-x-5 md:w-1/3"
       >
         <ThemeComponent />
         <LanguageSelectorComponent />
       </div>
 
       <div class="flex
-                  lg:justify-center lg:w-1/3"
+                  md:justify-center md:w-1/3"
       >
         <NuxtLink to="/">
           <p class="title">
@@ -58,7 +58,7 @@ class= generales
       </div>
   
       <div class="flex items-center 
-                  lg:justify-end lg:w-1/3 lg:space-x-5"
+                  md:justify-end md:w-1/3 md:space-x-5"
       >
         
         <div v-if="isAuthReady === false">
@@ -68,15 +68,14 @@ class= generales
         <div v-else-if="user && isAuthReady === true">
           <div class="flex items-center
                       space-x-2
-                      lg:space-x-5"
+                      md:space-x-5"
           >
 
             <div class="flex flex-col items-center relative">
               <button 
                 class="flex items-center hover:opacity-80 hover:cursor-pointer
                       gap-x-2 text-xl 
-                      md:text-2xl 
-                      lg:gap-x-3"
+                      md:text-2xl md:gap-x-3"
                 :class="show ? 'border-b-2 border-transparent' : 'border-b-2 border-[#adb5bd]'"
                 @click="show = !show"
               >
@@ -87,7 +86,7 @@ class= generales
                       ? (isDark ? arrowTopDark : arrowTopLight)
                       : (isDark ? arrowDownDark : arrowDownLight)
                   "
-                  class="w-[12px] h-[12px] lg:w-[14px] lg:h-[14px]"
+                  class="w-[12px] h-[12px] md:w-[14px] md:h-[14px]"
                 />
               </button>
               <div 
@@ -105,14 +104,14 @@ class= generales
                 >
                   <img
                     :src="isDark ? trophyDark : trophyLigth"
-                    class="w-[12px] h-[12px] lg:w-[15px] lg:h-[15px]"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
                   />
                   Ranking
                 </NuxtLink>
                 <NuxtLink class="optionsDropdown gap-x-2 md:whitespace-nowrap leading-4 md:leading-normal">
                   <img
                     :src="isDark ? logoutDark : logoutLight"
-                    class="w-[12px] h-[12px] lg:w-[15px] lg:h-[15px]"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
                     @click="show = false"
                   >
                   {{ $t('nav.logout') }}
@@ -129,7 +128,7 @@ class= generales
               <img 
                 :src="isDark ? trophyLigth : trophyDark"
                 class="w-[12px] h-[12px]
-                      lg:w-[15px] lg:h-[15px]"
+                      md:w-[15px] md:h-[15px]"
               >
             </button>
 
@@ -146,7 +145,7 @@ class= generales
         <div v-else>        
           <div class="flex items-center
                       space-x-2
-                      lg:space-x-5"
+                      md:space-x-5"
           >
   
             <button class="secondary">

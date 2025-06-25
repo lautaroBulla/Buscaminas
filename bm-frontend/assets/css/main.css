@@ -100,13 +100,6 @@ button.text:hover {
   color: var(--color-nonary);
   width: 100%;
 }
-.inputCustom {
-  border: 2px solid var(--color-quinary);
-  background-color: var(--color-primary);
-  color: var(--color-nonary);
-  text-align: center;
-  width: 50px;
-}
 .dropdown {
   position: absolute;
   top: 100%;
@@ -129,15 +122,44 @@ button.text:hover {
   cursor: pointer;
   background-color: var(--color-tertiary);
 }
-.tableHeader {
+.table {
+  text-align: center;
   border: 2px solid var(--color-quinary);
-  background-color: var(--color-oct);
-  color: var(--color-primary);
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
 }
-.tableCell {
-  border: 2px solid var(--color-quinary);
+.tableHeader {
+  border-bottom: 2px solid var(--color-quinary);
   background-color: var(--color-quaternary);
   color: var(--color-nonary);
+  font-weight: normal;
+}
+.tableCell {
+  border-bottom: 2px solid var(--color-quinary);
+  color: var(--color-nonary);
+}
+button.primaryRanking {
+  background-color: var(--color-oct);
+  color: var(--color-primary);
+  border: 2px solid var(--color-quinary);
+  padding-inline: 0.5rem;
+}
+button.primaryRanking:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.inputCustom {
+  border: 1px solid var(--color-quinary);
+  background-color: var(--color-primary);
+  color: var(--color-nonary);
+  text-align: center;
+  width: 50px;
+  -webkit-appearance: none;
+  -moz-appearance: textfield; /* Firefox */
+}
+.inputCustom::-webkit-outer-spin-button,
+.inputCustom::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 

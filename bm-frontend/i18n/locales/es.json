@@ -81,5 +81,10 @@
         "username": "Usuario",
         "date": "Fecha",
         "stats": "Estadísticas",
+        "rows": "Filas",
+        "cols": "Columnas",
+        "mines": "Minas",
+        "update": "Actualizar",
+        "noGames": "No se encontraron partidas"
     }
 }
