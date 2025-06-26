@@ -1,43 +1,35 @@
 <script setup>
-  const props = defineProps({
-    rows: {
-      type: Number,
-      required: true
-    },
-    cols: {
-      type: Number,
-      required: true
-    },
-    mines: {
-      type: Number,
-      required: true
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    }
-  });
-
-  const emit = defineEmits(['update:modelValue', 'update:customValues']);
-  const customRows = ref(null);
-  const customCols = ref(null);
-  const customMines = ref(null);
+  const emit = defineEmits(['change']);
+  const customRows = ref(9);
+  const customCols = ref(9);
+  const customMines = ref(10);
 
   const difficultys = ['easy', 'intermediate', 'expert'];
-  const difficulty = ref(props.modelValue);
+  const difficulty = ref('easy');
 
   const selectDifficulty = (difficultyFunction) => {
-    customRows.value = null;
-    customCols.value = null;
-    customMines.value = null;
-    difficulty.value = difficultyFunction;
-    emit('update:modelValue', difficultyFunction);
+  difficulty.value = difficultyFunction;
+    switch (difficultyFunction) {
+      case "easy":
+        customRows.value = 9; customCols.value = 9; customMines.value = 10; break;
+      case "intermediate":
+        customRows.value = 16; customCols.value = 16; customMines.value = 40; break;
+      case "expert": 
+        customRows.value = 16; customCols.value = 30; customMines.value = 99; break;
+    }
+    emit('change', 
+    {
+      rows: customRows.value,
+      cols: customCols.value,
+      mines: customMines.value
+    });
   }
-
+    
   const minRowsAndCols = 5;
   const maxRowsAndCols = 100;
-
   const customVlues = () => {
+    difficulty.value = "custom";
+
     //Validar filas
     if (customRows.value < minRowsAndCols)
       customRows.value = minRowsAndCols;
@@ -57,17 +49,14 @@
       customMines.value = minMinesValue;
     if (customMines.value > maxMinesValue)
       customMines.value = maxMinesValue;
-
-    difficulty.value = "custom";
     
     emit(
-      'update:customValues',
+      'change',
       {
         rows: customRows.value,
         cols: customCols.value,
         mines: customMines.value
-      }
-    )
+    })
   }
 </script>
 

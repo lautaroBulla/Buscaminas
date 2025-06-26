@@ -16,8 +16,7 @@
       required: true
     },
     totalPages: {
-      type: Number,
-      required: true
+      type: Number
     }
   });
 
@@ -65,7 +64,7 @@
       </thead>
       <tbody>
         <tr v-for="(game, index) in games" :key="game.id">
-          <td class="tableCell">{{ index + 1 + ((page-1) * 3)}}</td>
+          <td class="tableCell">{{ index + 1 + ((page-1) * 10)}}</td>
           <td class="tableCell">{{ game.user.username }}</td>
           <td class="tableCell">{{ game.seconds }}s</td>
           <td class="tableCell md:hidden">ver</td>
@@ -77,7 +76,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination flex flex-row items-center justify-center gap-x-5">
+    <div v-if="games.length > 0" class="pagination flex flex-row items-center justify-center gap-x-5">
       <button 
         class="secondary"
         :disabled="page === 1 ? true : false"
@@ -99,14 +98,14 @@
         >
       </button>
       <button 
-        v-if="page - 4 <= totalPages && page === totalPages" 
+        v-if="page - 4 > 0 && page === totalPages" 
         class="buttonPagination"
         @click="changePage(page-4)"
       >
         {{ page - 4 }}
       </button>
       <button 
-        v-if="page - 3 <= totalPages && (page === totalPages || page === totalPages-1)" 
+        v-if="page - 3 > 0 && (page === totalPages || page === totalPages-1)" 
         class="buttonPagination"
         @click="changePage(page-3)"
       >
