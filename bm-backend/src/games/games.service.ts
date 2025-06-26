@@ -28,31 +28,49 @@ export class GamesService {
   async findByDifficulty(rows, cols, mines, page, take) {
     const skip = (page - 1) * take;
 
-    return await this.prisma.game.findMany({
-      skip: skip,
-      take: take,
-      where: {
-        rows,
-        cols,
-        mines
-      },
-      orderBy: {
-        seconds: "asc"
-      },
-      select: {
-        help: true,
-        seconds: true,
-        createdAt: true,
-        clicks: true,
-        n3BV: true,
-        efficiency: true,
-        user: {
-          select: {
-            username: true
+    const [games, total] = await Promise.all([
+      this.prisma.game.findMany({
+        skip: skip,
+        take: take,
+        where: {
+          rows,
+          cols,
+          mines
+        },
+        orderBy: {
+          seconds: "asc"
+        },
+        select: {
+          help: true,
+          seconds: true,
+          createdAt: true,
+          clicks: true,
+          n3BV: true,
+          efficiency: true,
+          user: {
+            select: {
+              username: true
+            }
           }
         }
-      }
-    })
+      }),
+
+      this.prisma.game.count({
+        where: {
+          rows,
+          cols,
+          mines
+        }
+      })
+    ]);
+
+    const totalPages = Math.ceil(total / take);
+    
+    return {
+      games,
+      totalPages,
+      page
+    }
   }
 
 

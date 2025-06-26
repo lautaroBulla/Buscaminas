@@ -90,6 +90,13 @@ button.secondary:hover {
   opacity: 0.8;
   cursor: pointer;
 }
+button.secondary:disabled {
+  background-color: var(--color-quinary);
+  color: var(--color-nonary);
+  border: 2px solid var(--color-quinary);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 button.text:hover {
   opacity: 0.8;
   cursor: pointer;
@@ -136,6 +143,16 @@ button.text:hover {
 .tableCell {
   border-bottom: 2px solid var(--color-quinary);
   color: var(--color-nonary);
+}
+.pagination {
+  border-bottom: 2px solid var(--color-quinary);
+  border-left: 2px solid var(--color-quinary);
+  border-right: 2px solid var(--color-quinary);
+  color: var(--color-nonary);
+}
+.buttonPagination:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 button.primaryRanking {
   background-color: var(--color-oct);

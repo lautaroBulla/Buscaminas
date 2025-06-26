@@ -88,7 +88,7 @@
       </button>
     </div>
 
-    <div class="flex flex-row gap-x-2">
+    <div class="hidden md:flex flex-row gap-x-2">
       <div class="flex flex-row gap-x-1">
         <label>{{ $t('ranking.rows') }}:</label>
         <input 
