@@ -85,6 +85,9 @@
         "cols": "Columnas",
         "mines": "Minas",
         "update": "Actualizar",
-        "noGames": "No se encontraron partidas"
+        "noGames": "No se encontraron partidas",
+        "lookStats": "Ver",
+        "bestTime": "Estadísticas de la mejor partida",
+        "randomTime": "Estadísticas de la partida ranking Nº"
     }
 }

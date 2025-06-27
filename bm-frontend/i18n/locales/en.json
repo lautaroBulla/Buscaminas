@@ -80,11 +80,14 @@
     "ranking": {
         "username": "Username",
         "date": "Date",
-        "stats": "Stats",
+        "stats": "Statistics",
         "rows": "Rows",
         "cols": "Cols",
         "mines": "Mines",
         "update": "Update",
-        "noGames": "No games found"
+        "noGames": "No games found",
+        "lookStats": "See",
+        "bestTime": "Best game stats",
+        "randomTime": "Ranking game statistics Nº"
     }
 }
