@@ -4,7 +4,8 @@
         "login": "Iniciar sesión",
         "register": "Registrarse",
         "ranking": "Ver ranking",
-        "logout": "Cerrar sesión"   
+        "logout": "Cerrar sesión",
+        "menu": "Menú"  
     },
     "header": {
         "reset": "Reinciar",
@@ -65,8 +66,10 @@
         "win": "GANASTE",
         "continue": "Continuar",
         "time": "Tiempo",
-        "bestTime": "Mejor tiempo",
-        "newBestTime": "Nuevo mejor tiempo",
+        "bestTime": "Mejor tiempo personal",
+        "newBestTime": "Nuevo mejor tiempo personal",
+        "bestTimeGlobal": "Mejor tiempo global",
+        "newBestTimeGlobal": "Nuevo mejor tiempo global",
         "help": "Ayudas",
         "helpTitle": "Ayudas usadas",
         "3bv": "3BV",

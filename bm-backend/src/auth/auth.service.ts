@@ -113,4 +113,11 @@ export class AuthService {
     const { password, refreshToken, ...result } = user;
     return result;
   }
+
+  async logout(user: User, response: Response) {
+    response.clearCookie('Authentication');
+    response.clearCookie('Refresh');
+
+    await this.userService.update(user.id, { refreshToken: null as any });
+  }
 } 

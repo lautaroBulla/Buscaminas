@@ -108,29 +108,27 @@
   let timer = null;
   const changeCell = ref(false);
   const isTouched = ref(false);
-  const handleTouchStart = () => {
+  const handleTouchStart = (e) => {
+     e.preventDefault();
     isTouched.value = true;
     timer = setTimeout(() => {
       changeCell.value = true;
+      handleTouchEnd();
     }, 250);
   }
   const handleTouchEnd = () => {
     isTouched.value = false;
     if (changeCell.value === true) {
       emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
-      clearTimeout(timer);
-      timer = null;
-      changeCell.value = false;
+      handleTouchCancel();
     } else {
       emit('left-click', {row: props.rowIndex, col: props.colIndex});
-      clearTimeout(timer);
-      timer = null;
+      handleTouchCancel();
     }
   }
   const handleTouchCancel = () => {
     isTouched.value = false;
-    clearTimeout(touchTimeout);
-    touchTimeout = null;
+    clearTimeout(timer);
     changeCell.value = false;
   }
 </script>
@@ -145,7 +143,7 @@
       ]"
       @click="!isMobile ? handleLeftClick() : null"
       @contextmenu="!isMobile ? handleRightClick($event) : null"
-      @touchstart.prevent="isMobile ? handleTouchStart() : null"
+      @touchstart="isMobile ? handleTouchStart($event) : null"
       @touchend="isMobile ? handleTouchEnd() : null"
       @touchcancel="isMobile ? handleTouchCancel() : null"
     >

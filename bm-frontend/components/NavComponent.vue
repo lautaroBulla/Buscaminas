@@ -1,31 +1,28 @@
 <script setup lang="ts">
-  import trophyLigth from '~/public/img/themes/light/trophyLight.png';
-  import trophyDark from '~/public/img/themes/dark/trophyDark.png';
-  import arrowDownLight from '~/public/img/themes/light/arrowDownLight.png';
-  import arrowDownDark from '~/public/img/themes/dark/arrowDownDark.png';
-  import arrowTopLight from '~/public/img/themes/light/arrowTopLight.png';
-  import arrowTopDark from '~/public/img/themes/dark/arrowTopDark.png';
-  import logoutLight from '~/public/img/themes/light/logoutLight.png';
-  import logoutDark from '~/public/img/themes/dark/logoutDark.png';
+  import menuLight from '~/public/img/themes/light/hamburguerLight.png';
+  import closeLigh from '~/public/img/themes/light/closeLight.png';
+  import menuDark from '~/public/img/themes/dark/hamburguerDark.png';
+  import closeDark from '~/public/img/themes/dark/closeDark.png';
 
-  const { user, isAuthReady } = useAuth();
+  import { ref } from 'vue';
+  import { onClickOutside } from '@vueuse/core';
+
+  const { user, isAuthReady, logout } = useAuth();
 
   const colorMode = useColorMode();
-
-  useHead({
-    htmlAttrs: {
-      class: colorMode.preference === 'dark' ? 'dark' : ''
-    }
-  });
-
-  const isDark = computed(() => {
-    const mode = process.server
-      ? colorMode.preference
-      : colorMode.value 
-    return mode === 'dark' ? true : false;
-  });
+  const isDark = computed(() => colorMode.value === 'dark');
 
   const show = ref(false);
+  const dropdownRef = ref(null);
+
+  onClickOutside(dropdownRef, () => {
+    show.value = false;
+  })
+
+  const logoutLocal = async () => {
+    show.value = false;
+    await logout();
+  }
 </script>
 
 <!--
@@ -41,7 +38,7 @@ class= generales
   >
 
       <div class="hidden 
-              md:flex md:justify-start md:space-x-5 md:w-1/3"
+              md:flex md:justify-start md:gap-x-5 md:w-1/3"
       >
         <ThemeComponent />
         <LanguageSelectorComponent />
@@ -58,7 +55,7 @@ class= generales
       </div>
   
       <div class="flex items-center 
-                  md:justify-end md:w-1/3 md:space-x-5"
+                  md:justify-end md:w-1/3"
       >
         
         <div v-if="isAuthReady === false">
@@ -66,99 +63,92 @@ class= generales
         </div>
 
         <div v-else-if="user && isAuthReady === true">
-          <div class="flex items-center
-                      space-x-2
-                      md:space-x-5"
-          >
+          <div class="flex items-center gap-x-3 md:gap-x-5">
 
-            <div class="flex flex-col items-center relative">
+            {{ user.username }}
+
+            <div class="flex flex-col items-center relative" ref="dropdownRef">
               <button 
-                class="flex items-center hover:opacity-80 hover:cursor-pointer
-                      gap-x-2 text-xl 
-                      md:text-2xl md:gap-x-3"
-                :class="show ? 'border-b-2 border-transparent' : 'border-b-2 border-[#adb5bd]'"
+                class="primary flex items-center gap-x-2"
                 @click="show = !show"
               >
-                {{ user.username }}
-                <img
-                :src="
-                    show
-                      ? (isDark ? arrowTopDark : arrowTopLight)
-                      : (isDark ? arrowDownDark : arrowDownLight)
-                  "
-                  class="w-[12px] h-[12px] md:w-[14px] md:h-[14px]"
-                />
+                  <span class="hidden md:flex">{{ $t('nav.menu') }}</span>
+                  <img
+                    :src="
+                      show
+                        ? (isDark ? closeDark : closeLigh)
+                        : (isDark ? menuDark : menuLight)
+                    "
+                    class="w-[15px] h-[15px]"
+                  >
               </button>
-              <div 
-                v-if="show" 
-                class="dropdown"
-              > 
-                <!-- <NuxtLink class="optionsDropdown">
-                  Perfil
-                </NuxtLink> -->
+
+              <div v-if="show" class="dropdown"> 
                 <NuxtLink 
                   to="/ranking"
-                  class="optionsDropdown gap-x-2"
+                  class="optionsDropdown"
                   :title="$t('nav.ranking')"
                   @click="show = false"
                 >
-                  <img
-                    :src="isDark ? trophyDark : trophyLigth"
-                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
-                  />
                   Ranking
                 </NuxtLink>
-                <NuxtLink class="optionsDropdown gap-x-2 md:whitespace-nowrap leading-4 md:leading-normal">
-                  <img
-                    :src="isDark ? logoutDark : logoutLight"
-                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
-                    @click="show = false"
-                  >
+                <NuxtLink 
+                  class="optionsDropdown md:whitespace-nowrap leading-4 md:leading-normal"
+                  @click="logoutLocal"
+                >
                   {{ $t('nav.logout') }}
                 </NuxtLink>
               </div>
             </div>
-          
-
-            <!-- <button 
-              class="primary flex items-center gap-x-2"
-              :title="$t('nav.ranking')"
-            >
-              Ranking
-              <img 
-                :src="isDark ? trophyLigth : trophyDark"
-                class="w-[12px] h-[12px]
-                      md:w-[15px] md:h-[15px]"
-              >
-            </button>
-
-            <button 
-              class="secondary flex items-center"
-              :title="$t('nav.ranking')"
-            >
-              {{ $t('nav.logout') }}
-            </button> -->
 
           </div>
         </div>
 
         <div v-else>        
-          <div class="flex items-center
-                      space-x-2
-                      md:space-x-5"
-          >
-  
-            <button class="secondary">
-              <NuxtLink to="/auth/login">
-                {{ $t('nav.login') }}
-              </NuxtLink>
-            </button>
-            <button class="primary">
-              <NuxtLink to="/auth/register">
-                {{ $t('nav.register') }}
-              </NuxtLink>
-            </button>
-  
+          <div class="flex items-center">
+
+            <div class="flex flex-col items-center relative" ref="dropdownRef">
+              <button 
+                class="primary flex items-center gap-x-2"
+                @click="show = !show"
+              >
+                  {{ $t('nav.menu') }}
+                  <img
+                    :src="
+                      show
+                        ? (isDark ? closeDark : closeLigh)
+                        : (isDark ? menuDark : menuLight)
+                    "
+                    class="w-[15px] h-[15px]"
+                  >
+              </button>
+
+              <div v-if="show" class="dropdown"> 
+                <NuxtLink 
+                  to="/auth/register"
+                  class="optionsDropdown"
+                  @click="show = false"
+                >
+                  {{ $t('nav.register') }}
+                </NuxtLink>
+                <NuxtLink 
+                  to="/auth/login"
+                  class="optionsDropdown md:whitespace-nowrap leading-4 md:leading-normal"
+                  @click="show = false"
+                >
+                  {{ $t('nav.login') }}
+                </NuxtLink>
+                <NuxtLink 
+                  to="/ranking"
+                  class="optionsDropdown"
+                  :title="$t('nav.ranking')"
+                  @click="show = false"
+                >
+                  Ranking
+                </NuxtLink>
+              </div>
+            </div>
+
           </div>
         </div>
 

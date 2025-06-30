@@ -1,10 +1,9 @@
 PENDIENTE
   # Asegurarme que sea responsive
-  # Realizar toda la logica de los rankings
-  # Perfil del usuario
+  # Dejar ranking listo con para que vea su ranking y el global tambien
+  # Hacer ordenes en ranking?
+  # Perfil del usuario?????????
   # Vichar en el backend, el eliminar funciones que no se vayan a usar
-  # Mostrar la bandera cuando se llega al tiempo en mobile
-  # Realizar el logout
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
@@ -32,3 +31,6 @@ COMPLETADO
   # Verificar bien el thema dark para que quede bonito
   # Ver como hacer lo de custom
   # Animacion de los botones cuando son apretados
+  # Realizar toda la logica de los rankings
+  # Mostrar la bandera cuando se llega al tiempo en mobile
+  # Realizar el logout

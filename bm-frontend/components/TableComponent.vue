@@ -21,19 +21,7 @@
   });
 
   const colorMode = useColorMode();
-
-  useHead({
-    htmlAttrs: {
-      class: colorMode.preference === 'dark' ? 'dark' : ''
-    }
-  });
-
-  const isDark = computed(() => {
-    const mode = process.server
-      ? colorMode.preference
-      : colorMode.value 
-    return mode === 'dark' ? true : false;
-  });
+  const isDark = computed(() => colorMode.value === 'dark');
 
   const emit = defineEmits(['changePage', 'lookStats']);
 
@@ -53,9 +41,9 @@
             <th class="tableHeader md:w-2/12">{{ $t('ranking.username') }}</th>
             <th class="tableHeader md:w-2/12">{{ $t('finishGame.time') }}</th>
             <th class="tableHeader md:hidden">{{ $t('ranking.stats') }}</th>
+            <th class="tableHeader hidden md:table-cell">{{ $t('finishGame.efficiency') }}</th>
             <th class="tableHeader hidden md:table-cell">{{ $t('finishGame.3bv') }}</th>
             <th class="tableHeader hidden md:table-cell">{{ $t('finishGame.clicks') }}</th>
-            <th class="tableHeader hidden md:table-cell">{{ $t('finishGame.efficiency') }}</th>
             <th class="tableHeader hidden md:table-cell">{{ $t('finishGame.help') }}</th>
             <th class="tableHeader hidden md:table-cell">{{ $t('ranking.date') }}</th>
           </tr>
@@ -71,15 +59,15 @@
             >
               {{ $t('ranking.lookStats') }}
             </td>
+            <td class="tableCell hidden md:table-cell">{{ game.efficiency }}%</td>
             <td class="tableCell hidden md:table-cell">{{ game.n3BV }}</td>
             <td class="tableCell hidden md:table-cell">{{ game.clicks }}</td>
-            <td class="tableCell hidden md:table-cell">{{ game.efficiency }}%</td>
             <td class="tableCell hidden md:table-cell">{{ game.help }}</td>
             <td class="tableCell hidden md:table-cell">{{ new Date(game.createdAt).toLocaleDateString() }}</td>
           </tr>
         </tbody>
       </table>
-      <div v-if="games.length > 1" class="pagination flex flex-row items-center justify-center gap-x-5">
+      <div v-if="totalPages > 1" class="pagination flex flex-row items-center justify-center gap-x-5">
         <button 
           class="secondary-sm md:secondary"
           :disabled="page === 1 ? true : false"

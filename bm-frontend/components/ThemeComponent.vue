@@ -1,15 +1,9 @@
 <script setup>
-  import { useHead, useColorMode } from '#imports';
+  import { useColorMode } from '#imports';
   import ligthImg from '~/public/img/themes/light/light.png';
   import darkImg from '~/public/img/themes/dark/dark.png';
 
   const colorMode = useColorMode();
-
-  useHead({
-    htmlAttrs: {
-      class: colorMode.preference === 'dark' ? 'dark' : ''
-    }
-  });
 
   const isDark = computed(() => {
     const mode = process.server
@@ -20,7 +14,6 @@
   
   const toggleDark = () => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-    isDark.value = !isDark.value;
   }
 </script>
 

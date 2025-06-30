@@ -24,6 +24,24 @@ export class GamesService {
     });
     return result ? result.seconds : null;
   }
+
+  async findBestTimes(id, rows, cols, mines) {
+    const userBestTimeValue = await this.prisma.game.findFirst({
+      where: { userId: id, rows, cols, mines },
+      orderBy: { seconds: "asc" },
+      select: { seconds: true }
+    });
+    const globalBestTimeValue = await this.prisma.game.findFirst({
+      where: { rows, cols, mines },
+      orderBy: { seconds: "asc" },
+      select: { seconds: true }
+    });
+
+    return {
+      userBestTime: userBestTimeValue ? userBestTimeValue.seconds : null,
+      globalBestTime: globalBestTimeValue ? globalBestTimeValue.seconds : null
+    };
+  }
   
   async findByDifficulty(rows, cols, mines, page, take) {
     const skip = (page - 1) * take;

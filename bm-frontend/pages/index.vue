@@ -2,12 +2,7 @@
   import { ref, watch, computed } from 'vue';
   import { useMinesweeper } from '~/composables/useMinesweeper';
 
-  const { getMyBestTime } = useGame();
-
-  const { isMobile } = useIsMobile();
-
   const { currentTheme } = useCurrentTheme();
-  const theme = ref(currentTheme.value);
 
   const { locale, setLocale } = useI18n();
   const language = ref(locale.value);
@@ -38,7 +33,8 @@
     countHelp,
     click3BV,
     countClicks,
-    bestTime
+    userBestTime,
+    globalBestTime
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
@@ -136,7 +132,8 @@
     :countHelp="countHelp"
     :click3BV="click3BV"
     :countClicks="countClicks"
-    :bestTime="bestTime"
+    :userBestTime="userBestTime"
+    :globalBestTime="globalBestTime"
     @close="viewGameFinish"
   />
   <SettingsModal

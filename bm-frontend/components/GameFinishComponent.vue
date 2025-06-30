@@ -4,9 +4,11 @@
       type: Number,
       required: true
     },
-    bestTime: {
-      type: Number,
-      required: false
+    userBestTime: {
+      type: Number
+    },
+    globalBestTime: {
+      type: Number
     },
     countHelp: {
       type: Number,
@@ -49,13 +51,27 @@
               <span>{{ $t('finishGame.time') }}:</span>
               <span>{{ formattedTime }}s</span>
             </div>
-            <div class="flex justify-between w-full px-2 text-[#339966] underline" v-if="bestTime && formattedTime > bestTime && user !== null">
-              <span>{{ $t('finishGame.bestTime') }}:</span>
-              <span>{{ bestTime }}s</span>
+
+            <div>
+              <div class="flex justify-between w-full px-2 underline" v-if="userBestTime && formattedTime > userBestTime && user !== null">
+                <span>{{ $t('finishGame.bestTime') }}:</span>
+                <span>{{ userBestTime }}s</span>
+              </div>
+              <div class="flex justify-between w-full px-2 underline" v-else-if="user !== null">
+                <span>{{ $t('finishGame.newBestTime') }}:</span>
+                <span>{{ formattedTime }}s</span>
+              </div>
             </div>
-            <div class="flex justify-between w-full px-2 text-[#339966] underline" v-else-if="user !== null">
-              <span>{{ $t('finishGame.newBestTime') }}:</span>
-              <span>{{ formattedTime }}s</span>
+
+            <div>
+              <div class="flex justify-between w-full px-2 underline" v-if="globalBestTime && formattedTime > globalBestTime && user !== null">
+                <span>{{ $t('finishGame.bestTimeGlobal') }}:</span>
+                <span>{{ globalBestTime }}s</span>
+              </div>
+              <div class="flex justify-between w-full px-2 underline" v-else-if="user !== null">
+                <span>{{ $t('finishGame.newBestTimeGlobal') }}:</span>
+                <span>{{ formattedTime }}s</span>
+              </div>
             </div>
           </div>
 

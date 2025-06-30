@@ -8,6 +8,7 @@ import { User } from '@prisma/client';
 import { Response } from 'express';
 import { JwtRefresAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -40,5 +41,14 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response
   ) {
     return await this.authService.register(createUserDto, response);
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout(
+    @CurrentUser() user: User,
+    @Res({ passthrough: true }) response: Response
+  ) {
+    await this.authService.logout(user, response);
   }
 }

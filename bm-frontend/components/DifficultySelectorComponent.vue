@@ -157,7 +157,7 @@
 
         <div class="button-border"> 
           <button class="button-sm w-[20px] h-[20px]" 
-                  @click.prevent="changeDifficulty(index - 1)">
+                  @click="changeDifficulty(index - 1)">
             <
           </button>
         </div>
@@ -232,7 +232,7 @@
           </div>
           <div class="button-border"> 
             <button
-              @click.prevent="customVlues()" 
+              @click="customVlues()" 
               class="text-color button-sm w-[30px] h-[30px]"
               :title="$t('difficultySelector.updateTitle')"
             >

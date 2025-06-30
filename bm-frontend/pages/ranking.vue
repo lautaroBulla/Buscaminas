@@ -1,12 +1,11 @@
 <script setup>
   import { ref, onMounted } from 'vue';
 
+  const { isMobile } = useIsMobile();
+
   onMounted(async () => {
     await changeDifficulty();
-    await getGame();
   });
-
-  const { isMobile } = useIsMobile();
 
   const { findByDifficulty } = useGame();
   const rows = ref(9);
@@ -27,6 +26,7 @@
 
   const changePage = async (newPage) => {
     page.value = newPage;
+    indexGame.value = 0;
     await changeDifficulty();
   }
 
@@ -64,7 +64,7 @@
 <template>
 
   <div class="w-full flex justify-center">
-    <div class="w-full flex flex-col max-w-5xl p-4 space-y-5 md:space-y-3">  
+    <div class="w-full flex flex-col max-w-5xl p-4 space-y-2 md:space-y-5">  
 
       <TableHeaderComponent 
         @change="setCustomValues"

@@ -13,6 +13,21 @@ export const useGame = () => {
     }
   }
 
+  const getBestTimes = async (rows: number, cols: number, mines: number) => {
+    try {
+      const data = await $apiFetch('/api/games/bestTimes', {
+        method: 'GET',
+        query: {rows, cols, mines}
+      })
+      data.userBestTime = Number(data.userBestTime);
+      data.globalBestTime = Number(data.globalBestTime);
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   const saveGame = async (
     helpLocal: number,
     secondsLocal: number,
@@ -65,6 +80,7 @@ export const useGame = () => {
 
   return {
     getMyBestTime,
+    getBestTimes,
     saveGame,
     findByDifficulty
   }

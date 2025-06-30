@@ -8,11 +8,11 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxtjs/color-mode'],
 
   colorMode: {
-    preference: 'light', 
+    classSuffix: '',
+    preference: 'system', 
     fallback: 'dark', 
     storageKey: 'nuxt-color-mode', 
     storage: 'cookie',
-    classSuffix: ''
   },
 
   i18n: {

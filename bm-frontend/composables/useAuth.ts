@@ -54,11 +54,16 @@ export const useAuth = () => {
     }
   }
 
-  const refreshToken = async () => {
-    await $apiFetch('/api/auth/refresh', {
-      method: 'POST',
-      credentials: 'include'
-    })
+  const logout = async () => {
+    try {
+      await $apiFetch('/api/auth/logout', {
+        method: 'POST'
+      })   
+      user.value = null;
+      navigateTo('/');
+    } catch (error) {
+      throw error;
+    }
   }
 
   return {
@@ -66,6 +71,7 @@ export const useAuth = () => {
     isAuthReady,
     getProfile,
     login,
-    register
+    register,
+    logout
   }
 }

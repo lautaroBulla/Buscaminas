@@ -129,24 +129,25 @@ button.text:hover {
   z-index: 50;
   display: flex;
   flex-direction: column;
+  background-color: var(--color-oct);
   border: 2px solid var(--color-quinary);
-  background-color: var(--color-secondary);
 }
 .optionsDropdown {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   flex-direction: row;
   padding-inline: 1rem;
   padding-block: 0.25rem;
-  color: var(--color-nonary);
+  color: var(--color-primary);
 }
 .optionsDropdown:hover {
   cursor: pointer;
-  background-color: var(--color-tertiary);
+  background-color: var(--color-sext);
 }
 .table-container {
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
   border: 2px solid var(--color-quinary);
 }
 .table {
@@ -157,13 +158,16 @@ button.text:hover {
   background-color: var(--color-quaternary);
   color: var(--color-nonary);
   font-weight: normal;
+  padding-block: 0.5rem;
 }
 .tableCell {
   border-bottom: 2px solid var(--color-quinary);
   color: var(--color-nonary);
+  padding-block: 0.4rem;
 }
 .pagination {
   color: var(--color-nonary);
+  padding-block: 0.4rem;
 }
 .buttonPagination:hover {
   cursor: pointer;
@@ -194,6 +198,7 @@ button.primaryRanking:hover {
   margin: 0;
 }
 .statsComponent {
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
   border: 2px solid var(--color-quinary);
   background-color: var(--color-quaternary);
   color: var(--color-nonary);
@@ -673,6 +678,15 @@ CSS DEL LOS CHECKBOXES PERSONALIZADOS
 @media (max-width: 768px) {
   body {
     font-size: 1.2rem;
+  }
+  .tableHeader {
+    padding-block: 0.2rem;
+  }
+  .tableCell {
+    padding-block: 0.1rem;
+  }
+  .pagination {
+    padding-block: 0.1rem;
   }
   .title {
     font-size: 2.3rem;
