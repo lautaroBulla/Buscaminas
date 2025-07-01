@@ -65,12 +65,32 @@ export const useGame = () => {
     cols: number,
     mines: number,
     page: number,
-    take: number
+    take: number,
+    orderByTime: boolean
   ) => {
     try {
       const data = await $apiFetch('/api/games/difficulty', {
         method: 'GET',
-        query: {rows, cols, mines, page, take}
+        query: {rows, cols, mines, page, take, orderByTime}
+      })
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  const findByDifficultyUser = async (
+    rows: number,
+    cols: number,
+    mines: number,
+    page: number,
+    take: number,
+    orderByTime: boolean
+  ) => {
+    try {
+      const data = await $apiFetch('/api/games/difficultyUser', {
+        method: 'GET',
+        query: {rows, cols, mines, page, take, orderByTime}
       })
       return data;
     } catch (error) {
@@ -82,6 +102,7 @@ export const useGame = () => {
     getMyBestTime,
     getBestTimes,
     saveGame,
-    findByDifficulty
+    findByDifficulty,
+    findByDifficultyUser
   }
 }

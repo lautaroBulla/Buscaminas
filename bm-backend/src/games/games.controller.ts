@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Patch, Param, Delete, UseGuards, ParseIntPipe, ParseBoolPipe } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -52,8 +52,23 @@ export class GamesController {
     @Query('mines', ParseIntPipe) mines: number,
     @Query('page', ParseIntPipe) page: number,
     @Query('take', ParseIntPipe) take: number,
+    @Query('orderByTime', ParseBoolPipe) orderByTime: boolean,
   ) {
-    return this.gamesService.findByDifficulty(rows, cols, mines, page, take);
+    return this.gamesService.findByDifficulty(rows, cols, mines, page, take, orderByTime);
+  }
+
+  @Get('difficultyUser') 
+  @UseGuards(JwtAuthGuard)
+  findByDifficultyUser(
+    @CurrentUser() user: User,
+    @Query('rows', ParseIntPipe) rows: number, 
+    @Query('cols', ParseIntPipe) cols: number,
+    @Query('mines', ParseIntPipe) mines: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('take', ParseIntPipe) take: number,
+    @Query('orderByTime', ParseBoolPipe) orderByTime: boolean,
+  ) {
+    return this.gamesService.findByDifficultyUser(user.id, rows, cols, mines, page, take, orderByTime);
   }
 
   

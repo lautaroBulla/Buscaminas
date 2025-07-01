@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { PrismaService } from 'src/prisma.service';
+import { Prisma } from '@prisma/client'; 
 
 @Injectable()
 export class GamesService {
@@ -43,8 +44,20 @@ export class GamesService {
     };
   }
   
-  async findByDifficulty(rows, cols, mines, page, take) {
+  async findByDifficulty(rows, cols, mines, page, take, orderByTime) {
     const skip = (page - 1) * take;
+
+    const orderBy = orderByTime 
+      ? [
+          { seconds: Prisma.SortOrder.asc },
+          { help: Prisma.SortOrder.asc }
+        ]
+      : [
+          { efficiency: Prisma.SortOrder.desc },
+          { n3BV: Prisma.SortOrder.desc },
+          { seconds: Prisma.SortOrder.asc },
+          { help: Prisma.SortOrder.asc }
+        ];
 
     const [games, total] = await Promise.all([
       this.prisma.game.findMany({
@@ -55,9 +68,7 @@ export class GamesService {
           cols,
           mines
         },
-        orderBy: {
-          seconds: "asc"
-        },
+        orderBy,
         select: {
           help: true,
           seconds: true,
@@ -75,6 +86,66 @@ export class GamesService {
 
       this.prisma.game.count({
         where: {
+          rows,
+          cols,
+          mines
+        }
+      })
+    ]);
+
+    const totalPages = Math.ceil(total / take);
+    
+    return {
+      games,
+      totalPages,
+      page
+    }
+  }
+
+  async findByDifficultyUser(id, rows, cols, mines, page, take, orderByTime) {
+    const skip = (page - 1) * take;
+
+    const orderBy = orderByTime 
+    ? [
+        { seconds: Prisma.SortOrder.asc },
+        { help: Prisma.SortOrder.asc }
+      ]
+    : [
+        { efficiency: Prisma.SortOrder.desc },
+        { n3BV: Prisma.SortOrder.desc },
+        { seconds: Prisma.SortOrder.asc },
+        { help: Prisma.SortOrder.asc }
+      ];
+
+    const [games, total] = await Promise.all([
+      this.prisma.game.findMany({
+        skip: skip,
+        take: take,
+        where: {
+          userId: id,
+          rows,
+          cols,
+          mines
+        },
+        orderBy,
+        select: {
+          help: true,
+          seconds: true,
+          createdAt: true,
+          clicks: true,
+          n3BV: true,
+          efficiency: true,
+          user: {
+            select: {
+              username: true
+            }
+          }
+        }
+      }),
+
+      this.prisma.game.count({
+        where: {
+          userId: id,
           rows,
           cols,
           mines

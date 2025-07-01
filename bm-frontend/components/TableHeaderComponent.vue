@@ -1,5 +1,16 @@
 <script setup>
-  const emit = defineEmits(['change']);
+  const props = defineProps({
+    globalRanking: {
+      type: Boolean,
+      requiered: true
+    },
+    orderByTime: {
+      type: Boolean,
+      requiered: true
+    }
+  })
+
+  const emit = defineEmits(['change', 'changeRanking', 'changeOrder']);
   const customRows = ref(9);
   const customCols = ref(9);
   const customMines = ref(10);
@@ -62,52 +73,91 @@
 
 <template>
 
-  <div class="flex gap-y-3 gap-x-3
-              flex-col items-center 
-              md:flex-row md:items-start md:justify-between"
-  >
-    <div class="flex flex-row gap-x-2">
-      <button 
-        v-for="difficultyFor in difficultys"
-        class="primaryRanking"
-        :class="difficulty === difficultyFor ? 'underline' : ''"
-        @click="selectDifficulty(difficultyFor)"
-      >
-        {{ $t(`difficultySelector.${difficultyFor}`) }}
-      </button>
+  <div class="flex flex-col gap-y-4">
+    <div class="flex items-center gap-x-3 
+                justify-center
+                md:flex-row md:items-start md:justify-between"
+    >
+      <div class="flex flex-row gap-x-2">
+        <button 
+          v-for="difficultyFor in difficultys"
+          class="primaryRanking"
+          :class="difficulty === difficultyFor ? 'underline' : ''"
+          @click="selectDifficulty(difficultyFor)"
+        >
+          {{ $t(`difficultySelector.${difficultyFor}`) }}
+        </button>
+      </div>
+  
+      <div class="hidden md:flex flex-row gap-x-2">
+        <div class="flex flex-row gap-x-1">
+          <label>{{ $t('ranking.rows') }}:</label>
+          <input 
+            class="inputCustom"
+            v-model="customRows"
+            type="number"
+          />
+        </div>
+        <div class="flex flex-row gap-x-1">
+          <label>{{ $t('ranking.cols') }}:</label>
+          <input 
+            class="inputCustom"
+            v-model="customCols"
+            type="number"
+          />
+        </div>
+        <div class="flex flex-row gap-x-1">
+          <label>{{ $t('ranking.mines') }}:</label>
+          <input 
+            class="inputCustom"
+            v-model="customMines"
+            type="number"
+          />
+        </div>
+        <button 
+          class="primaryRanking"
+          @click.prevent="customVlues()" 
+        >
+          {{ $t('ranking.update') }}
+        </button>
+      </div>
     </div>
-
-    <div class="hidden md:flex flex-row gap-x-2">
-      <div class="flex flex-row gap-x-1">
-        <label>{{ $t('ranking.rows') }}:</label>
-        <input 
-          class="inputCustom"
-          v-model="customRows"
-          type="number"
-        />
-      </div>
-      <div class="flex flex-row gap-x-1">
-        <label>{{ $t('ranking.cols') }}:</label>
-        <input 
-          class="inputCustom"
-          v-model="customCols"
-          type="number"
-        />
-      </div>
-      <div class="flex flex-row gap-x-1">
-        <label>{{ $t('ranking.mines') }}:</label>
-        <input 
-          class="inputCustom"
-          v-model="customMines"
-          type="number"
-        />
-      </div>
+  
+    <div class="border-b-2 border-[#adb5bd]"></div>
+  
+    <div class="flex flex-row justify-between">
       <button 
-        class="primaryRanking"
-        @click.prevent="customVlues()" 
+        v-if="globalRanking" 
+        class="secondaryRanking"
+        @click="emit('changeRanking')"
       >
-        {{ $t('ranking.update') }}
+        {{ $t('ranking.personalRanking') }}
       </button>
+      <button 
+        v-else 
+        class="secondaryRanking"
+        @click="emit('changeRanking')"
+      >
+        {{ $t('ranking.globalRanking') }}
+      </button>
+
+      <div class="flex flex-row gap-x-2">
+        <span>{{ $t('ranking.orderBy') }}:</span>
+        <button 
+          class="secondaryRanking"
+          :class="orderByTime ? 'underline' : ''"
+          @click="emit('changeOrder', true)"
+        >
+          {{ $t('finishGame.time') }}
+        </button>
+        <button 
+          class="secondaryRanking"
+          :class="!orderByTime ? 'underline' : ''"
+          @click="emit('changeOrder', false)"
+        >
+          {{ $t('finishGame.efficiency') }}
+        </button>
+      </div>
     </div>
   </div>
 

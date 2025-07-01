@@ -145,6 +145,7 @@ button.text:hover {
 .optionsDropdown:hover {
   cursor: pointer;
   background-color: var(--color-sext);
+  text-decoration: underline;
 }
 .table-container {
   box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
@@ -180,6 +181,16 @@ button.primaryRanking {
   padding-inline: 0.5rem;
 }
 button.primaryRanking:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+button.secondaryRanking {
+  background-color: var(--color-quaternary);
+  color: var(--color-nonary);
+  border: 2px solid var(--color-quinary);
+  padding-inline: 0.5rem;
+}
+button.secondaryRanking:hover {
   opacity: 0.8;
   cursor: pointer;
 }

@@ -7,41 +7,62 @@
     await changeDifficulty();
   });
 
-  const { findByDifficulty } = useGame();
+  const { findByDifficulty, findByDifficultyUser } = useGame();
   const rows = ref(9);
   const cols = ref(9);
   const mines = ref(10);
   const page = ref(1);
   const games = ref([]);
   const totalPages = ref(null);
+  const globalRanking = ref(true);
+  const orderByTime = ref(true);
 
-  const setCustomValues = async ({ rows: customRows, cols: customCols, mines: customMines }) => {
-    page.value = 1;
+  const setDefaultValues = (newPage) => {
+    page.value = newPage ? newPage : 1;
+    indexGame.value = 0;
     totalPages.value = null;
+  }
+  const setCustomValues = async ({ rows: customRows, cols: customCols, mines: customMines }) => {
+    setDefaultValues();
     rows.value = customRows;
     cols.value = customCols;
     mines.value = customMines;
     await changeDifficulty();
   }
-
   const changePage = async (newPage) => {
-    page.value = newPage;
-    indexGame.value = 0;
+    setDefaultValues(newPage);
     await changeDifficulty();
   }
-
+  const changeRanking = async () => {
+    globalRanking.value = !globalRanking.value;
+    setDefaultValues();
+    await changeDifficulty();
+  }
+  const changeOrder = async (newOrder) => {
+    if (orderByTime.value !== newOrder) {
+      orderByTime.value = newOrder;
+      await changeDifficulty();
+    }
+  }
 
   const changeDifficulty = async () => {
     try {
-      const response = await findByDifficulty(rows.value, cols.value, mines.value, page.value, 10)
+      let response;
+      if (globalRanking.value) {
+        response = await findByDifficulty(rows.value, cols.value, mines.value, page.value, 10, orderByTime.value);
+      } else {
+        response = await findByDifficultyUser(rows.value, cols.value, mines.value, page.value, 10, orderByTime.value);
+      }
       games.value = response.games;
       totalPages.value = response.totalPages;
-      await getGame();
+      if (isMobile) {
+        await getGame();
+      }
     } catch (error) {
       console.error('Error fetching games:', error);
     }
   }
-
+  
   const indexGame = ref(0);
   const game = ref(null);
   const rankingGame = ref(1);
@@ -64,13 +85,15 @@
 <template>
 
   <div class="w-full flex justify-center">
-    <div class="w-full flex flex-col max-w-5xl p-4 space-y-2 md:space-y-5">  
+    <div class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
 
       <TableHeaderComponent 
+        :globalRanking="globalRanking"
+        :orderByTime="orderByTime"
         @change="setCustomValues"
+        @changeRanking="changeRanking"
+        @changeOrder="changeOrder"
       />
-
-      <div class="border-b-2 border-[#adb5bd]"></div>
 
       <TableComponent 
         :games="games"

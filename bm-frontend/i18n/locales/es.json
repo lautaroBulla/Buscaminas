@@ -68,8 +68,8 @@
         "time": "Tiempo",
         "bestTime": "Mejor tiempo personal",
         "newBestTime": "Nuevo mejor tiempo personal",
-        "bestTimeGlobal": "Mejor tiempo global",
-        "newBestTimeGlobal": "Nuevo mejor tiempo global",
+        "bestTimeGlobal": "Mejor tiempo mundial",
+        "newBestTimeGlobal": "Nuevo mejor tiempo mundial",
         "help": "Ayudas",
         "helpTitle": "Ayudas usadas",
         "3bv": "3BV",
@@ -91,6 +91,9 @@
         "noGames": "No se encontraron partidas",
         "lookStats": "Ver",
         "bestTime": "Estadísticas de la mejor partida",
-        "randomTime": "Estadísticas de la partida ranking Nº"
+        "randomTime": "Estadísticas de la partida ranking Nº",
+        "personalRanking": "Ranking personal",
+        "globalRanking": "Ranking mundial",
+        "orderBy": "Ordenar por"
     }
 }

@@ -68,8 +68,8 @@
         "time": "Time",
         "bestTime": "Best personal time",
         "newBestTime": "New personal best time",
-        "bestTimeGlobal": "Best overall time",
-        "newBestTimeGlobal": "New best overall time",
+        "bestTimeGlobal": "Best world time",
+        "newBestTimeGlobal": "New best world time",
         "help": "Help",
         "helpTitle": "Help used",
         "3bv": "3BV",
@@ -91,6 +91,9 @@
         "noGames": "No games found",
         "lookStats": "See",
         "bestTime": "Best game stats",
-        "randomTime": "Ranking game statistics Nº"
+        "randomTime": "Ranking game statistics Nº",
+        "personalRanking": "Personal ranking",
+        "globalRanking": "World ranking",
+        "orderBy": "Order by"
     }
 }
