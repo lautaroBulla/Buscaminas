@@ -215,7 +215,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   revelara las celdas adyacentes que esten sin revelar
   las flags no la revelara por el if inical de la funcion
   */
-  function reveal(row: number, col: number) {
+  async function reveal(row: number, col: number) {
     if ( flags.value[row][col] || gameOver.value || gameWin.value ) return
 
     if (!revealed.value[row][col]) {

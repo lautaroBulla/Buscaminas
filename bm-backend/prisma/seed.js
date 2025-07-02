@@ -12,7 +12,7 @@ async function main() {
       password: hashedPassword,
       games: {
         create: [
-          {
+          {      
             help: 1,
             seconds: 15.123,
             difficulty: 'easy',
@@ -23,7 +23,7 @@ async function main() {
             clicks: 5,
             efficiency: 100
           },
-          {
+          {    
             help: 2,
             seconds: 10.000,
             difficulty: 'easy',
@@ -34,7 +34,7 @@ async function main() {
             clicks: 6,
             efficiency: 90
           },
-          {
+          {           
             help: 1,
             seconds: 100.453,
             difficulty: 'expert',
@@ -45,7 +45,7 @@ async function main() {
             clicks: 34,
             efficiency: 76
           },
-          {
+          {        
             help: 3,
             seconds: 200.120,
             difficulty: 'custom',
@@ -67,7 +67,7 @@ async function main() {
       password: hashedPassword,
       games: {
         create: [
-          {
+          {         
             help: 0,
             seconds: 13.120,
             difficulty: 'easy',
@@ -78,7 +78,7 @@ async function main() {
             clicks: 5,
             efficiency: 100
           },
-          {
+          {     
             help: 2,
             seconds: 10.123,
             difficulty: 'easy',
@@ -89,7 +89,7 @@ async function main() {
             clicks: 5,
             efficiency: 100
           },
-          {
+          {           
             help: 7,
             seconds: 59.324,
             difficulty: 'intermediate',
@@ -100,7 +100,7 @@ async function main() {
             clicks: 80,
             efficiency: 80
           },
-          {
+          {           
             help: 0,
             seconds: 250.154,
             difficulty: 'custom',
@@ -122,7 +122,7 @@ async function main() {
       password: hashedPassword,
       games: {
         create: [
-          {
+          {         
             help: 0,
             seconds: 13.253,
             difficulty: 'easy',
@@ -133,7 +133,7 @@ async function main() {
             clicks: 5,
             efficiency: 100
           },
-          {
+          {        
             help: 0,
             seconds: 10,
             difficulty: 'easy',
@@ -144,7 +144,7 @@ async function main() {
             clicks: 5,
             efficiency: 100
           },
-          {
+          {       
             help: 0,
             seconds: 123.291,
             difficulty: 'custom',
@@ -155,7 +155,7 @@ async function main() {
             clicks: 32,
             efficiency: 64
           },
-          {
+          {        
             help: 2,
             seconds: 150.005,
             difficulty: 'custom',

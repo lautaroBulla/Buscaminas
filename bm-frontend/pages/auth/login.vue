@@ -48,9 +48,6 @@
           dataDecod.rows, dataDecod.cols, dataDecod.mines,
           dataDecod.n3BV, dataDecod.clicks, dataDecod.efficiency
         );
-        console.log('-------------------');
-        console.log(res);
-        console.log('-------------------');
         data.value = null;
       }
       return navigateTo('/');

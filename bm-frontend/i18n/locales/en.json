@@ -94,6 +94,7 @@
         "randomTime": "Ranking game statistics Nº",
         "personalRanking": "Personal ranking",
         "globalRanking": "World ranking",
-        "orderBy": "Order by"
+        "orderBy": "Order by",
+        "position": "My rank"
     }
 }

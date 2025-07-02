@@ -3,6 +3,7 @@ import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtOptionalAuthGuard } from 'src/auth/guards/jwt-optional.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { User } from '@prisma/client';
 import { skip } from 'rxjs';
@@ -46,7 +47,9 @@ export class GamesController {
   }
 
   @Get('difficulty') 
+  @UseGuards(JwtOptionalAuthGuard)
   findByDifficulty(
+    @CurrentUser() user: User | null,
     @Query('rows', ParseIntPipe) rows: number, 
     @Query('cols', ParseIntPipe) cols: number,
     @Query('mines', ParseIntPipe) mines: number,
@@ -54,7 +57,7 @@ export class GamesController {
     @Query('take', ParseIntPipe) take: number,
     @Query('orderByTime', ParseBoolPipe) orderByTime: boolean,
   ) {
-    return this.gamesService.findByDifficulty(rows, cols, mines, page, take, orderByTime);
+    return this.gamesService.findByDifficulty(user?.id, rows, cols, mines, page, take, orderByTime);
   }
 
   @Get('difficultyUser') 

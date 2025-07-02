@@ -42,6 +42,17 @@ export class UsersService {
     return result;
   }
 
+  async findOneForAuth(id: number) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    
+    if (!user) {
+        return null; // No tirar excepción
+    }
+
+    const { password, ...result} = user;
+    return result;
+  }
+
   async findOneUsername(username: string) {
     const user = await this.prisma.user.findUnique({ where: { username } });
 

@@ -1,13 +1,27 @@
 <script setup lang="ts">
-  import menuLight from '~/public/img/themes/light/hamburguerLight.png';
-  import closeLigh from '~/public/img/themes/light/closeLight.png';
-  import menuDark from '~/public/img/themes/dark/hamburguerDark.png';
-  import closeDark from '~/public/img/themes/dark/closeDark.png';
-
   import { ref } from 'vue';
   import { onClickOutside } from '@vueuse/core';
+  import { useColorMode } from '#imports';
+  
+  import menuLight from '~/public/img/themes/light/hamburguerLight.png';
+  import closeLigh from '~/public/img/themes/light/closeLight.png';
+  import trophyLight from '~/public/img/themes/light/trophyLight.png';
+  import logoutLight from '~/public/img/themes/light/logoutLight.png';
+  import loginLight from '~/public/img/themes/light/loginLight.png';
+  import registerLight from '~/public/img/themes/light/registerLight.png';
+
+  import menuDark from '~/public/img/themes/dark/hamburguerDark.png';
+  import closeDark from '~/public/img/themes/dark/closeDark.png';
+  import trophyDark from '~/public/img/themes/dark/trophyDark.png';
+  import logoutDark from '~/public/img/themes/dark/logoutDark.png';
+  import loginDark from '~/public/img/themes/dark/loginDark.png';
+  import registerDark from '~/public/img/themes/dark/registerDark.png';
+
 
   const { user, isAuthReady, logout } = useAuth();
+
+   console.log(user.value);
+      console.log(isAuthReady.value);
 
   const colorMode = useColorMode();
   const isDark = computed(() => colorMode.value === 'dark');
@@ -86,17 +100,25 @@ class= generales
               <div v-if="show" class="dropdown"> 
                 <NuxtLink 
                   to="/ranking"
-                  class="optionsDropdown"
+                  class="optionsDropdown gap-x-2"
                   :title="$t('nav.ranking')"
                   @click="show = false"
                 >
-                  Ranking
+                  <img 
+                    :src="isDark ? trophyLight : trophyDark"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
+                  >
+                  <span>Ranking</span>
                 </NuxtLink>
                 <NuxtLink 
-                  class="optionsDropdown md:whitespace-nowrap leading-4 md:leading-normal"
+                  class="optionsDropdown gap-x-2 md:whitespace-nowrap leading-4 md:leading-normal"
                   @click="logoutLocal"
                 >
-                  {{ $t('nav.logout') }}
+                  <img 
+                    :src="isDark ? logoutLight : logoutDark"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
+                  >
+                  <span>{{ $t('nav.logout') }}</span>
                 </NuxtLink>
               </div>
             </div>
@@ -125,26 +147,38 @@ class= generales
 
               <div v-if="show" class="dropdown"> 
                 <NuxtLink 
-                  to="/auth/register"
-                  class="optionsDropdown"
-                  @click="show = false"
-                >
-                  {{ $t('nav.register') }}
-                </NuxtLink>
-                <NuxtLink 
-                  to="/auth/login"
-                  class="optionsDropdown md:whitespace-nowrap leading-4 md:leading-normal"
-                  @click="show = false"
-                >
-                  {{ $t('nav.login') }}
-                </NuxtLink>
-                <NuxtLink 
                   to="/ranking"
-                  class="optionsDropdown"
+                  class="optionsDropdown gap-x-2"
                   :title="$t('nav.ranking')"
                   @click="show = false"
                 >
-                  Ranking
+                  <img 
+                    :src="isDark ? trophyLight : trophyDark"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
+                  >
+                  <span>Ranking</span>
+                </NuxtLink>
+                <NuxtLink 
+                  to="/auth/register"
+                  class="optionsDropdown gap-x-2"
+                  @click="show = false"
+                >
+                  <img 
+                    :src="isDark ? registerLight : registerDark "
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
+                  >
+                  <span>{{ $t('nav.register') }}</span>
+                </NuxtLink>
+                <NuxtLink 
+                  to="/auth/login"
+                  class="optionsDropdown gap-x-2 md:whitespace-nowrap leading-4 md:leading-normal"
+                  @click="show = false"
+                >
+                  <img 
+                    :src="isDark ? loginLight : loginDark"
+                    class="w-[12px] h-[12px] md:w-[15px] md:h-[15px]"
+                  >
+                  <span>{{ $t('nav.login') }}</span>
                 </NuxtLink>
               </div>
             </div>

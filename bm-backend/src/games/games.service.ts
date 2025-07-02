@@ -44,13 +44,14 @@ export class GamesService {
     };
   }
   
-  async findByDifficulty(rows, cols, mines, page, take, orderByTime) {
+  async findByDifficulty(id, rows, cols, mines, page, take, orderByTime) {
     const skip = (page - 1) * take;
 
     const orderBy = orderByTime 
       ? [
           { seconds: Prisma.SortOrder.asc },
-          { help: Prisma.SortOrder.asc }
+          { help: Prisma.SortOrder.asc },
+          { efficiency: Prisma.SortOrder.desc }
         ]
       : [
           { efficiency: Prisma.SortOrder.desc },
@@ -94,11 +95,13 @@ export class GamesService {
     ]);
 
     const totalPages = Math.ceil(total / take);
-    
+    const myPosition = await this.findMyPosition(id, rows, cols, mines);
+
     return {
       games,
       totalPages,
-      page
+      page,
+      myPosition
     }
   }
 
@@ -108,7 +111,8 @@ export class GamesService {
     const orderBy = orderByTime 
     ? [
         { seconds: Prisma.SortOrder.asc },
-        { help: Prisma.SortOrder.asc }
+        { help: Prisma.SortOrder.asc },
+        { efficiency: Prisma.SortOrder.desc }
       ]
     : [
         { efficiency: Prisma.SortOrder.desc },
@@ -154,13 +158,44 @@ export class GamesService {
     ]);
 
     const totalPages = Math.ceil(total / take);
+    const myPosition = await this.findMyPosition(id, rows, cols, mines);
     
     return {
       games,
       totalPages,
-      page
+      page,
+      myPosition
     }
   }
+
+  //Funcion que me devuelva la mejor posicion de un usuario en el ranking de los games con esos valores
+  async findMyPosition(id, rows, cols, mines) {
+    const orderBy = [
+        { seconds: Prisma.SortOrder.asc },
+        { help: Prisma.SortOrder.asc },
+        { efficiency: Prisma.SortOrder.desc }
+    ];
+
+    const games = await this.prisma.game.findMany({
+      where: {
+        rows,
+        cols,
+        mines
+      },
+      orderBy,
+      select: {
+        userId: true
+      }
+    });
+
+    const position = games.findIndex(game => game.userId === id) + 1;
+
+    return {
+      position: position > 0 ? position : null,
+      total: games.length > 0 ? games.length : null
+    }
+  }
+
 
 
   async findAll() {

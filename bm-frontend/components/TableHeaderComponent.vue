@@ -1,5 +1,13 @@
 <script setup>
   const props = defineProps({
+    areGames: {
+      type: Boolean,
+      requiered: true
+    },
+    difficulty: {
+      type: String,
+      requiered: true
+    },
     globalRanking: {
       type: Boolean,
       requiered: true
@@ -7,8 +15,16 @@
     orderByTime: {
       type: Boolean,
       requiered: true
+    },
+    position: {
+      type: Number
+    },
+    totalPositions: {
+      type: Number
     }
   })
+
+  const { user, isAuthReady } = useAuth();
 
   const emit = defineEmits(['change', 'changeRanking', 'changeOrder']);
   const customRows = ref(9);
@@ -16,10 +32,8 @@
   const customMines = ref(10);
 
   const difficultys = ['easy', 'intermediate', 'expert'];
-  const difficulty = ref('easy');
 
   const selectDifficulty = (difficultyFunction) => {
-  difficulty.value = difficultyFunction;
     switch (difficultyFunction) {
       case "easy":
         customRows.value = 9; customCols.value = 9; customMines.value = 10; break;
@@ -32,15 +46,14 @@
     {
       rows: customRows.value,
       cols: customCols.value,
-      mines: customMines.value
+      mines: customMines.value,
+      difficulty: difficultyFunction
     });
   }
     
   const minRowsAndCols = 5;
   const maxRowsAndCols = 100;
   const customVlues = () => {
-    difficulty.value = "custom";
-
     //Validar filas
     if (customRows.value < minRowsAndCols)
       customRows.value = minRowsAndCols;
@@ -66,7 +79,8 @@
       {
         rows: customRows.value,
         cols: customCols.value,
-        mines: customMines.value
+        mines: customMines.value,
+        difficulty: "custom"
     })
   }
 </script>
@@ -125,38 +139,55 @@
   
     <div class="border-b-2 border-[#adb5bd]"></div>
   
-    <div class="flex flex-row justify-between">
-      <button 
-        v-if="globalRanking" 
-        class="secondaryRanking"
-        @click="emit('changeRanking')"
+    <div 
+      v-if="areGames"
+      class="flex"
+      :class="user && isAuthReady === true ? 'flex-col gap-y-2 md:flex-row md:justify-between' : 'flex-col gap-y-2 md:flex-row md:justify-end'"
+    >
+      <div 
+        v-if="user && isAuthReady === true" 
+        class="flex flex-row gap-x-2
+                  justify-between"
       >
-        {{ $t('ranking.personalRanking') }}
-      </button>
-      <button 
-        v-else 
-        class="secondaryRanking"
-        @click="emit('changeRanking')"
-      >
-        {{ $t('ranking.globalRanking') }}
-      </button>
+        <button 
+          v-if="globalRanking" 
+          class="secondaryRanking"
+          @click="emit('changeRanking')"
+        >
+          {{ $t('ranking.personalRanking') }}
+        </button>
+        <button 
+          v-else 
+          class="secondaryRanking"
+          @click="emit('changeRanking')"
+        >
+          {{ $t('ranking.globalRanking') }}
+        </button>
 
-      <div class="flex flex-row gap-x-2">
+        <div v-if="position && totalPositions" class="flex flex-row gap-x-1">
+          <span>{{ $t('ranking.position') }}:</span>
+          <span>{{ position }}/{{ totalPositions }}</span>
+        </div>
+      </div>
+
+      <div class="flex flex-row gap-x-2 justify-between">
         <span>{{ $t('ranking.orderBy') }}:</span>
-        <button 
-          class="secondaryRanking"
-          :class="orderByTime ? 'underline' : ''"
-          @click="emit('changeOrder', true)"
-        >
-          {{ $t('finishGame.time') }}
-        </button>
-        <button 
-          class="secondaryRanking"
-          :class="!orderByTime ? 'underline' : ''"
-          @click="emit('changeOrder', false)"
-        >
-          {{ $t('finishGame.efficiency') }}
-        </button>
+        <div class="flex flex-row gap-x-2">
+          <button 
+            class="secondaryRanking"
+            :class="orderByTime ? 'underline' : ''"
+            @click="emit('changeOrder', true)"
+          >
+            {{ $t('finishGame.time') }}
+          </button>
+          <button 
+            class="secondaryRanking"
+            :class="!orderByTime ? 'underline' : ''"
+            @click="emit('changeOrder', false)"
+          >
+            {{ $t('finishGame.efficiency') }}
+          </button>
+        </div>
       </div>
     </div>
   </div>

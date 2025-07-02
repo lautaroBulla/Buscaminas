@@ -6,8 +6,11 @@
   onMounted(async () => {
     await changeDifficulty();
   });
+  
+  const { user, isAuthReady } = useAuth();
 
   const { findByDifficulty, findByDifficultyUser } = useGame();
+  const difficulty = ref('easy');
   const rows = ref(9);
   const cols = ref(9);
   const mines = ref(10);
@@ -16,26 +19,29 @@
   const totalPages = ref(null);
   const globalRanking = ref(true);
   const orderByTime = ref(true);
+  const position = ref(null);
+  const totalPositions = ref(null);
+  const areGames = ref(false);
+
+  const loading = ref(false);
 
   const setDefaultValues = (newPage) => {
     page.value = newPage ? newPage : 1;
     indexGame.value = 0;
     totalPages.value = null;
   }
-  const setCustomValues = async ({ rows: customRows, cols: customCols, mines: customMines }) => {
-    setDefaultValues();
-    rows.value = customRows;
-    cols.value = customCols;
-    mines.value = customMines;
+  const setCustomValues = async ({ rows: newRows, cols: newCols, mines: newMines, difficulty: newDifficulty }) => {
+    rows.value = newRows;
+    cols.value = newCols;
+    mines.value = newMines;
+    difficulty.value = newDifficulty;
     await changeDifficulty();
   }
   const changePage = async (newPage) => {
-    setDefaultValues(newPage);
-    await changeDifficulty();
+    await changeDifficulty(newPage);
   }
   const changeRanking = async () => {
     globalRanking.value = !globalRanking.value;
-    setDefaultValues();
     await changeDifficulty();
   }
   const changeOrder = async (newOrder) => {
@@ -45,7 +51,10 @@
     }
   }
 
-  const changeDifficulty = async () => {
+  const changeDifficulty = async (newPage) => {
+    loading.value = false;
+    areGames.value = false;
+    setDefaultValues(newPage);
     try {
       let response;
       if (globalRanking.value) {
@@ -55,12 +64,16 @@
       }
       games.value = response.games;
       totalPages.value = response.totalPages;
-      if (isMobile) {
-        await getGame();
-      }
+
+      if (games.value.length > 0) areGames.value = true;
+      if (isMobile.value) await getGame();
+
+      position.value = response.myPosition.position;
+      totalPositions.value = response.myPosition.total;
     } catch (error) {
       console.error('Error fetching games:', error);
     }
+    loading.value = true;
   }
   
   const indexGame = ref(0);
@@ -85,11 +98,15 @@
 <template>
 
   <div class="w-full flex justify-center">
-    <div class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
-
+    <div v-if="loading === true" class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
+      
       <TableHeaderComponent 
+        :areGames="areGames"
+        :difficulty="difficulty"
         :globalRanking="globalRanking"
         :orderByTime="orderByTime"
+        :position="position"
+        :totalPositions="totalPositions"
         @change="setCustomValues"
         @changeRanking="changeRanking"
         @changeOrder="changeOrder"

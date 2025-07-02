@@ -1,4 +1,6 @@
 <script setup>
+  import { useColorMode } from '#imports';
+  
   import arrowLeftLight from '~/public/img/themes/light/arrowLeftLight.png';
   import arrowLeftLLight from '~/public/img/themes/light/arrowLeftLLight.png';
   import arrowRightLight from '~/public/img/themes/light/arrowRightLight.png';
