@@ -24,6 +24,7 @@
   const areGames = ref(false);
 
   const loading = ref(false);
+  const loadingChange = ref(true);
 
   const setDefaultValues = (newPage) => {
     page.value = newPage ? newPage : 1;
@@ -35,16 +36,20 @@
     cols.value = newCols;
     mines.value = newMines;
     difficulty.value = newDifficulty;
+    loadingChange.value = false;
     await changeDifficulty();
   }
   const changePage = async (newPage) => {
+    loadingChange.value = false;
     await changeDifficulty(newPage);
   }
   const changeRanking = async () => {
+    loadingChange.value = false;
     globalRanking.value = !globalRanking.value;
     await changeDifficulty();
   }
   const changeOrder = async (newOrder) => {
+    loadingChange.value = false;
     if (orderByTime.value !== newOrder) {
       orderByTime.value = newOrder;
       await changeDifficulty();
@@ -74,6 +79,7 @@
       console.error('Error fetching games:', error);
     }
     loading.value = true;
+    loadingChange.value = true;
   }
   
   const indexGame = ref(0);
@@ -98,7 +104,14 @@
 <template>
 
   <div class="w-full flex justify-center">
-    <div v-if="loading === true" class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
+    <div v-if="loading === false">
+      <MinePixelReveal 
+        class="absolute inset-0 flex items-center justify-center"
+        :width="'3px'"
+        :height="'3px'"
+      />
+    </div>
+    <div v-else class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
       
       <TableHeaderComponent 
         :areGames="areGames"
@@ -113,9 +126,11 @@
       />
 
       <TableComponent 
+        v-if="loadingChange"
         :games="games"
         :page="page"
         :totalPages="totalPages"
+        :globalRanking="globalRanking"
         @changePage="changePage"
         @lookStats="handleLookStats"
       />

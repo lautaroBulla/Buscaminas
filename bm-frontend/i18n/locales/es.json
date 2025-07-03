@@ -96,5 +96,8 @@
         "globalRanking": "Ranking mundial",
         "orderBy": "Ordenar por",
         "position": "Mi posición"
+    },
+    "loading": {
+        "loading": "Cargando"
     }
 }

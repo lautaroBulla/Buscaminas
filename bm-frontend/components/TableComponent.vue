@@ -19,6 +19,10 @@
     },
     totalPages: {
       type: Number
+    },
+    globalRanking: {
+      type: Boolean,
+      requiered: true
     }
   });
 
@@ -30,7 +34,41 @@
   const changePage = (newPage) => {
     emit('changePage', newPage);
   }
+
+  const getRankingClass = (position) => {
+    console.log('getRankingClass', position);
+    if (position === 1) return isDark.value ? 'ranking-gold-dark' : 'ranking-gold-light'; // Oro
+    if (position === 2) return isDark.value ? 'ranking-silver-dark' : 'ranking-silver-light'; // Plata
+    if (position === 3) return isDark.value ? 'ranking-bronze-dark' : 'ranking-bronze-light'; // Bronce
+    return '';
+  };
 </script>
+
+<style>
+  .ranking-gold-dark td {
+    color: #FFD700;
+  }
+
+  .ranking-silver-dark td {
+    color: #C0C0C0;
+  }
+
+  .ranking-bronze-dark td {
+    color: #CD7F32;
+  }
+
+  .ranking-gold-light td {
+    color: #B8860B;
+  }
+
+  .ranking-silver-light td {
+    color: #708090;
+  }
+
+  .ranking-bronze-light td {
+    color: #8B4513;
+  }
+</style>
 
 <template>
   <div>
@@ -51,7 +89,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(game, index) in games" :key="game.id">
+          <tr v-for="(game, index) in games" :key="game.id" 
+            :class="globalRanking ? getRankingClass(index + 1 + ((page-1) * 10)) : ''">
             <td class="tableCell w-1/12">{{ index + 1 + ((page-1) * 10)}}</td>
             <td class="tableCell md:w-2/12">{{ game.user.username }}</td>
             <td class="tableCell md:w-2/12">{{ game.seconds }}s</td>

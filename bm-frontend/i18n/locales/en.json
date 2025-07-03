@@ -96,5 +96,8 @@
         "globalRanking": "World ranking",
         "orderBy": "Order by",
         "position": "My rank"
+    },
+    "loading": {
+        "loading": "Loading"
     }
 }

@@ -20,9 +20,6 @@
 
   const { user, isAuthReady, logout } = useAuth();
 
-   console.log(user.value);
-      console.log(isAuthReady.value);
-
   const colorMode = useColorMode();
   const isDark = computed(() => colorMode.value === 'dark');
 
@@ -73,7 +70,10 @@ class= generales
       >
         
         <div v-if="isAuthReady === false">
-          <p>...</p>
+          <MinePixelReveal 
+            :width="'3px'"
+            :height="'3px'"
+          />
         </div>
 
         <div v-else-if="user && isAuthReady === true">

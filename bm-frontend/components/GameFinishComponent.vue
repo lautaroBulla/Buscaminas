@@ -31,6 +31,12 @@
     const ms = (props.seconds % 1000).toString().padStart(3, '0');
     return `${secs}.${ms}`;
   });
+
+  const { currentTheme } = useCurrentTheme();
+  const currentThemeComputed = computed(() => {
+    return currentTheme.value;
+  });
+  console.log('currentThemeComputed', currentThemeComputed.value);
 </script>
 
 <template>
@@ -57,7 +63,7 @@
                 <span>{{ $t('finishGame.bestTime') }}:</span>
                 <span>{{ userBestTime }}s</span>
               </div>
-              <div class="flex justify-between w-full px-2 underline" v-else-if="user !== null">
+              <div class="flex justify-between w-full px-2 underline text-[#4CAF50]" v-else-if="user !== null">
                 <span>{{ $t('finishGame.newBestTime') }}:</span>
                 <span>{{ formattedTime }}s</span>
               </div>
@@ -68,7 +74,8 @@
                 <span>{{ $t('finishGame.bestTimeGlobal') }}:</span>
                 <span>{{ globalBestTime }}s</span>
               </div>
-              <div class="flex justify-between w-full px-2 underline" v-else-if="user !== null">
+              <div class="flex justify-between w-full px-2 underline" v-else-if="user !== null"
+                  :class="currentThemeComputed === 'darkTheme' ? 'text-[#FFD700]' : 'text-[#B8860B]'">
                 <span>{{ $t('finishGame.newBestTimeGlobal') }}:</span>
                 <span>{{ formattedTime }}s</span>
               </div>
