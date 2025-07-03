@@ -7,7 +7,7 @@
     await changeDifficulty();
   });
   
-  const { user, isAuthReady } = useAuth();
+  const { t } = useI18n();
 
   const { findByDifficulty, findByDifficultyUser } = useGame();
   const difficulty = ref('easy');
@@ -25,6 +25,7 @@
 
   const loading = ref(false);
   const loadingChange = ref(true);
+  const errorMessage = ref(null);
 
   const setDefaultValues = (newPage) => {
     page.value = newPage ? newPage : 1;
@@ -76,7 +77,7 @@
       position.value = response.myPosition.position;
       totalPositions.value = response.myPosition.total;
     } catch (error) {
-      console.error('Error fetching games:', error);
+      errorMessage.value = t('ranking.errorMessage');
     }
     loading.value = true;
     loadingChange.value = true;
@@ -125,21 +126,26 @@
         @changeOrder="changeOrder"
       />
 
-      <TableComponent 
-        v-if="loadingChange"
-        :games="games"
-        :page="page"
-        :totalPages="totalPages"
-        :globalRanking="globalRanking"
-        @changePage="changePage"
-        @lookStats="handleLookStats"
-      />
-
-      <StatsComponent
-        v-if="isMobile"
-        :game="game"
-        :rankingGame="rankingGame"
-      />
+      <div v-if="errorMessage" class="text-center">
+        {{ errorMessage }}
+      </div>
+      <div v-else>
+        <TableComponent 
+          v-if="loadingChange"
+          :games="games"
+          :page="page"
+          :totalPages="totalPages"
+          :globalRanking="globalRanking"
+          @changePage="changePage"
+          @lookStats="handleLookStats"
+        />
+  
+        <StatsComponent
+          v-if="isMobile"
+          :game="game"
+          :rankingGame="rankingGame"
+        />
+      </div>
     </div>
   </div>
 

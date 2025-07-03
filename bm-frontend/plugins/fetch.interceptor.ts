@@ -44,8 +44,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 
           return await apiFetch<T>(request, options);
         } catch (refreshErr) {
-          // navigateTo('/');
-          console.log(refreshErr);
         }
       }
       console.log('API Fetch Error:', err);

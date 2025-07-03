@@ -95,7 +95,8 @@
         "personalRanking": "Personal ranking",
         "globalRanking": "World ranking",
         "orderBy": "Order by",
-        "position": "My rank"
+        "position": "My rank",
+        "errorMessage": "Error loading ranking, please try again"
     },
     "loading": {
         "loading": "Loading"
