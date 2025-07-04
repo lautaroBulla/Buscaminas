@@ -46,7 +46,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         } catch (refreshErr) {
         }
       }
-      console.log('API Fetch Error:', err);
       throw err;
     }
   }
