@@ -1,14 +1,7 @@
 PENDIENTE
-  # Asegurarme que sea responsive
-  # Dejar ranking listo con para que vea su ranking y el global tambien
-  # Hacer ordenes en ranking?
-  # Perfil del usuario?????????
-  # Vichar en el backend, el eliminar funciones que no se vayan a usar
 
 PENDIENTE A FUTURO
   # Ver el tema de auth con Google
-  # Crear mina armandose para pantalla de carga
-  # Nacionalidad al registrar
 
 COMPLETADO
   # Verificar los datos a mandar cuando se consulta la funcion me 
@@ -34,3 +27,8 @@ COMPLETADO
   # Realizar toda la logica de los rankings
   # Mostrar la bandera cuando se llega al tiempo en mobile
   # Realizar el logout
+  # Dejar ranking listo con para que vea su ranking y el global tambien
+  # Hacer ordenes en ranking?
+  # Crear mina armandose para pantalla de carga
+  # Vichar en el backend, el eliminar funciones que no se vayan a usar
+  # Asegurarme que sea responsive

@@ -73,27 +73,4 @@ export class GamesController {
   ) {
     return this.gamesService.findByDifficultyUser(user.id, rows, cols, mines, page, take, orderByTime);
   }
-
-  
-  /*-------------------------------------------------*/
-
-  @Get()
-  findAll() {
-    return this.gamesService.findAll();
-  }
-  
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gamesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
-    return this.gamesService.update(+id, updateGameDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.gamesService.remove(+id);
-  }
 }

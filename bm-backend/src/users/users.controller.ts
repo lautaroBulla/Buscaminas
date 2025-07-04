@@ -25,9 +25,7 @@ export class UsersController {
   getProfile(@CurrentUser() user: User) {
     return this.usersService.getProfile(user.id);
   }
-
-  /*-------------------------------------------------*/
-
+  
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   findOne(
@@ -39,15 +37,4 @@ export class UsersController {
     }
     return this.usersService.findOne(id);
   }
-
-  @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
-  }
-
 }

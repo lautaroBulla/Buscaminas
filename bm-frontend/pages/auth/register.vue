@@ -18,7 +18,7 @@
     .regex(/[^A-Za-z0-9]/, t('login.strongPassword')); 
 
   const schema = z.object({
-    username: z.string().min(1, t('login.emptyUsername')),
+    username: z.string().min(1, t('login.emptyUsername')).max(15, t('login.longUsername')),
     password: passwordSchema
   })
 

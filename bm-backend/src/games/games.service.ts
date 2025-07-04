@@ -195,22 +195,4 @@ export class GamesService {
       total: games.length > 0 ? games.length : null
     }
   }
-
-
-
-  async findAll() {
-    return await this.prisma.game.findMany();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} game`;
-  }
-
-  update(id: number, updateGameDto: UpdateGameDto) {
-    return `This action updates a #${id} game`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} game`;
-  }
 }

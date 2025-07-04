@@ -56,7 +56,8 @@
         "failedRegister": "Register failed, please try again",
         "emptyUsername": "Username is required",
         "emptyPassword": "Password is required",
-        "strongPassword": "Password is not strong enough"
+        "strongPassword": "Password is not strong enough",
+        "longUsername": "Username cannot be longer than 15 characters"
     },
     "helpMessage": {
         "firstClick": "Start the game",
