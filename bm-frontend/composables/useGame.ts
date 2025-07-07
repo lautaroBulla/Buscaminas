@@ -1,6 +1,10 @@
+/*
+Composable encargado de realizar las peticiones relacionadas con los games
+*/
 export const useGame = () => {
   const { $apiFetch } = useNuxtApp();
 
+  //obtiene el mejor tiempo del usuario, segun la dificultad
   const getMyBestTime = async (rows: number, cols: number, mines: number) => {
     try {
       const data = await $apiFetch('/api/games/myBestTime', {
@@ -13,6 +17,7 @@ export const useGame = () => {
     }
   }
 
+  //obtiene los mejores tiempos globales y del usuario, segun la dificultad
   const getBestTimes = async (rows: number, cols: number, mines: number) => {
     try {
       const data = await $apiFetch('/api/games/bestTimes', {
@@ -28,6 +33,7 @@ export const useGame = () => {
     }
   }
 
+  //guarda un game en la base de datos
   const saveGame = async (
     helpLocal: number,
     secondsLocal: number,
@@ -60,6 +66,7 @@ export const useGame = () => {
     }
   }
 
+  //obtiene los datos de las partidas segun la dificultad, en orden de tiempo y efficiencia
   const findByDifficulty = async (
     rows: number,
     cols: number,
@@ -79,6 +86,7 @@ export const useGame = () => {
     }
   }
 
+  //obtiene los datos de las partidas del usuario segun la dificultad, en orden de tiempo y efficiencia
   const findByDifficultyUser = async (
     rows: number,
     cols: number,

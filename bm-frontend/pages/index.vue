@@ -1,4 +1,8 @@
 <script setup>
+  /*
+  Pagina principal de la aplicacion, 
+  donde se muestra el tablero de juego y los componentes principales
+  */
   import { ref, watch, computed } from 'vue';
   import { useMinesweeper } from '~/composables/useMinesweeper';
 
@@ -7,7 +11,7 @@
   const { locale, setLocale } = useI18n();
   const language = ref(locale.value);
   
-  // Obtengo todas lasvariables de composable useMinesweeper
+  //obtengo todas las variables de composable useMinesweeper
   const {
     rows,
     cols,
@@ -38,9 +42,9 @@
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
-  const difficulty = ref('easy'); //Se setea la dificultad inicial en easy
-  //watch se utiliza para observar si la variable difficulty cambia
-  //si cambia, se setean los valores de filas, columnas y minas
+  const difficulty = ref('easy'); //se setea la dificultad inicial en easy
+  /*watch se utiliza para observar si la variable difficulty cambia
+  si cambia, se setean los valores de filas, columnas y minas*/
   watch(difficulty, async(newDifficulty) => {
     if (difficulty !== newDifficulty) {
       switch (newDifficulty) {
@@ -61,10 +65,12 @@
     resetGame();
   }
 
+  //logica del modal para mostrarlo o ocualtarlo
   const modalSettings = ref(false);
   const viewSettings = () => {
     modalSettings.value = !modalSettings.value;
   }
+  //actualiza los datos del juego cuando se cambia la configuracion
   const updateSettings = async (updateSettingsValues) => {
     const newLocale = updateSettingsValues.language;
     await setLocale(newLocale);
@@ -74,7 +80,8 @@
 
     viewSettings();
   }
-
+  /*en caso de que el usuarios termine la partida con victoria
+  se muestra el modal de finalizacion del juego*/
   const modalGameFinish = ref(false);
   watch(gameWin, (newValue) => {
     modalGameFinish.value = newValue;

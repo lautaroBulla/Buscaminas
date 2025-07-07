@@ -35,11 +35,11 @@
     emit('changePage', newPage);
   }
 
+  //funcion para setear una clase de color segun la posicion del ranking
   const getRankingClass = (position) => {
-    console.log('getRankingClass', position);
-    if (position === 1) return isDark.value ? 'ranking-gold-dark' : 'ranking-gold-light'; // Oro
-    if (position === 2) return isDark.value ? 'ranking-silver-dark' : 'ranking-silver-light'; // Plata
-    if (position === 3) return isDark.value ? 'ranking-bronze-dark' : 'ranking-bronze-light'; // Bronce
+    if (position === 1) return isDark.value ? 'ranking-gold-dark' : 'ranking-gold-light'; 
+    if (position === 2) return isDark.value ? 'ranking-silver-dark' : 'ranking-silver-light'; 
+    if (position === 3) return isDark.value ? 'ranking-bronze-dark' : 'ranking-bronze-light';
     return '';
   };
 </script>

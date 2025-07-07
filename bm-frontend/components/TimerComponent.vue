@@ -1,4 +1,5 @@
 <script setup>
+  //mostrara el tiempo de la partida
   const props = defineProps({
     seconds: {
       type: Number,

@@ -15,15 +15,15 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const apiFetch = ofetch.create({
     async onRequest({ request, options }) {
-      const isServer = process.server;
+      // const isServer = process.server;
 
-      if (isServer) {
-        // Si es SSR, usamos baseURL sin `/api`
-        if (typeof request === 'string' && request.startsWith('/api')) {
-          options.baseURL = config.public.apiBaseUrl;
-          request = request.replace(/^\/api/, ''); // Quitamos `/api`
-        }
-      }
+      // if (isServer) {
+      //   // Si es SSR, usamos baseURL sin `/api`
+      //   if (typeof request === 'string' && request.startsWith('/api')) {
+      //     options.baseURL = config.public.apiBaseUrl;
+      //     request = request.replace(/^\/api/, ''); // Quitamos `/api`
+      //   }
+      // }
 
       options.credentials = 'include',
       options.headers = {

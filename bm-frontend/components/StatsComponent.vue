@@ -1,4 +1,5 @@
 <script setup>
+  //componente para mobile, se vera la informacion del juego seleccionado
   const props = defineProps({
     game: {
       type: Object

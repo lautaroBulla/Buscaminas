@@ -1,16 +1,12 @@
 <script setup>
+  //componente para cambiar entre tema claro y oscuro
   import { useColorMode } from '#imports';
   import ligthImg from '~/public/img/themes/light/light.png';
   import darkImg from '~/public/img/themes/dark/dark.png';
 
   const colorMode = useColorMode();
 
-  const isDark = computed(() => {
-    const mode = process.server
-      ? colorMode.preference
-      : colorMode.value 
-    return mode === 'dark' ? true : false;
-  });
+  const isDark = computed(() => colorMode.value === 'dark');
   
   const toggleDark = () => {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'

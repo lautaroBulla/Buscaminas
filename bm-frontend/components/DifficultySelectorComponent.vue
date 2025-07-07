@@ -1,4 +1,5 @@
 <script setup>
+  //componente que permite seleccionar la dificultad del juego
   import { ref, computed } from 'vue';
 
   import faceEasyClassic from '~/assets/img/themes/classicTheme/faceEasy.png';
@@ -60,6 +61,7 @@
 		}	
   };
 
+  //se obtiene el tema actual del board
 	const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
@@ -79,7 +81,7 @@
     emit('update:modelValue', difficulty);
   }
 
-
+  // datos por defecto para la dificultad personalizada
   const maxMines = computed(() => Math.floor((customRows.value * customCols.value) / 3))
   const minRowsAndCols = 5;
   const maxRowsAndCols = 100;
@@ -115,7 +117,7 @@
     )
   }
 
-  /*Nescesario para definir cuando es mobile y no
+  /*Nescesario para definir cuando es mobile y no, en caso de ser mobile no se mostrara custom
   y en caso de cambiar de pc a mobile setear la dificultad a easy
   */
   const maxDifficulty = ref(isMobile.value ? 2 : 3);

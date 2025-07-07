@@ -1,4 +1,5 @@
 <script setup>
+	//para ver las configraciones del juego
 	import settingClassic from '~/assets/img/themes/classicTheme/settings.png';
 
 	import settingDark from '~/assets/img/themes/darkTheme/settingsDark.png';

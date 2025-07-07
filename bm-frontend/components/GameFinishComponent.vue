@@ -36,7 +36,6 @@
   const currentThemeComputed = computed(() => {
     return currentTheme.value;
   });
-  console.log('currentThemeComputed', currentThemeComputed.value);
 </script>
 
 <template>

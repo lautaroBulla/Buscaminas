@@ -1,4 +1,5 @@
 <script setup>
+	//manejda toda la logica del juego
 	import { computed } from 'vue';
 
 	const { isMobile } = useIsMobile();
@@ -33,21 +34,22 @@
 		}
 	});
 
+	//emits para las acciones del jugador
 	const emit = defineEmits(['cell-left-click', 'cell-right-click']);
 
 	/*
-	Esta funcion se encargara de cambiar las filas por columnas, 
+	esta funcion se encargara de cambiar las filas por columnas, 
 	asi el tablero se adapte de forma correcta al mobile
 	*/
 	const transpose = (matrix) => matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]));
 
-	//Se verifica si es mobile o no para hacer el cambio
+	//se verifica si es mobile o no para hacer el cambio
 	const boardToUse = computed(() => isMobile.value ? transpose(props.board) : props.board);
 	const revealedToUse = computed(() => isMobile.value  ? transpose(props.revealed) : props.revealed);
 	const flagsToUse = computed(() => isMobile .value ? transpose(props.flags) : props.flags);
 	const interrogationsToUse = computed(() => props.interrogations ? (isMobile.value  ? transpose(props.interrogations) : props.interrogations) : null);
 
-	/*Esta funcion se encargara de retornas un array de cells con cada dato de la misma,
+	/*esta funcion se encargara de retornas un array de cells con cada dato de la misma,
 	necesaria para el diseño del tablero, ya que si no las cells no se adaptaban bien a los bordes del tablero
 	*/
 	const flatBoard = computed(() => {

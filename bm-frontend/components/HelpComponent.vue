@@ -1,4 +1,5 @@
 <script setup>
+	//componente para pedir ayuda
 	import helpClassic from '~/assets/img/themes/classicTheme/help.png';
 	
 	import helpDark from '~/assets/img/themes/darkTheme/helpDark.png';

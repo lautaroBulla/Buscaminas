@@ -17,6 +17,7 @@ export const useAuth = () => {
 
   const { $apiFetch } = useNuxtApp();
   
+  //obtiene los datos del usuario
   const getProfile = async () => {
     try {
       const data = await $apiFetch<User>('/api/users/me', {
@@ -30,6 +31,7 @@ export const useAuth = () => {
     }
   }
 
+  //realiza el login del usuario
   const login = async (username: string, password: string) => {
     try {
       await $apiFetch('/api/auth/login', {
@@ -42,6 +44,7 @@ export const useAuth = () => {
     }
   }
 
+  //registra un nuevo usuario
   const register = async (username: string, password: string) => {
     try {
       await $apiFetch('/api/auth/register', {
@@ -54,6 +57,7 @@ export const useAuth = () => {
     }
   }
 
+  //realiza el logout del usuario
   const logout = async () => {
     try {
       await $apiFetch('/api/auth/logout', {

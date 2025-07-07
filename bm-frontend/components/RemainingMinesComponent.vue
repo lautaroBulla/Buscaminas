@@ -1,4 +1,5 @@
 <script setup>
+  //se encarga de ir contando las flags marcadas como minas
   const props = defineProps({
     remainingMines: {
       type: Number,

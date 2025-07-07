@@ -8,7 +8,7 @@
         "menu": "Menú"  
     },
     "header": {
-        "reset": "Reinciar",
+        "reset": "Reiniciar",
         "settings": "Abrir configuraciones",
         "help": "Pedir ayuda"
     },
@@ -28,7 +28,7 @@
         "setting": "Configuraciones",
         "update": "Actualizar",
         "close": "Cerrar",
-        "firstClick": "Primer click en casilla vacia",
+        "firstClick": "Primer clic en casilla vacia",
         "interrogations": "Símbolos '?' activados",
         "language": "Idioma",
         "spanish": "ES",
@@ -52,8 +52,8 @@
         "register": "Registrarse",
         "show": "Mostrar",
         "hide": "Ocultar",
-        "failedLogin": "El inicio de sesión fallo, pruebe de nuevo",
-        "failedRegister": "El registro fallo, pruebe de nuevo",
+        "failedLogin": "El inicio de sesión falló, pruebe de nuevo",
+        "failedRegister": "El registro falló, pruebe de nuevo",
         "emptyUsername": "El nombre de usuario es requerido",
         "emptyPassword": "La contraseña es requerida",
         "strongPassword": "La contraseña no es lo suficientemente fuerte",
@@ -74,11 +74,11 @@
         "help": "Ayudas",
         "helpTitle": "Ayudas usadas",
         "3bv": "3BV",
-        "3bvTitle": "3BV es el numero de clicks minimos necesarios para completar la partida",
+        "3bvTitle": "3BV es el número de clics mínimos necesarios para completar la partida",
         "clicks": "Clicks",
-        "clicksTitle": "Numero de clicks",
+        "clicksTitle": "Número de clicks",
         "efficiency": "Eficiencia",
-        "efficiencyTitle": "Eficiencia de los clicks (3BV / clicks)",
+        "efficiencyTitle": "Eficiencia de los clics (3BV / clicks)",
         "noAuth": "Para guardar la partida Iniciar Sesión o Registrarse"
     },
     "ranking": {

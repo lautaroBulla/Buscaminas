@@ -1,4 +1,5 @@
 <script setup>
+  //componente para cada celda del tablero
   import oneClasssic from '~/assets/img/themes/classicTheme/one.png';
   import twoClasssic from '~/assets/img/themes/classicTheme/two.png';
   import threeClasssic from '~/assets/img/themes/classicTheme/three.png';
@@ -94,17 +95,23 @@
 
   const emit = defineEmits(['left-click', 'rigth-click']);
 
-  //pc
+  //pc click izquierdo
   const handleLeftClick = () => {
     emit('left-click', {row: props.rowIndex, col: props.colIndex});
   }
-  // e se utliza para prevenir el menu contextual del click derecho
+  /* 
+  pc click derecho
+  e se utliza para prevenir el menu contextual del click derecho*/
   const handleRightClick = (e) => {
     e.preventDefault();
     emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
   }
 
-  //mobile
+  /*mobile
+  touchstart se utiliza para detectar el inicio del toque
+  touchend se utiliza para detectar el final del toque
+  touchcancel se utiliza para detectar cuando el toque es cancelado
+  */
   let timer = null;
   const changeCell = ref(false);
   const isTouched = ref(false);

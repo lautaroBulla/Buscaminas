@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
   definePageMeta({
     middleware: ['guest']
   })
@@ -21,7 +21,7 @@
   });
 
   const errorMessage = ref('');
-  const errors = ref<{ username?: string; password?: string }>({});
+  const errors = ref({});
 
   const showPassword = ref(false);
 
@@ -32,7 +32,7 @@
     const validation = schema.safeParse(credentials.value);
     if (!validation.success) {
       validation.error.issues.forEach(err => {
-        const field = err.path[0] as keyof typeof errors.value;
+        const field = err.path[0];
         errors.value[field] = err.message;
       });
       return;
@@ -40,7 +40,7 @@
 
     try {
       await login(credentials.value.username, credentials.value.password);
-      const data = useCookie<GameToSave | null>('gameToSave');
+      const data = useCookie('gameToSave');
       if (data && data.value) {
         const dataDecod = data.value;
         const res = await saveGame(
@@ -50,8 +50,10 @@
         );
         data.value = null;
       }
+      console.log('Login successful');
       return navigateTo('/');
-    } catch (error: any) {
+    } catch (error) {
+      console.error('Login failed:', error);
       let msg = error?.data?.message; 
       if (!msg) {
         errorMessage.value = t('login.failedLogin');

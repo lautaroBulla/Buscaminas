@@ -1,4 +1,5 @@
 <script setup>
+	//componente para reinciar el juego
 	import faceClassic from '~/assets/img/themes/classicTheme/face.png';
 	import faceWinClassic from '~/assets/img/themes/classicTheme/faceWin.png';
 	import faceLoseClassic from '~/assets/img/themes/classicTheme/faceLose.png';

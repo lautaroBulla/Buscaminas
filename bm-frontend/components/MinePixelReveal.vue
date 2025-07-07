@@ -1,4 +1,5 @@
 <script setup>
+  //componente que muestra una animacion de carga
   import { ref, onMounted, computed } from 'vue';
   import mineDark from '~/public/img/mineDark.png';
 

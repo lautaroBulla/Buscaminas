@@ -1,4 +1,5 @@
 <script setup>
+  //componente que se encarga de cambiar el idioma de la aplicacion
   import esFlag from '~/assets/img/es.png'
   import ukFlag from '~/assets/img/uk.png'
 

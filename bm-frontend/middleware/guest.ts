@@ -4,11 +4,11 @@ asi evitar el acceso a paginas
 */
 
 export default defineNuxtRouteMiddleware (() => {
-  const { user, isAuthReady } = useAuth();
-
-  if (!isAuthReady.value) return;
-
-  if (user.value !== null) {
+  const { user } = useAuth();
+  console.log('Middleware guest');
+  console.log(user);
+  console.log('Middleware guest');
+  if (user && user.value) {
     return navigateTo('/');
   }
 });

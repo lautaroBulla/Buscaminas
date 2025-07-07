@@ -1,4 +1,5 @@
 <script setup>
+  //manejda la logica de los elementos del header (help, mines, reset, timer, settings)
   defineProps({
     seconds: {
       type: Number,
