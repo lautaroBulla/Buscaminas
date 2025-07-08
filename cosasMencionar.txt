@@ -1,4 +1,0 @@
-El uso de las tecnologias, nuxt 3, nestjs, y veremos cuando se despliegue en aws
-
-El uso de i18n, tecnologia muy popular
-El uso de jwt en cookies para la authenticacion
