@@ -14,13 +14,24 @@ type User = {
 export const useAuth = () => {
   const user = useState<User | null>('user', () => null);
   const isAuthReady = useState<boolean>('isAuthReady', () => false);
-
   const { $apiFetch } = useNuxtApp();
+
+  const userCookie = useCookie<User | null>('user', {
+    default: () => null,
+    maxAge: 60 * 60 * 24 * 7, 
+    sameSite: 'strict',
+    httpOnly: false, 
+    secure: true 
+  });
+
+  if (userCookie.value && !user.value) {
+    user.value = userCookie.value;
+  }
   
   //obtiene los datos del usuario
   const getProfile = async () => {
     try {
-      const data = await $apiFetch<User>('/api/users/me', {
+      const data = await $apiFetch<User>('/users/me', {
         method: 'GET'
       });
       user.value = data;
@@ -34,11 +45,12 @@ export const useAuth = () => {
   //realiza el login del usuario
   const login = async (username: string, password: string) => {
     try {
-      await $apiFetch('/api/auth/login', {
+      await $apiFetch('/auth/login', {
         method: 'POST',
         body: {username, password}
       })
       await getProfile();
+      userCookie.value = user.value;
     } catch (error) {
       throw error;
     }
@@ -47,11 +59,12 @@ export const useAuth = () => {
   //registra un nuevo usuario
   const register = async (username: string, password: string) => {
     try {
-      await $apiFetch('/api/auth/register', {
+      await $apiFetch('/auth/register', {
         method: 'POST',
         body: {username, password}
       })
       await getProfile();
+      userCookie.value = user.value;
     } catch (error) {
       throw error;
     }
@@ -60,10 +73,11 @@ export const useAuth = () => {
   //realiza el logout del usuario
   const logout = async () => {
     try {
-      await $apiFetch('/api/auth/logout', {
+      await $apiFetch('/auth/logout', {
         method: 'POST'
       })   
       user.value = null;
+      userCookie.value = null;
       navigateTo('/');
     } catch (error) {
       throw error;

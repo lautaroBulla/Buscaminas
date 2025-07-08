@@ -8,6 +8,22 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css', '~/assets/css/themes/classicTheme.css', '~/assets/css/themes/darkTheme.css'],
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxtjs/color-mode'],
 
+  app: {
+    head: {
+      title: 'Buscaminas',
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { charset: 'utf-8' },
+        { name: 'description', content: 'Buscaminas game built with Nuxt 3 and Tailwind CSS' },
+        { name: 'keywords', content: 'buscaminas, minesweeper, game, juego' },
+        { name: 'author', content: 'Lautaro Portillo Bulla' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
+    }
+  },
+
   colorMode: {
     classSuffix: '',
     preference: 'system', 
@@ -41,14 +57,6 @@ export default defineNuxtConfig({
     server: {
       watch: {
         usePolling: true
-      },
-      proxy: {
-        '/api': 
-          { 
-            target: process.env.API_URL_BACKEND,
-            changeOrigin: true,
-            rewrite: path => path.replace(/^\/api/, '')
-          }
       }
     }
   },

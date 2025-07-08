@@ -14,17 +14,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   const locale = useCookie('i18n_locale');
 
   const apiFetch = ofetch.create({
-    async onRequest({ request, options }) {
-      // const isServer = process.server;
-
-      // if (isServer) {
-      //   // Si es SSR, usamos baseURL sin `/api`
-      //   if (typeof request === 'string' && request.startsWith('/api')) {
-      //     options.baseURL = config.public.apiBaseUrl;
-      //     request = request.replace(/^\/api/, ''); // Quitamos `/api`
-      //   }
-      // }
-
+    baseURL: config.public.apiBaseUrl,
+    async onRequest({ options }) {
       options.credentials = 'include',
       options.headers = {
         ...(options.headers || {}),
@@ -40,10 +31,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (err?.response?.status === 401) {
         
         try {
-          await apiFetch('/api/auth/refresh', { method: 'POST', credentials: 'include' });
+          await apiFetch('/auth/refresh', { method: 'POST', credentials: 'include' });
 
           return await apiFetch<T>(request, options);
         } catch (refreshErr) {
+          throw refreshErr;
         }
       }
       throw err;

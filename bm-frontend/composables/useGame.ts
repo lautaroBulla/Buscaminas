@@ -7,7 +7,7 @@ export const useGame = () => {
   //obtiene el mejor tiempo del usuario, segun la dificultad
   const getMyBestTime = async (rows: number, cols: number, mines: number) => {
     try {
-      const data = await $apiFetch('/api/games/myBestTime', {
+      const data = await $apiFetch('/games/myBestTime', {
         method: 'GET',
         query: {rows, cols, mines}
       })
@@ -20,7 +20,7 @@ export const useGame = () => {
   //obtiene los mejores tiempos globales y del usuario, segun la dificultad
   const getBestTimes = async (rows: number, cols: number, mines: number) => {
     try {
-      const data = await $apiFetch('/api/games/bestTimes', {
+      const data = await $apiFetch('/games/bestTimes', {
         method: 'GET',
         query: {rows, cols, mines}
       })
@@ -46,7 +46,7 @@ export const useGame = () => {
     efficiencyLocal: number
   ) => {
     try {
-      const res = await $apiFetch('/api/games', {
+      const res = await $apiFetch('/games', {
         method: 'POST',
         body: {
           help: helpLocal,
@@ -76,7 +76,7 @@ export const useGame = () => {
     orderByTime: boolean
   ) => {
     try {
-      const data = await $apiFetch('/api/games/difficulty', {
+      const data = await $apiFetch('/games/difficulty', {
         method: 'GET',
         query: {rows, cols, mines, page, take, orderByTime}
       })
@@ -96,7 +96,7 @@ export const useGame = () => {
     orderByTime: boolean
   ) => {
     try {
-      const data = await $apiFetch('/api/games/difficultyUser', {
+      const data = await $apiFetch('/games/difficultyUser', {
         method: 'GET',
         query: {rows, cols, mines, page, take, orderByTime}
       })

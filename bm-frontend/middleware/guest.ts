@@ -3,12 +3,14 @@ Middleware simplemente que se encarga de verificar si hay un usuario authenticad
 asi evitar el acceso a paginas
 */
 
-export default defineNuxtRouteMiddleware (() => {
-  const { user } = useAuth();
-  console.log('Middleware guest');
-  console.log(user);
-  console.log('Middleware guest');
-  if (user && user.value) {
+export default defineNuxtRouteMiddleware(async () => {
+  const { user, isAuthReady, getProfile } = useAuth();
+  
+  if (!isAuthReady.value) {
+    await getProfile();
+  }
+
+  if (user.value) {
     return navigateTo('/');
   }
 });
