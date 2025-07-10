@@ -8,6 +8,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css', '~/assets/css/themes/classicTheme.css', '~/assets/css/themes/darkTheme.css'],
   modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxtjs/color-mode'],
 
+  nitro: {
+    preset: 'static'
+  },
+
   app: {
     head: {
       title: 'Buscaminas',
