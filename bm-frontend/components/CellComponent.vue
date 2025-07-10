@@ -59,6 +59,7 @@
 
   const { currentTheme } = useCurrentTheme();
   const { isMobile } = useIsMobile();
+  const { activatedCell } = useActivatedCell();
 
 	const imgByTheme = {
 		classicTheme: {
@@ -112,28 +113,40 @@
   touchend se utiliza para detectar el final del toque
   touchcancel se utiliza para detectar cuando el toque es cancelado
   */
+  const cellId = `${props.rowIndex}-${props.colIndex}`;
   let timer = null;
   const changeCell = ref(false);
   const isTouched = ref(false);
   const handleTouchStart = (e) => {
-     e.preventDefault();
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (activatedCell.value && activatedCell.value !== cellId) return;
+
     isTouched.value = true;
+    activatedCell.value = cellId;
+
     timer = setTimeout(() => {
       changeCell.value = true;
       handleTouchEnd();
-    }, 250);
+    }, 500);
   }
   const handleTouchEnd = () => {
     isTouched.value = false;
+
     if (changeCell.value === true) {
       emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
-      handleTouchCancel();
     } else {
       emit('left-click', {row: props.rowIndex, col: props.colIndex});
-      handleTouchCancel();
     }
+
+    handleTouchCancel();
   }
   const handleTouchCancel = () => {
+    if (activatedCell.value === cellId) {
+      activatedCell.value = null;
+    }
+    
     isTouched.value = false;
     clearTimeout(timer);
     changeCell.value = false;

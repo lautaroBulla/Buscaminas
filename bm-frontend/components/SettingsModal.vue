@@ -39,7 +39,7 @@
       close: closeClassic
     },
 		darkTheme: {
-			close: closeDark,
+			close: closeDark
 		}
   };
 

@@ -1,7 +1,8 @@
 <script setup>
   //componente que muestra una animacion de carga
   import { ref, onMounted, computed } from 'vue';
-  import mineDark from '~/public/img/mineDark.png';
+  import mineDark from '~/public/img/themes/dark/mineDark.png';
+  import mineLight from '~/public/img/themes/light/mineLight.png';
 
   const props = defineProps({
     width: {
@@ -13,6 +14,9 @@
       required: true
     }
   });
+
+  const colorMode = useColorMode();
+  const isDark = computed(() => colorMode.value === 'dark');
 
   const gridSize = 9;
   const delayBase = 100;
@@ -663,7 +667,7 @@
         <Transition name="reveal" appear>
           <img 
             v-if="pixel.show && revealedPixels.has(pixel.id)" 
-            :src="mineDark" 
+            :src="isDark ? mineDark : mineLight" 
             :class="`w-[${width}] h-[${height}]`"
           />
         </Transition>
