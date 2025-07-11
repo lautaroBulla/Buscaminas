@@ -118,38 +118,73 @@
   const changeCell = ref(false);
   const isTouched = ref(false);
   const handleTouchStart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (activatedCell.value && activatedCell.value !== cellId) return;
-
-    isTouched.value = true;
-    activatedCell.value = cellId;
-
-    timer = setTimeout(() => {
-      changeCell.value = true;
-      handleTouchEnd();
-    }, 500);
+    if (activatedCell.value !== null && activatedCell.value !== cellId) {
+      return;
+    } else {
+      if (e.touches.length === 1) {
+        e.preventDefault();
+  
+        activatedCell.value = cellId;
+        isTouched.value = true;
+  
+        timer = setTimeout(() => {
+          if (activatedCell.value === cellId && isTouched.value) {
+            changeCell.value = true;
+            emitEvent(); 
+          }
+        }, 500);
+      } else {
+        return;
+      }
+    }
   }
-  const handleTouchEnd = () => {
-    isTouched.value = false;
 
-    if (changeCell.value === true) {
+  const handleTouchMove = (e) => {
+    if (isTouched.value && activatedCell.value === cellId) {
+      const touch = e.touches[0];
+      const element = e.currentTarget;
+      const rect = element.getBoundingClientRect();
+      
+      const isInsideCell = (
+        touch.clientX >= rect.left &&
+        touch.clientX <= rect.right &&
+        touch.clientY >= rect.top &&
+        touch.clientY <= rect.bottom
+      );
+      
+      if (!isInsideCell) {
+        handleTouchCancel();
+      }
+    }
+  }
+
+  const handleTouchEnd = () => {
+    if (isTouched.value && activatedCell.value === cellId) {
+      clearTimeout(timer);
+      
+      if (!changeCell.value) {
+        emitEvent();
+      }
+      
+      handleTouchCancel();
+    }
+  }
+
+  const emitEvent = () => {
+    if (changeCell.value) {
       emit('rigth-click', {row: props.rowIndex, col: props.colIndex});
     } else {
       emit('left-click', {row: props.rowIndex, col: props.colIndex});
     }
-
-    handleTouchCancel();
   }
+
   const handleTouchCancel = () => {
-    if (activatedCell.value === cellId) {
-      activatedCell.value = null;
-    }
-    
     isTouched.value = false;
     clearTimeout(timer);
     changeCell.value = false;
+    if (activatedCell.value === cellId) {
+      activatedCell.value = null;
+    }
   }
 </script>
 
@@ -164,6 +199,7 @@
       @click="!isMobile ? handleLeftClick() : null"
       @contextmenu="!isMobile ? handleRightClick($event) : null"
       @touchstart="isMobile ? handleTouchStart($event) : null"
+      @touchmove="isMobile ? handleTouchMove($event) : null"
       @touchend="isMobile ? handleTouchEnd() : null"
       @touchcancel="isMobile ? handleTouchCancel() : null"
     >

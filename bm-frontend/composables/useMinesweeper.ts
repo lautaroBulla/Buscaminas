@@ -327,7 +327,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
 
 
   function rightClick(row: number, col: number) {
-    if (revealed.value[row][col] || gameOver.value || gameWin.value) return
+    if (revealed.value[row][col] || gameOver.value || gameWin.value) return;
     // sirve para ir alterando la casilla con las marcas flags e interrogations
     if (!isMobile.value) { //si no es mobile se dejara usar ?
       if (interrogationsActivated.value) {

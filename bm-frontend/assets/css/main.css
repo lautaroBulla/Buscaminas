@@ -32,8 +32,7 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: 'VT323', monospace;
@@ -43,8 +42,19 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+.layout-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1; 
+  overflow-y: auto;
+  min-height: 0;
+}
+
 .background {
-  min-height: 100dvh;
   background-color: var(--color-primary);
 }
 
@@ -691,6 +701,9 @@ CSS DEL LOS CHECKBOXES PERSONALIZADOS
 @media (max-width: 768px) {
   body {
     font-size: 1.2rem;
+  }
+  .layout-container {
+    height: 100dvh;
   }
   .tableHeader {
     padding-block: 0.2rem;

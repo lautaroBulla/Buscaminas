@@ -84,7 +84,7 @@
   // datos por defecto para la dificultad personalizada
   const maxMines = computed(() => Math.floor((customRows.value * customCols.value) / 3))
   const minRowsAndCols = 5;
-  const maxRowsAndCols = 100;
+  const maxRowsAndCols = 50;
 
   const customVlues = () => {
     //Validar filas

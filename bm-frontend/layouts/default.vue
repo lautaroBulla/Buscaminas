@@ -3,9 +3,9 @@
 </script>
 
 <template>
-  <div>
+  <div class="layout-container">
     <NavComponent />
-    <main class="background" :class="`${currentTheme}`">
+    <main class="main-content background" :class="`${currentTheme}`">
       <NuxtPage />
     </main>
   </div>
