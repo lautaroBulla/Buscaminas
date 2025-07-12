@@ -64,8 +64,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     board.value = Array.from({length: rows.value}, () => Array(cols.value).fill(0));
     revealed.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
     flags.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));
-    if (interrogationsActivated.value)
-        interrogations.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));   
+    interrogations.value = Array.from({length: rows.value}, () => Array(cols.value).fill(false));   
     gameOver.value = false;
     gameWin.value = false;
     firstClick.value = true;    

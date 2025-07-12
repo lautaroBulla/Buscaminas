@@ -132,7 +132,7 @@
             changeCell.value = true;
             emitEvent(); 
           }
-        }, 500);
+        }, 250);
       } else {
         return;
       }

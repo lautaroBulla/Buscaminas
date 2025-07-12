@@ -690,7 +690,6 @@ CSS DEL LOS CHECKBOXES PERSONALIZADOS
   cursor: pointer;
 }
 .checkbox:checked {
-  background-image: url('img/check.png');
   background-size: 80%; 
   background-position: center;
   background-repeat: no-repeat;
