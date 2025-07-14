@@ -50,7 +50,6 @@
         );
         data.value = null;
       }
-      console.log('Login successful');
       return navigateTo('/');
     } catch (error) {
       console.error('Login failed:', error);
