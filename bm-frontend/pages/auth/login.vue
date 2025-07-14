@@ -52,7 +52,6 @@
       }
       return navigateTo('/');
     } catch (error) {
-      console.error('Login failed:', error);
       let msg = error?.data?.message; 
       if (!msg) {
         errorMessage.value = t('login.failedLogin');

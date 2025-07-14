@@ -23,6 +23,7 @@
   import mineDark from '~/assets/img/themes/darkTheme/mineDark.png';
   import flagDark from '~/assets/img/themes/darkTheme/flagDark.png';
   import interrogationDark from '~/assets/img/themes/darkTheme/interrogationDark.png';
+  import { computed, ref } from 'vue';
 
   const props = defineProps({
     cell: {
@@ -118,28 +119,36 @@
   const changeCell = ref(false);
   const isTouched = ref(false);
   const handleTouchStart = (e) => {
+    if (e.touches.length > 1) {
+      if (activatedCell.value === cellId) {
+        handleTouchCancel();
+      }
+      return; 
+    }
+
     if (activatedCell.value !== null && activatedCell.value !== cellId) {
       return;
     } else {
-      if (e.touches.length === 1) {
-        e.preventDefault();
-  
-        activatedCell.value = cellId;
-        isTouched.value = true;
-  
-        timer = setTimeout(() => {
-          if (activatedCell.value === cellId && isTouched.value) {
-            changeCell.value = true;
-            emitEvent(); 
-          }
-        }, 250);
-      } else {
-        return;
-      }
+      // e.preventDefault();
+
+      activatedCell.value = cellId;
+      isTouched.value = true;
+
+      timer = setTimeout(() => {
+        if (activatedCell.value === cellId && isTouched.value) {
+          changeCell.value = true;
+          emitEvent(); 
+        }
+      }, 250);
     }
   }
 
   const handleTouchMove = (e) => {
+    if (e.touches.length > 1) {
+      handleTouchCancel();
+      return;
+    }
+
     if (isTouched.value && activatedCell.value === cellId) {
       const touch = e.touches[0];
       const element = e.currentTarget;
@@ -161,7 +170,6 @@
   const handleTouchEnd = () => {
     if (isTouched.value && activatedCell.value === cellId) {
       clearTimeout(timer);
-      
       if (!changeCell.value) {
         emitEvent();
       }
@@ -190,6 +198,7 @@
 
 <template>
     <div
+      ref="cellRef"
       :class="[
         reveal ? 'reveal' : 'cell',
         exploted ? 'reveal-lose' : '',
@@ -203,18 +212,18 @@
       @touchend="isMobile ? handleTouchEnd() : null"
       @touchcancel="isMobile ? handleTouchCancel() : null"
     >
-      <img v-if="reveal && cell === 1" :src="imgByTheme[currentThemeComputed].one" alt="One" />
-      <img v-else-if="reveal && cell === 2" :src="imgByTheme[currentThemeComputed].two" alt="Two" />
-      <img v-else-if="reveal && cell === 3" :src="imgByTheme[currentThemeComputed].three" alt="Three" />
-      <img v-else-if="reveal && cell === 4" :src="imgByTheme[currentThemeComputed].four" alt="Four" />
-      <img v-else-if="reveal && cell === 5" :src="imgByTheme[currentThemeComputed].five" alt="Five" />
-      <img v-else-if="reveal && cell === 6" :src="imgByTheme[currentThemeComputed].six" alt="Six" />
-      <img v-else-if="reveal && cell === 7" :src="imgByTheme[currentThemeComputed].seven" alt="Seven" />
-      <img v-else-if="reveal && cell === 8" :src="imgByTheme[currentThemeComputed].eight" alt="Eight" />
-      <img v-else-if="reveal && cell === 'M'" :src="imgByTheme[currentThemeComputed].mine" alt="Mine" />
+      <img v-if="reveal && cell === 1" :src="imgByTheme[currentThemeComputed].one" alt="One" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 2" :src="imgByTheme[currentThemeComputed].two" alt="Two" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 3" :src="imgByTheme[currentThemeComputed].three" alt="Three" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 4" :src="imgByTheme[currentThemeComputed].four" alt="Four" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 5" :src="imgByTheme[currentThemeComputed].five" alt="Five" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 6" :src="imgByTheme[currentThemeComputed].six" alt="Six" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 7" :src="imgByTheme[currentThemeComputed].seven" alt="Seven" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 8" :src="imgByTheme[currentThemeComputed].eight" alt="Eight" class="pointer-events-none" />
+      <img v-else-if="reveal && cell === 'M'" :src="imgByTheme[currentThemeComputed].mine" alt="Mine" class="pointer-events-none" />
 
       <!-- Si no revelada -->
-      <img v-else-if="!reveal && flag" :src="imgByTheme[currentThemeComputed].flag" alt="Flag" />
-      <img v-else-if="!reveal && interrogation" :src="imgByTheme[currentThemeComputed].interrogation" alt="Interrogation" />  
+      <img v-else-if="!reveal && flag" :src="imgByTheme[currentThemeComputed].flag" alt="Flag" class="pointer-events-none" />
+      <img v-else-if="!reveal && interrogation" :src="imgByTheme[currentThemeComputed].interrogation" alt="Interrogation" class="pointer-events-none" />  
     </div>
 </template>

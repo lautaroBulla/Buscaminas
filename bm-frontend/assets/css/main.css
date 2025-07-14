@@ -41,6 +41,14 @@ body {
   font-size: 1.3rem;
   -webkit-text-size-adjust: 100%;
 }
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 
 .layout-container {
   height: 100vh;
@@ -246,6 +254,7 @@ CSS DE LOS BORDES USADOS PARA EL TABLERO, MODALS Y HEADER
   border: 5px solid var(--background-color);
 }
 .border-internal {
+  touch-action: pinch-zoom;
   background-color: var(--background-color);    
   border-top: 5px solid var(--border-dark-color);       
   border-left: 5px solid var(--border-dark-color);    
@@ -524,6 +533,8 @@ ESTILOS PARA LAS CASILLAS DEL JUEGO, SIN REVELAR
   border-left: 3px solid var(--border-light-color);  
   border-bottom: 3px solid var(--border-dark-color);        
   border-right: 3px solid var(--border-dark-color); 
+  -webkit-touch-callout: none; 
+  user-select: none; 
 }
 .cell:hover {
   opacity: var(--opacity);
