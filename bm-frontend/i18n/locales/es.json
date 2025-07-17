@@ -101,5 +101,8 @@
     },
     "loading": {
         "loading": "Cargando"
+    },
+    "error": {
+        "goHome": "Ir al Inicio"
     }
 }

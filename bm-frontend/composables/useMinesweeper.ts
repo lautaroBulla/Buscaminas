@@ -75,6 +75,16 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   //esta funcion sirve para que el jugador no pierda en el primer moviminto en caso de apretar una mina
   function boardFirstClick(row: number, col: number) {
     firstClick.value = false;
+
+    let bvv = 0;
+    do {
+      placeMines(row, col);
+      bvv = calculate3BV();
+      if (bvv <= 1) {
+        initBoard(); 
+      }
+    } while (bvv <= 1);
+
     placeMines(row, col);
     click3BV.value = calculate3BV();
     startTime();

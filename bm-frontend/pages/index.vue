@@ -96,6 +96,13 @@
 </script>
 
 <template>
+  <div v-if="sendingToBackend === true" class="bg-black opacity-50 absolute inset-0 flex items-center justify-center z-50">
+      <MinePixelReveal 
+        :width="'3px'"
+        :height="'3px'"
+      />
+  </div>
+
   <div class="flex flex-col items-center pt-4 space-y-4">
 
     <div class="md:flex md:gap-x-4">
@@ -134,7 +141,7 @@
   </div>
 
   <GameFinishComponent
-    v-if="modalGameFinish"
+    v-if="modalGameFinish && sendingToBackend === false"
     :seconds="seconds"
     :countHelp="countHelp"
     :click3BV="click3BV"
