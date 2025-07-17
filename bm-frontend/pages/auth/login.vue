@@ -4,6 +4,7 @@
   })
 
   import { z } from 'zod/v4';
+import MinePixelReveal from '~/components/MinePixelReveal.vue';
 
   const { t } = useI18n();
 
@@ -24,6 +25,7 @@
   const errors = ref({});
 
   const showPassword = ref(false);
+  const sendingToBackend = ref(false);
 
   const submit = async () => {
     errorMessage.value = '';
@@ -38,6 +40,7 @@
       return;
     }
 
+    sendingToBackend.value = true;
     try {
       await login(credentials.value.username, credentials.value.password);
       const data = useCookie('gameToSave');
@@ -50,8 +53,10 @@
         );
         data.value = null;
       }
+      sendingToBackend.value = false;
       return navigateTo('/');
     } catch (error) {
+      sendingToBackend.value = false;
       let msg = error?.data?.message; 
       if (!msg) {
         errorMessage.value = t('login.failedLogin');
@@ -118,9 +123,14 @@
         </div>
 
         <div class="flex flex-col items-center w-full">
-          <button type="submit" class="primary">
+          <button v-if="!sendingToBackend" type="submit" class="primary">
             {{ $t('login.submit') }}
           </button>
+          <MinePixelReveal
+            v-else
+            :width="'3px'"
+            :height="'3px'"
+          />
         </div>
 
     </form>

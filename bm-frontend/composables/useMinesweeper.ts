@@ -40,6 +40,8 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
   const userBestTime = ref<number | null>(null);
   const globalBestTime = ref<number | null>(null);
 
+  const sendingToBackend = ref(false);
+
   //verifica que sea una celda valida del tablero
   function isValidCell(r: number, c: number): boolean {
     return r >= 0 && r < rows.value && c >= 0 && c < cols.value;
@@ -290,10 +292,12 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         rows.value === 16 && cols.value === 30 && mines.value === 99 ? 'expert' :
         'custom';
       if (user.value !== null) {
+        sendingToBackend.value = true;
         await saveGame(countHelp.value, seconds.value / 1000, difficulty, rows.value, cols.value, mines.value, click3BV.value, countClicks.value, Math.round(100 * (click3BV.value / countClicks.value)));
-        const data = await getBestTimes(rows.value, cols.value, mines.value);
+        const data = await getBestTimes(rows.value, cols.value, mines.value);    
         userBestTime.value = data.userBestTime;
         globalBestTime.value = data.globalBestTime;
+        sendingToBackend.value = false;
       } else {
         useCookie<GameToSave>('gameToSave', {
           expires: new Date(Date.now() + 1000 * 60 * 10),  
@@ -474,6 +478,7 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
     click3BV,
     countClicks,
     userBestTime,
-    globalBestTime
+    globalBestTime,
+    sendingToBackend
   }
 }

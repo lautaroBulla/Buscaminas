@@ -38,7 +38,8 @@
     click3BV,
     countClicks,
     userBestTime,
-    globalBestTime
+    globalBestTime,
+    sendingToBackend
   } = useMinesweeper(9, 9, 10);
   resetGame();
     
@@ -95,7 +96,6 @@
 </script>
 
 <template>
-    
   <div class="flex flex-col items-center pt-4 space-y-4">
 
     <div class="md:flex md:gap-x-4">
@@ -141,6 +141,7 @@
     :countClicks="countClicks"
     :userBestTime="userBestTime"
     :globalBestTime="globalBestTime"
+    :sendingToBackend="sendingToBackend"
     @close="viewGameFinish"
   />
   <SettingsModal

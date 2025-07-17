@@ -31,6 +31,7 @@
   const errors = ref({});
 
   const showPassword = ref(false);
+  const sendingToBackend = ref(false);
 
   const submit = async () => {
     errorMessage.value = '';
@@ -44,7 +45,7 @@
       });
       return;
     }
-    
+    sendingToBackend.value = true;
     try {
       await register(credentials.value.username, credentials.value.password);
       const data = useCookie('gameToSave');
@@ -57,8 +58,10 @@
         );
         data.value = null;
       }
+      sendingToBackend.value = false;
       return navigateTo('/');
     } catch(error) {
+      sendingToBackend.value = false;
       let msg = error?.data?.message; 
       if (!msg) {
         errorMessage.value = t('login.failedRegister');
@@ -118,16 +121,21 @@
               class="hidden absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer hover:opacity-80"
               @click="showPassword = !showPassword"
             >
-              {{ showPassword ? 'Hide' : 'Show' }}
+              {{ showPassword ? $t('login.hide') : $t('login.show') }}
             </button>
           </div>
           <p v-if="errors.password" class="text-sm">{{ errors.password }}</p>
         </div>
 
         <div class="flex flex-col items-center w-full">
-          <button type="submit" class="primary">
+          <button v-if="!sendingToBackend" type="submit" class="primary">
             {{ $t('login.register') }}
           </button>
+          <MinePixelReveal
+            v-else
+            :width="'3px'"
+            :height="'3px'"
+          />
         </div>
 
     </form>

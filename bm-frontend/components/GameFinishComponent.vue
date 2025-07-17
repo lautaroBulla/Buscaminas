@@ -21,6 +21,10 @@
     countClicks: {
       type: Number,
       required: true
+    },
+    sendingToBackend: {
+      type: Boolean,
+      required: true
     }
   });
 
@@ -40,7 +44,13 @@
 
 <template>
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="border-external mx-2 w-full max-w-xl"
+    <div v-if="sendingToBackend === true">
+      <MinePixelReveal 
+        :width="'3px'"
+        :height="'3px'"
+      />
+    </div>  
+    <div v-else class="border-external mx-2 w-full max-w-xl"
       >
       <div class="border">
         <div class="border-internal p-5 flex flex-col gap-y-5 text-color">
