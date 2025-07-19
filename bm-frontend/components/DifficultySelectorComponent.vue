@@ -190,8 +190,6 @@
             <div class="border-sm">
               <input 
                 v-model.number="customRows"
-                :min="minRowsAndCols"
-                :max="maxRowsAndCols"
                 type="number" 
                 class="border-internal-sm w-[40px] h-[30px] text-color"
               >
@@ -207,8 +205,6 @@
             <div class="border-sm">
               <input 
                 v-model.number="customCols"
-                :min="minRowsAndCols"
-                :max="maxRowsAndCols"
                 type="number" 
                 class="border-internal-sm w-[40px] h-[30px] text-color"
               >
@@ -224,8 +220,6 @@
             <div class="border-sm">
               <input 
                 v-model.number="customMines"
-                :min="1"
-                :max="maxMines"
                 type="number" 
                 class="border-internal-sm w-[40px] h-[30px] text-color"
               >

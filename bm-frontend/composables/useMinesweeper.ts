@@ -85,10 +85,10 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
       }
     } while (bvv <= 1);
 
-    placeMines(row, col);
-    click3BV.value = calculate3BV();
+    click3BV.value = bvv;
     startTime();
     reveal(row, col);
+    firstClick.value = false;
   }
 
   /*esta funcion se encarga de calcular la cantidad de clicks minimos necesarios para completar
