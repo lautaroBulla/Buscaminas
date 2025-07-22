@@ -7,11 +7,9 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    env_file:
-      - ./bm-backend/.env
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: 5Wd5AnHLe7RKMHR8gkPw
+      POSTGRES_DB: buscaminas
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

@@ -1,5 +1,17 @@
 <script setup>
   const props = defineProps({
+    rows: {
+      type: Number,
+      requiered: true
+    },
+    cols: {
+      type: Number,
+      requiered: true
+    },
+    mines: {
+      type: Number,
+      requiered: true
+    },
     areGames: {
       type: Boolean,
       requiered: true
@@ -27,9 +39,9 @@
   const { user, isAuthReady } = useAuth();
 
   const emit = defineEmits(['change', 'changeRanking', 'changeOrder']);
-  const customRows = ref(9);
-  const customCols = ref(9);
-  const customMines = ref(10);
+  const customRows = ref(props.rows);
+  const customCols = ref(props.cols);
+  const customMines = ref(props.mines);
 
   const difficultys = ['easy', 'intermediate', 'expert'];
 
@@ -142,10 +154,10 @@
     <div 
       v-if="areGames"
       class="flex"
-      :class="user && isAuthReady === true ? 'flex-col gap-y-2 md:flex-row md:justify-between' : 'flex-col gap-y-2 md:flex-row md:justify-end'"
+      :class="user && isAuthReady === true && position && totalPositions ? 'flex-col gap-y-2 md:flex-row md:justify-between' : 'flex-col gap-y-2 md:flex-row md:justify-end'"
     >
       <div 
-        v-if="user && isAuthReady === true" 
+        v-if="user && isAuthReady === true && position && totalPositions" 
         class="flex flex-row gap-x-2
                   justify-between"
       >
@@ -164,7 +176,7 @@
           {{ $t('ranking.globalRanking') }}
         </button>
 
-        <div v-if="position && totalPositions" class="flex flex-row gap-x-1">
+        <div class="flex flex-row gap-x-1">
           <span>{{ $t('ranking.position') }}:</span>
           <span>{{ position }}/{{ totalPositions }}</span>
         </div>

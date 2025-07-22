@@ -76,6 +76,10 @@
 
       position.value = response.myPosition.position;
       totalPositions.value = response.myPosition.total;
+
+      rows.value = response.rows;
+      cols.value = response.cols;
+      mines.value = response.mines;
     } catch (error) {
       errorMessage.value = t('ranking.errorMessage');
     }
@@ -115,6 +119,9 @@
     <div v-else class="w-full flex flex-col max-w-5xl p-4 gap-y-2">  
       
       <TableHeaderComponent 
+        :rows="rows"
+        :cols="cols"
+        :mines="mines"
         :areGames="areGames"
         :difficulty="difficulty"
         :globalRanking="globalRanking"
@@ -144,6 +151,7 @@
           v-if="isMobile"
           :game="game"
           :rankingGame="rankingGame"
+          class="mt-4"
         />
       </div>
     </div>

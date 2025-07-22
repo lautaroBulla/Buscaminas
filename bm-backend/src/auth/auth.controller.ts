@@ -4,11 +4,11 @@ import { ApiBody } from '@nestjs/swagger';
 import { LoginDto } from './dto/login-dto.sto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { CurrentUser } from './current-user.decorator';
-import { User } from '@prisma/client';
 import { Response } from 'express';
 import { JwtRefresAuthGuard } from './guards/jwt-refresh-auth.guard';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { User } from '../users/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {

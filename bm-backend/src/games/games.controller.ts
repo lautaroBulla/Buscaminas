@@ -5,8 +5,7 @@ import { UpdateGameDto } from './dto/update-game.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { JwtOptionalAuthGuard } from 'src/auth/guards/jwt-optional.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
-import { User } from '@prisma/client';
-import { skip } from 'rxjs';
+import { User } from '../users/entities/user.entity';
 
 @Controller('games')
 export class GamesController {
@@ -57,7 +56,7 @@ export class GamesController {
     @Query('take', ParseIntPipe) take: number,
     @Query('orderByTime', ParseBoolPipe) orderByTime: boolean,
   ) {
-    return this.gamesService.findByDifficulty(user?.id, rows, cols, mines, page, take, orderByTime);
+    return this.gamesService.findByDifficulty(user?.id || null, rows, cols, mines, page, take, orderByTime);
   }
 
   @Get('difficultyUser') 

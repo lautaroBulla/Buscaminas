@@ -1,9 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { Logger } from '@nestjs/common';
 import { compare } from 'bcryptjs';
-import { User } from '@prisma/client';
+import { User } from '../users/entities/user.entity'
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './token-payload.interface';
@@ -79,13 +78,13 @@ export class AuthService {
     response.cookie('Authentication', accesToken, {
       httpOnly: true,
       secure: this.configService.get('NODE_ENV') === 'production',
-      sameSite: 'none',
+      // sameSite: 'none',
       expires: expiresAccessToken,
     });
     response.cookie('Refresh', refreshToken, {
       httpOnly: true,
       secure: this.configService.get('NODE_ENV') === 'production',
-      sameSite: 'none',
+      // sameSite: 'none',
       expires: expiresRefreshToken,
     });
   }

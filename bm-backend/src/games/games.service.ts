@@ -1,41 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
-import { PrismaService } from 'src/prisma.service';
-import { Prisma } from '@prisma/client'; 
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Game } from './entities/game.entity';
 
 @Injectable()
 export class GamesService {
-  constructor(private readonly prisma: PrismaService){}
+  constructor(
+    @InjectRepository(Game)
+    private readonly gameRepository: Repository<Game>,
+  ){}
 
   async create(id, createGameDto) {
     const saveGame = { ...createGameDto, userId: id };
-    return await this.prisma.game.create({ data:saveGame });
+    return await this.gameRepository.save(saveGame);
   }
   
   async findMyGames(id) {
-    return await this.prisma.game.findMany({ where: {userId: id} })
+    return await this.gameRepository.find({ where: { userId: id } });
   }
 
   async findMyBestTime(id, rows, cols, mines) {
-    const result = await this.prisma.game.findFirst({
+    const result = await this.gameRepository.findOne({
       where: { userId: id, rows, cols, mines },
-      orderBy: { seconds: "asc" },
-      select: { seconds: true }
+      order: { seconds: 'ASC' },
+      select: ['seconds']
     });
     return result ? result.seconds : null;
   }
 
   async findBestTimes(id, rows, cols, mines) {
-    const userBestTimeValue = await this.prisma.game.findFirst({
+    const userBestTimeValue = await this.gameRepository.findOne({
       where: { userId: id, rows, cols, mines },
-      orderBy: { seconds: "asc" },
-      select: { seconds: true }
+      order: { seconds: 'ASC' },
+      select: ['seconds']
     });
-    const globalBestTimeValue = await this.prisma.game.findFirst({
+    const globalBestTimeValue = await this.gameRepository.findOne({
       where: { rows, cols, mines },
-      orderBy: { seconds: "asc" },
-      select: { seconds: true }
+      order: { seconds: 'ASC' },
+      select: ['seconds']
     });
 
     return {
@@ -44,33 +48,38 @@ export class GamesService {
     };
   }
   
-  async findByDifficulty(id, rows, cols, mines, page, take, orderByTime) {
+  async findByDifficulty(
+    id: number | null,
+    rows: number,
+    cols: number,
+    mines: number,
+    page: number,
+    take: number,
+    orderByTime: boolean,
+  ) {
     const skip = (page - 1) * take;
 
-    const orderBy = orderByTime 
-      ? [
-          { seconds: Prisma.SortOrder.asc },
-          { help: Prisma.SortOrder.asc },
-          { efficiency: Prisma.SortOrder.desc }
-        ]
-      : [
-          { efficiency: Prisma.SortOrder.desc },
-          { n3BV: Prisma.SortOrder.desc },
-          { seconds: Prisma.SortOrder.asc },
-          { help: Prisma.SortOrder.asc }
-        ];
+    const order: any = {};
+      if (orderByTime) {
+        order.seconds = 'ASC';
+        order.help = 'ASC';
+        order.efficiency = 'DESC';
+      } else {
+        order.efficiency = 'DESC';
+        order.n3BV = 'DESC';
+        order.seconds = 'ASC';
+        order.help = 'ASC';
+      }
 
     const [games, total] = await Promise.all([
-      this.prisma.game.findMany({
-        skip: skip,
-        take: take,
-        where: {
-          rows,
-          cols,
-          mines
-        },
-        orderBy,
+      this.gameRepository.find({
+        where: { rows, cols, mines },
+        relations: ['user'],
+        order,
+        skip,
+        take,
         select: {
+          id: true,
           help: true,
           seconds: true,
           createdAt: true,
@@ -78,26 +87,22 @@ export class GamesService {
           n3BV: true,
           efficiency: true,
           user: {
-            select: {
-              username: true
-            }
+            username: true
           }
-        }
+        },
       }),
-
-      this.prisma.game.count({
-        where: {
-          rows,
-          cols,
-          mines
-        }
-      })
+      this.gameRepository.count({
+        where: { rows, cols, mines }
+      }),
     ]);
 
     const totalPages = Math.ceil(total / take);
     const myPosition = await this.findMyPosition(id, rows, cols, mines);
 
     return {
+      rows,
+      cols,
+      mines,
       games,
       totalPages,
       page,
@@ -105,34 +110,38 @@ export class GamesService {
     }
   }
 
-  async findByDifficultyUser(id, rows, cols, mines, page, take, orderByTime) {
+  async findByDifficultyUser(
+    id: number,
+    rows: number,
+    cols: number,
+    mines: number,
+    page: number,
+    take: number,
+    orderByTime: boolean,
+  ) {
     const skip = (page - 1) * take;
 
-    const orderBy = orderByTime 
-    ? [
-        { seconds: Prisma.SortOrder.asc },
-        { help: Prisma.SortOrder.asc },
-        { efficiency: Prisma.SortOrder.desc }
-      ]
-    : [
-        { efficiency: Prisma.SortOrder.desc },
-        { n3BV: Prisma.SortOrder.desc },
-        { seconds: Prisma.SortOrder.asc },
-        { help: Prisma.SortOrder.asc }
-      ];
+    const order: any = {};
+      if (orderByTime) {
+        order.seconds = 'ASC';
+        order.help = 'ASC';
+        order.efficiency = 'DESC';
+      } else {
+        order.efficiency = 'DESC';
+        order.n3BV = 'DESC';
+        order.seconds = 'ASC';
+        order.help = 'ASC';
+      }
 
     const [games, total] = await Promise.all([
-      this.prisma.game.findMany({
+      this.gameRepository.find({
+        where: { userId: id, rows, cols, mines },
+        relations: ['user'],
+        order,
         skip: skip,
         take: take,
-        where: {
-          userId: id,
-          rows,
-          cols,
-          mines
-        },
-        orderBy,
         select: {
+          id: true,
           help: true,
           seconds: true,
           createdAt: true,
@@ -140,27 +149,23 @@ export class GamesService {
           n3BV: true,
           efficiency: true,
           user: {
-            select: {
-              username: true
-            }
+            username: true
           }
         }
       }),
 
-      this.prisma.game.count({
-        where: {
-          userId: id,
-          rows,
-          cols,
-          mines
-        }
-      })
+      this.gameRepository.count({
+        where: { userId: id, rows, cols, mines }
+      }),
     ]);
 
     const totalPages = Math.ceil(total / take);
     const myPosition = await this.findMyPosition(id, rows, cols, mines);
     
     return {
+      rows,
+      cols,
+      mines,
       games,
       totalPages,
       page,
@@ -169,30 +174,38 @@ export class GamesService {
   }
 
   //Funcion que me devuelva la mejor posicion de un usuario en el ranking de los games con esos valores
-  async findMyPosition(id, rows, cols, mines) {
-    const orderBy = [
-        { seconds: Prisma.SortOrder.asc },
-        { help: Prisma.SortOrder.asc },
-        { efficiency: Prisma.SortOrder.desc }
-    ];
+  async findMyPosition(
+    id: number | null,
+    rows: number,
+    cols: number,
+    mines: number
+  ) {
+    if (id === null) {
+      const total = await this.gameRepository.count({
+        where: { rows, cols, mines }
+      });
 
-    const games = await this.prisma.game.findMany({
-      where: {
-        rows,
-        cols,
-        mines
-      },
-      orderBy,
-      select: {
-        userId: true
-      }
-    });
-
-    const position = games.findIndex(game => game.userId === id) + 1;
-
-    return {
-      position: position > 0 ? position : null,
-      total: games.length > 0 ? games.length : null
+      return {
+        position: null,
+        total: total > 0 ? total : 0
+      };
     }
+
+    const result = await this.gameRepository.query(`
+      SELECT position, total FROM (
+        SELECT 
+          "userId",
+          RANK() OVER (ORDER BY seconds ASC, help ASC, efficiency DESC) AS position,
+          COUNT(*) OVER() AS total
+        FROM games
+        WHERE rows = $1 AND cols = $2 AND mines = $3
+      ) ranked
+      WHERE "userId" = $4
+      LIMIT 1
+    `, [rows, cols, mines, id]);
+
+    return result.length
+      ? { position: Number(result[0].position), total: Number(result[0].total) }
+      : { position: null, total: 0 };
   }
 }

@@ -1,25 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/prisma.service';
-import { Logger } from '@nestjs/common';
 import { hash } from 'bcryptjs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     createUserDto.password = await hash(createUserDto.password, 10);
-    return await this.prisma.user.create({ data:createUserDto });
+    return await this.userRepository.save(createUserDto);
   }
 
   async findAll() {
-    return this.prisma.user.findMany();
+    return await this.userRepository.find();
   }
 
   async getProfile(id: number) {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
@@ -31,7 +35,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
@@ -43,7 +47,7 @@ export class UsersService {
   }
 
   async findOneForAuth(id: number) {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
         return null; // No tirar excepción
@@ -54,7 +58,7 @@ export class UsersService {
   }
 
   async findOneUsername(username: string) {
-    const user = await this.prisma.user.findUnique({ where: { username } });
+    const user = await this.userRepository.findOne({ where: { username } });
 
     if (!user) {
       throw new NotFoundException(`User with username ${username} not found`);
@@ -66,9 +70,6 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
 
-    return this.prisma.user.update({
-      where: { id },
-      data: updateUserDto,
-    });
+    return await this.userRepository.save({ ...user, ...updateUserDto });
   }
 }

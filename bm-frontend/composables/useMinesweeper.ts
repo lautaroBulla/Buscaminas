@@ -251,7 +251,9 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         });
       }
 
-      checkWin();
+      if (gameWin.value === false) {
+        checkWin();
+      }
       return;
     }
 
