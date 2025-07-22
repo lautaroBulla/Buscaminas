@@ -9,7 +9,6 @@ export class CreateUserDto {
     username: string
 
     @IsString()
-    @IsStrongPassword()
     @ApiProperty({ required: true })
     password: string
 }

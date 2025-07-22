@@ -10,16 +10,9 @@
   const { register } = useAuth();
   const { saveGame } = useGame();
 
-  const passwordSchema = z.string()
-    .min(8, t('login.strongPassword'))
-    .regex(/[A-Z]/, t('login.strongPassword'))
-    .regex(/[a-z]/, t('login.strongPassword'))
-    .regex(/[0-9]/, t('login.strongPassword'))  
-    .regex(/[^A-Za-z0-9]/, t('login.strongPassword')); 
-
   const schema = z.object({
     username: z.string().min(1, t('login.emptyUsername')).max(15, t('login.longUsername')),
-    password: passwordSchema
+    password: z.string().min(1, t('login.emptyPassword')).max(15, t('login.longPassword'))
   })
 
   const credentials = ref({

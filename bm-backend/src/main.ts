@@ -2,6 +2,7 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
+import { TypeORMExceptionFilter } from './common/filters/TypeORMExceptionFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +22,7 @@ async function bootstrap() {
   }));
 
   const httpAdapterHost = app.get(HttpAdapterHost);
-  app.useGlobalFilters();
+  app.useGlobalFilters(new TypeORMExceptionFilter(httpAdapterHost));
 
   app.use(cookieParser());
 
