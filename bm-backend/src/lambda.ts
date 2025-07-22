@@ -1,11 +1,12 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import { AppModule } from './app.module';
 import { TypeORMExceptionFilter } from './common/filters/TypeORMExceptionFilter';
 
 import serverlessExpress from '@vendia/serverless-express';
 import { CallBack, Context, Handler } from 'aws-lambda';
+
 
 let server: Handler;
 
@@ -40,6 +41,7 @@ async function bootstrap() {
     ],
     credentials: true
   });
+  await app.init();
 
   const expressApp = app.getHttpAdapter().getInstance();
   return serverlessExpress({ app: expressApp });

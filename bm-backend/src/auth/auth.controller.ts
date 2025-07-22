@@ -1,6 +1,5 @@
 import { Controller, Post, UseGuards, Res, Body, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBody } from '@nestjs/swagger';
 import { LoginDto } from './dto/login-dto.sto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { CurrentUser } from './current-user.decorator';
@@ -16,7 +15,6 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  @ApiBody({ type: LoginDto })
   async login(
     @CurrentUser() user: User,
     @Res({ passthrough: true }) response: Response,
@@ -35,7 +33,6 @@ export class AuthController {
   }
 
   @Post('register')
-  @ApiBody({ type: CreateUserDto })
   async register(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) response: Response
