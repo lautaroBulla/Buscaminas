@@ -11,5 +11,6 @@ declare global {
     n3BV: number;
     clicks: number;
     efficiency: number;
+    hash: string;
   };
 }

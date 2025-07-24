@@ -566,6 +566,8 @@ ESTILOS PARA LAS CASILLAS DEL JUEGO, REVELADAS
   aspect-ratio: 1 / 1;
   background-color: var(--background-color);
   border: 1px solid var(--border-dark-color);
+  -webkit-touch-callout: none; 
+  user-select: none; 
 }
 .reveal img {
   width: 60%;

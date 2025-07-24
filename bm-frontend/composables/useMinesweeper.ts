@@ -1,5 +1,7 @@
 import { form } from '#build/ui';
 import { ref } from 'vue';
+import SHA256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 10) {
   const { t } = useI18n();
@@ -305,15 +307,19 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
         'custom';
       if (user.value !== null) {
         sendingToBackend.value = true;
+        if (countClicks.value < click3BV.value) {
+          countClicks.value = click3BV.value; 
+        }
         await saveGame(countHelp.value, seconds.value / 1000, difficulty, rows.value, cols.value, mines.value, click3BV.value, countClicks.value, Math.round(100 * (click3BV.value / countClicks.value)));
         const data = await getBestTimes(rows.value, cols.value, mines.value);    
         userBestTime.value = data.userBestTime;
         globalBestTime.value = data.globalBestTime;
         sendingToBackend.value = false;
       } else {
-        useCookie<GameToSave>('gameToSave', {
-          expires: new Date(Date.now() + 1000 * 60 * 10),  
-        }).value = {
+        if (countClicks.value < click3BV.value) {
+          countClicks.value = click3BV.value; 
+        }
+        const gameData = {
           help: countHelp.value,
           seconds: seconds.value / 1000,
           difficulty,
@@ -323,6 +329,17 @@ export function useMinesweeper(initialRows = 9, initialCols = 9, initialMines = 
           n3BV: click3BV.value,
           clicks: countClicks.value,
           efficiency: Math.round(100 * (click3BV.value / countClicks.value))
+        };
+
+        const secret = useRuntimeConfig().public.secretHash;
+        const payload = JSON.stringify(gameData);
+        const hash = Base64.stringify(SHA256(payload + secret));
+
+        useCookie<GameToSave>('gameToSave', {
+          expires: new Date(Date.now() + 1000 * 60 * 10)
+        }).value = {
+          ...gameData,
+          hash
         };
       }
       gameWin.value = true;

@@ -35,6 +35,10 @@ export default defineNuxtPlugin((nuxtApp) => {
 
           return await apiFetch<T>(request, options);
         } catch (refreshErr) {
+          const user = useCookie('user');
+          if (user.value) {
+            user.value = null;
+          }
           throw refreshErr;
         }
       }

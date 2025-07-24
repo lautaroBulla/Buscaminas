@@ -15,6 +15,7 @@ export const useAuth = () => {
   const user = useState<User | null>('user', () => null);
   const isAuthReady = useState<boolean>('isAuthReady', () => false);
   const { $apiFetch } = useNuxtApp();
+  const authBus = useState('authBus', () => ({ logoutCallbacks: [] as (() => void)[] }));
 
   const userCookie = useCookie<User | null>('user', {
     default: () => null,
@@ -78,6 +79,9 @@ export const useAuth = () => {
       })   
       user.value = null;
       userCookie.value = null;
+      for (const cb of authBus.value.logoutCallbacks) {
+        cb();
+      }
       navigateTo('/');
     } catch (error) {
       throw error;

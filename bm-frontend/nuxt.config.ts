@@ -70,6 +70,7 @@ export default defineNuxtConfig({
     jwtRefreshSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
     public: {
       apiBaseUrl: process.env.API_URL_BACKEND,
+      secretHash: process.env.SECRET_HASH
     }
   }
 })

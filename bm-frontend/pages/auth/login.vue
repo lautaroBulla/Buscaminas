@@ -4,7 +4,9 @@
   })
 
   import { z } from 'zod/v4';
-import MinePixelReveal from '~/components/MinePixelReveal.vue';
+  import MinePixelReveal from '~/components/MinePixelReveal.vue';
+  import SHA256 from 'crypto-js/sha256';
+  import Base64 from 'crypto-js/enc-base64';
 
   const { t } = useI18n();
 
@@ -43,14 +45,29 @@ import MinePixelReveal from '~/components/MinePixelReveal.vue';
     sendingToBackend.value = true;
     try {
       await login(credentials.value.username, credentials.value.password);
+
       const data = useCookie('gameToSave');
+      const secret = useRuntimeConfig().public.secretHash;
+
       if (data && data.value) {
-        const dataDecod = data.value;
-        const res = await saveGame(
-          dataDecod.help, dataDecod.seconds, dataDecod.difficulty, 
-          dataDecod.rows, dataDecod.cols, dataDecod.mines,
-          dataDecod.n3BV, dataDecod.clicks, dataDecod.efficiency
-        );
+        const { hash, ...gameData } = data.value;
+        const payload = JSON.stringify(gameData);
+        const expectedHash = Base64.stringify(SHA256(payload + secret));
+
+        if (hash === expectedHash) {
+          await saveGame(
+            gameData.help,
+            gameData.seconds,
+            gameData.difficulty,
+            gameData.rows,
+            gameData.cols,
+            gameData.mines,
+            gameData.n3BV,
+            gameData.clicks,
+            gameData.efficiency
+          );
+        }
+
         data.value = null;
       }
       sendingToBackend.value = false;

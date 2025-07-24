@@ -10,6 +10,12 @@
 
   const { locale, setLocale } = useI18n();
   const language = ref(locale.value);
+
+  const authBus = useState('authBus', () => ({ logoutCallbacks: [] }));
+
+  onMounted(() => {
+    authBus.value.logoutCallbacks.push(resetGame);
+  });
   
   //obtengo todas las variables de composable useMinesweeper
   const {
